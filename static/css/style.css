@@ -1,0 +1,9 @@
+/* CSS variables */
+:root {
+    --title-font: "Style Script", Serif;
+    --text-font: "Crimson Text", Serif;
+    --main-colour: #3C638E;
+    --secondary-colour: #046A3A;
+    --main-highlight: #ccff00;
+    --secondary-highlight: #e6a57f;
+}
