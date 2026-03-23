@@ -1,9 +1,66 @@
 /* CSS variables */
 :root {
-    --title-font: "Style Script", Serif;
-    --text-font: "Crimson Text", Serif;
+    --title-font: "Bebas Neue", sans-serif;
+    --text-font: "Montserrat", sans-serif;
     --main-colour: #3C638E;
     --secondary-colour: #046A3A;
     --main-highlight: #ccff00;
     --secondary-highlight: #e6a57f;
+}
+
+/* General */
+h1,
+h2,
+h3,
+h4,
+h5,
+.navbar-brand {
+    font-family: var(--title-font);
+    color: var(--main-colour);
+}
+
+p {
+    font-family: var(--text-font);
+    color: var(--main-colour);
+}
+
+hr {
+    color: var(--main-highlight);
+    border-width: 4px;
+}
+
+.overlay {
+	height: 100%;
+	width: 100%;
+	top: 0;
+	left: 0;
+	position: fixed;
+	background: var(--main-colour);
+	z-index: -1;
+}
+
+.white-text {
+    color:white;
+}
+
+.white-background {
+    background-color: white;
+}
+
+
+/* Nav */
+nav {
+    background-color: #F2F4F4;
+}
+
+.nav-logo {
+    font-size: 2.5rem;
+}
+
+
+/* Homepage */
+.feedback-list {
+    list-style-position: inside;
+    color: var(--main-colour);
+    font-family: var(--text-font);
 }
