@@ -64,3 +64,13 @@ nav {
     color: var(--main-colour);
     font-family: var(--text-font);
 }
+
+
+
+
+
+
+/* Footer */
+footer {
+    background-color: #F2F4F4;
+}

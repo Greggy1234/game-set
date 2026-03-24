@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 class Tournament(models.Model):
     name = models.CharField(max_length=100)
+    tour = models.CharField(max_length=50)
     location = models.CharField(max_length=100)
     start_date = models.DateField()
     end_date = models.DateField()
@@ -13,7 +14,7 @@ class Tournament(models.Model):
 
     class Meta:
         constraints = [
-            models.UniqueConstraint(fields=["name", "start_date"], name="unique_tournament")
+            models.UniqueConstraint(fields=["name", "start_date", "tour"], name="unique_tournament")
         ]
   
   
@@ -23,11 +24,12 @@ class Tournament(models.Model):
 
 class Matches(models.Model):
     tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE)
+    round = models.CharField(max_length=100)
     best_of = models.IntegerField()
     winner = models.CharField(max_length=100)
     loser = models.CharField(max_length=100)
-    winner_rank = models.IntegerField()
-    loser_rank = models.IntegerField()
+    winner_rank = models.IntegerField(blank=True, null=True)
+    loser_rank = models.IntegerField(blank=True, null=True)
     winner_set_1 = models.IntegerField(blank=True, null=True)
     loser_set_1 = models.IntegerField(blank=True, null=True)
     winner_set_2 = models.IntegerField(blank=True, null=True)

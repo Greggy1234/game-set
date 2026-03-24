@@ -189,12 +189,37 @@
     {% block content %}
     {% endblock %}
 
+    <hr class="my-0">
+    <footer>
 
-    {% block postloadjs %}
-    <script type="text/javascript">
-        $('.toast').toast('show');
-    </script>
-    {% endblock %}
+        <footer class="text-center d-flex align-items-center white-background pb-2">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 col-md-4 pt-2 offset-md-4">
+                        <div class="flex-row justify-content-center">
+                            <p class="m-0 pe-1">Follow us on our socials:</p>
+                            <a href="https://www.instagram.com/" target="_blank"
+                                aria-label="Instagram logo linked to the Instagram homepage" rel="noopener"><i
+                                    class="fa-brands fa-instagram icons"></i></a>
+                            <a href="https://www.facebook.com/" target="_blank"
+                                aria-label="Facebook logo linked to the Facebook homepage" rel="noopener"><i
+                                    class="fa-brands fa-facebook icons"></i></a>
+                            <a href="https://x.com" target="_blank" aria-label="X logo linked to the X homepage"
+                                rel="noopener"><i class="fa-brands fa-x-twitter icons"></i></a>
+                            <a href="https://www.threads.com/" target="_blank"
+                                aria-label="YouTube logo linked to the YouTube homepage" rel="noopener"><i
+                                    class="fa-brands fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        {% block postloadjs %}
+        <script type="text/javascript">
+            $('.toast').toast('show');
+        </script>
+        {% endblock %}
 </body>
 
 </html>
