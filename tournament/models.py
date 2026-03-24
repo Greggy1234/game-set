@@ -10,11 +10,12 @@ class Tournament(models.Model):
     series = models.CharField(max_length=100)
     court = models.CharField(max_length=100)
     surface = models.CharField(max_length=100)
+    slug = models.SlugField(blank=True)
 
 
     class Meta:
         constraints = [
-            models.UniqueConstraint(fields=["name", "start_date", "tour"], name="unique_tournament")
+            models.UniqueConstraint(fields=["name", "start_date", "tour", "slug"], name="unique_tournament")
         ]
   
   
@@ -23,7 +24,7 @@ class Tournament(models.Model):
 
 
 class Matches(models.Model):
-    tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE)
+    tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE, related_name='match')
     round = models.CharField(max_length=100)
     best_of = models.IntegerField()
     winner = models.CharField(max_length=100)
