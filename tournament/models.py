@@ -17,6 +17,12 @@ class Tournament(models.Model):
         constraints = [
             models.UniqueConstraint(fields=["name", "start_date", "tour", "slug"], name="unique_tournament")
         ]
+    
+    
+    def get_winner(self):
+        final = self.match.filter(round="The Final").first()
+        winner = final.winner
+        return winner
   
   
     def __str__(self):

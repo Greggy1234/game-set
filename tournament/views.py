@@ -6,7 +6,9 @@ from .models import Tournament, Matches
 # Create your views here.
 def tournament_home(request):
     """
-    Returns options to view ATP and WTA specific pages
+    Returns the overview page for the 'match' section of the site,
+    and contains information for the most recent grandslam champions,
+    and other stats for each tour
     
     **Context**
     ``recent_grandslam_atp``
@@ -43,5 +45,37 @@ def tournament_home(request):
             "recent_grandslam_wta_winner": recent_grandslam_wta_winner,
             "most_matches_atp": most_matches_atp,
             "most_matches_wta": most_matches_wta,
+        }
+    )
+    
+
+def calendar(request, tour):
+    """
+    Returns the information needed to display the calendars for the WTA and ATP tour,
+    with the tour parameter allowing for one view for both tours 
+    """
+    
+    tournament_list = Tournament.objects.filter(tour=tour).order_by('-end-date')
+    
+    
+    
+    return render(
+        request,
+        "tournament/calendar.html",
+        {
+            'tournament_list': tournament_list,
+        }
+    )
+
+
+def tournament_detail(request):
+    """
+    """
+    
+    return render(
+        request,
+        "tournament/tournament-detail.html",
+        {
+            
         }
     )

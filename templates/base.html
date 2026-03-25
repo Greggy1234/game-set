@@ -106,7 +106,7 @@
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Bookings Homepage</a></li>
+                                    <li><a class="dropdown-item" href="#">Overview</a></li>
                                     <li><a class="dropdown-item" href="#">Courts</a></li>
                                     <li><a class="dropdown-item" href="#">Coaches</a></li>
                                 </ul>
@@ -120,9 +120,9 @@
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Tournaments</a></li>
-                                    <li><a class="dropdown-item" href="#">ATP</a></li>
-                                    <li><a class="dropdown-item" href="#">WTA</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'match' %}">Overview</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'tour_calendar' tour='ATP' %}">ATP Calendar</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'tour_calendar' tour='WTA'  %}">WTA Calendar</a></li>
                                     <li><a class="dropdown-item" href="#">Rankings</a></li>
                                 </ul>
                             </li>
@@ -147,7 +147,7 @@
                                     <li><a class="dropdown-item" href="#">Profile</a></li>
                                     <li><a class="dropdown-item" href="#">Logout</a></li>
                                     {% else %}
-                                    <li><a class="dropdown-item" href="#">Sign in</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'account_login' %}">Sign in</a></li>
                                     <li><a class="dropdown-item" href="#">Create an account</a></li>
                                     {% endif %}
                                 </ul>
@@ -206,7 +206,7 @@
                                     class="fa-brands fa-facebook icons"></i></a>
                             <a href="https://x.com" target="_blank" aria-label="X logo linked to the X homepage"
                                 rel="noopener"><i class="fa-brands fa-x-twitter icons"></i></a>
-                            <a href="https://www.threads.com/" target="_blank"
+                            <a href="https://www.youtube.com/" target="_blank"
                                 aria-label="YouTube logo linked to the YouTube homepage" rel="noopener"><i
                                     class="fa-brands fa-youtube"></i></a>
                         </div>
