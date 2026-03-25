@@ -1,4 +1,4 @@
-/* CSS variables */
+/* CSS Variables */
 :root {
     --title-font: "Bebas Neue", sans-serif;
     --text-font: "Montserrat", sans-serif;
@@ -47,6 +47,22 @@ hr {
     background-color: white;
 }
 
+.large-p {
+    font-size: 1.2rem;
+}
+
+.big-button-border {
+    border: 2px solid var(--secondary-highlight);
+    border-radius: 25px;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(4, 106, 58, 0.7));
+}
+
+.big-button-border-reverse {
+    border: 2px solid var(--secondary-highlight);
+    border-radius: 25px;
+    background-image: linear-gradient(rgba(4, 106, 58, 0.7), rgba(0, 0, 0, 0.7));
+}
+
 
 /* Nav */
 nav {
@@ -58,7 +74,7 @@ nav {
 }
 
 
-/* Homepage */
+/* Home App */
 .feedback-list {
     list-style-position: inside;
     color: var(--main-colour);
@@ -66,6 +82,18 @@ nav {
 }
 
 
+
+/* Tournament App */
+.logo-tour-container {
+    height: 200px;
+    width:400px;
+}
+
+.logo-tour {
+    object-fit: contain;
+    max-width: 100%;
+    max-height: 100%;
+}
 
 
 

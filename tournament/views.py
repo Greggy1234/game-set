@@ -55,7 +55,7 @@ def calendar(request, tour):
     with the tour parameter allowing for one view for both tours 
     """
     
-    tournament_list = Tournament.objects.filter(tour=tour).order_by('-end-date')
+    tournament_list = Tournament.objects.filter(tour=tour).order_by('-end_date')
     
     
     

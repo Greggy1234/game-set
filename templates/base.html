@@ -121,8 +121,10 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="{% url 'match' %}">Overview</a></li>
-                                    <li><a class="dropdown-item" href="{% url 'tour_calendar' tour='ATP' %}">ATP Calendar</a></li>
-                                    <li><a class="dropdown-item" href="{% url 'tour_calendar' tour='WTA'  %}">WTA Calendar</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'tour_calendar' tour='ATP' %}">ATP
+                                            Calendar</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'tour_calendar' tour='WTA'  %}">WTA
+                                            Calendar</a></li>
                                     <li><a class="dropdown-item" href="#">Rankings</a></li>
                                 </ul>
                             </li>
@@ -147,7 +149,7 @@
                                     <li><a class="dropdown-item" href="#">Profile</a></li>
                                     <li><a class="dropdown-item" href="#">Logout</a></li>
                                     {% else %}
-                                    <li><a class="dropdown-item" href="{% url 'account_login' %}">Sign in</a></li>
+                                    <li><a class="dropdown-item" href="#">Sign in</a></li>
                                     <li><a class="dropdown-item" href="#">Create an account</a></li>
                                     {% endif %}
                                 </ul>
