@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from django.db.models import Count
+from django.db.models import Count, Max
 from .models import Tournament, Matches
 
 
@@ -52,23 +52,49 @@ def tournament_home(request):
 def calendar(request, tour):
     """
     Returns the information needed to display the calendars for the WTA and ATP tour,
-    with the tour parameter allowing for one view for both tours 
+    with the tour parameter allowing for one view for both tours
+    
+    **Context**
+    ``current_year``
+        The most recent grandslam played by the ATP tour
+    ``chosen_year``
+        The most recent grandslam played by the WTA tour. Separate as they have different end dates
+    ``current_year_tournaments``
+        The most recent grandslam played by the ATP tour winner
+    ``chosen_year_tournaments``
+        The most recent grandslam played by the WTA tour
+    ``tour``
+        Player with the most matches played on the ATP tour
+    
+    **Template**
+        :template:`tournament/calendar.html`
     """
     
-    tournament_list = Tournament.objects.filter(tour=tour).order_by('-end_date')
+    tournament_list = Tournament.objects.filter(tour=tour).order_by('end_date')
+    current_year = tournament_list.aggregate(Max('end_date'))['end_date__max'].year
+    chosen_year = None
     
+    if request.GET:
+        if 'year' in request.GET:
+            chosen_year = request.GET['year']
     
+    current_year_tournaments = tournament_list.filter(end_date__year=current_year)
+    chosen_year_tournaments = tournament_list.filter(end_date__year=chosen_year)
     
     return render(
         request,
         "tournament/calendar.html",
         {
-            'tournament_list': tournament_list,
+            'current_year_tournaments': current_year_tournaments,
+            'chosen_year_tournaments': chosen_year_tournaments,
+            'current_year': current_year,
+            'chosen_year': chosen_year,
+            'tour': tour,
         }
     )
 
 
-def tournament_detail(request):
+def tournament_detail(request, tour, slug):
     """
     """
     

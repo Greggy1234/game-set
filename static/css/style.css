@@ -30,17 +30,17 @@ hr {
 }
 
 .overlay {
-	height: 100%;
-	width: 100%;
-	top: 0;
-	left: 0;
-	position: fixed;
-	background: var(--main-colour);
-	z-index: -1;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    background: var(--main-colour);
+    z-index: -1;
 }
 
 .white-text {
-    color:white;
+    color: white;
 }
 
 .white-background {
@@ -54,13 +54,23 @@ hr {
 .big-button-border {
     border: 2px solid var(--secondary-highlight);
     border-radius: 25px;
+}
+
+.big-button-border-background {
     background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(4, 106, 58, 0.7));
 }
 
-.big-button-border-reverse {
-    border: 2px solid var(--secondary-highlight);
-    border-radius: 25px;
-    background-image: linear-gradient(rgba(4, 106, 58, 0.7), rgba(0, 0, 0, 0.7));
+.big-button-border-background-reverse {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(4, 106, 58, 0.7));
+}
+
+.big-button-border-image {
+        background-position: center;
+        background-size: cover;
+}
+
+.big-button-links {
+    text-decoration: none;
 }
 
 
@@ -86,13 +96,17 @@ nav {
 /* Tournament App */
 .logo-tour-container {
     height: 200px;
-    width:400px;
+    width: 400px;
 }
 
 .logo-tour {
     object-fit: contain;
     max-width: 100%;
     max-height: 100%;
+}
+
+.calendar-size {
+    font-size: 3rem;
 }
 
 
