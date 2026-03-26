@@ -96,12 +96,24 @@ def calendar(request, tour):
 
 def tournament_detail(request, tour, slug):
     """
+    Displays the matches and bracket for the tournament
     """
+    tournament = get_object_or_404(tour=tour, slug=slug)
+    matches = Matches.objects.filter(tournament=tournament)
+    
+    rounds_possible=['1st Round', '2nd Round', '3rd Round', '4th Round', 'Quarterfinals', 'Semifinals', 'The Final']
+    rounds_matches = {}
+    for r in rounds_possible:
+        if matches.round == r:
+            rounds_matches[r] = matches
     
     return render(
         request,
         "tournament/tournament-detail.html",
         {
-            
+            'tournament':tournament,
+            'matches':matches,
+            'rounds_possible':rounds_possible,
+            'rounds_matches':rounds_matches,
         }
     )
