@@ -109,7 +109,20 @@ nav {
     font-size: 3rem;
 }
 
+.bracket-header {
+    font-family: "Tourney", sans-serif;
+    margin:5px;
+}
 
+.round {
+    min-width: 500px;
+}
+
+.match {
+    border: 1px solid var(--secondary-highlight);
+     border-radius: 10px;
+     margin:5px;
+}
 
 
 /* Footer */
