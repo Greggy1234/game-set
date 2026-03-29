@@ -33,28 +33,61 @@
         <h3 class="bracket-header white-text">{{ rounds }}</h3>
         <div class="matches d-flex flex-column justify-content-around flex-grow-1">
             {% for match in matches %}
-            <div class="match ps-2 d-flex flex-column justify-content-center">
+            <div class="match px-2 d-flex flex-column justify-content-center">
                 <div>
                     <p class="white-text mb-0">
-                        {{ match.winner_rank }}. <strong>{{ match.winner}}</strong>
-                        {{ match.winner_set_1 }} 
-                        {{ match.winner_set_2 }} 
-                        {% if match.winner_set_3 %}
-                        {% endif %}
-                        {% if match.winner_set_3 %}
-                        {% endif %}
-                        {% if match.winner_set_3 %}
-                        {% endif %}
+                        <span class="small-p">{{ match.winner_rank }}.</span> <strong>{{ match.winner}}</strong>
+                        <span class="float-end"> <strong>                           
+                            {{ match.winner_set_1 }}
+                            {% if match.winner_set_2 > -1 %}
+                                {{ match.winner_set_2 }}
+                            {% endif %}
+                            {% if match.winner_set_3 > -1 %}
+                                {{ match.winner_set_3 }}
+                            {% endif %}
+                            {% if match.winner_set_4 > -1 %}
+                                {{ match.winner_set_4 }}
+                            {% endif %}
+                            {% if match.winner_set_5 > -1 %}
+                                {{ match.winner_set_5 }}
+                            {% endif %}
+                            {% if match.status == "Retired" %}
+                            <i class="invisible">r.</i>
+                            {% endif %}
+                            </strong> 
+                        </span>
                     </p>
                 </div>
                 <div>
                     <p class="white-text mb-0">
-                        {{ match.loser_rank }}. {{ match.loser}}
+                        <span class="small-p">{{ match.loser_rank }}.</span> {{ match.loser}}
+                        <span class="float-end">
+                            {% if match.status == "Walkover" %}
+                            <i>w/o</i>
+                            {% else %}
+                                {{ match.loser_set_1 }}
+                                {% if match.loser_set_2 > -1 %}
+                                    {{ match.loser_set_2 }}
+                                {% endif %}
+                                {% if match.loser_set_3 > -1 %}
+                                    {{ match.loser_set_3 }}
+                                {% endif %}
+                                {% if match.loser_set_4 > -1 %}
+                                    {{ match.loser_set_4 }}
+                                {% endif %}
+                                {% if match.loser_set_5 > -1 %}
+                                    {{ match.loser_set_5 }}
+                                {% endif %}
+                            {% endif %}
+                            {% if match.status == "Retired" %}
+                            <i>r.</i>
+                            {% endif %}
+                        </span>
                     </p>
                 </div>
             </div>
             {% endfor %}
-        </div>        
+        </div>
     </div>
     {% endif %}
     {% endfor %}

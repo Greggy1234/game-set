@@ -51,6 +51,10 @@ hr {
     font-size: 1.2rem;
 }
 
+.small-p {
+    font-size: 0.7rem;
+}
+
 .big-button-border {
     border: 2px solid var(--secondary-highlight);
     border-radius: 25px;
@@ -115,7 +119,7 @@ nav {
 }
 
 .round {
-    min-width: 500px;
+    min-width: 400px;
 }
 
 .match {
