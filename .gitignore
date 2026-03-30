@@ -3,3 +3,4 @@ env.py
 __pycache__/
 upload_docs
 management
+fixtures
