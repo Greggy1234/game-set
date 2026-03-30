@@ -68,7 +68,7 @@
             <div class="row w-100">
                 <div class="col-3 text-center my-auto">
                     <div class="d-flex justify-content-center">
-                        <a class="navbar-brand my-auto" href="#">
+                        <a class="navbar-brand my-auto" href="{% url 'home' %}">
                             <h3 class="nav-logo"><strong>GAME</strong> <i>SET</i></h3>
                         </a>
                     </div>
@@ -90,11 +90,13 @@
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">All Products</a></li>
-                                    <li><a class="dropdown-item" href="#?category=mens_sportswear">Men's Sportswear</a></li>
-                                    <li><a class="dropdown-item" href="#?category=womens_sportswear">Women's Sportswear</a></li>
-                                    <li><a class="dropdown-item" href="#?category=gear">Gear</a></li>
-                                    <li><a class="dropdown-item" href="#?category=accessories">Accessories</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'shop' %}">All Products</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'shop' %}?category=mens_sportswear">Men's Sportswear</a>
+                                    </li>
+                                    <li><a class="dropdown-item" href="{% url 'shop' %}?category=womens_sportswear">Women's
+                                            Sportswear</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'shop' %}?category=gear">Gear</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'shop' %}?category=accessories">Accessories</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
@@ -123,7 +125,7 @@
                                     <li><a class="dropdown-item" href="{% url 'match' %}">Overview</a></li>
                                     <li><a class="dropdown-item" href="{% url 'tour_calendar' tour='ATP' %}">ATP
                                             Calendar</a></li>
-                                    <li><a class="dropdown-item" href="{% url 'tour_calendar' tour='WTA'  %}">WTA
+                                    <li><a class="dropdown-item" href="{% url 'tour_calendar' tour='WTA' %}">WTA
                                             Calendar</a></li>
                                     <li><a class="dropdown-item" href="#">Rankings</a></li>
                                 </ul>
@@ -192,36 +194,34 @@
     {% endblock %}
 
     <hr class="my-0">
-    <footer>
-
-        <footer class="text-center d-flex align-items-center white-background pb-2">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-12 col-md-4 pt-2 offset-md-4">
-                        <div class="flex-row justify-content-center">
-                            <p class="m-0 pe-1">Follow us on our socials:</p>
-                            <a href="https://www.instagram.com/" target="_blank"
-                                aria-label="Instagram logo linked to the Instagram homepage" rel="noopener"><i
-                                    class="fa-brands fa-instagram icons"></i></a>
-                            <a href="https://www.facebook.com/" target="_blank"
-                                aria-label="Facebook logo linked to the Facebook homepage" rel="noopener"><i
-                                    class="fa-brands fa-facebook icons"></i></a>
-                            <a href="https://x.com" target="_blank" aria-label="X logo linked to the X homepage"
-                                rel="noopener"><i class="fa-brands fa-x-twitter icons"></i></a>
-                            <a href="https://www.youtube.com/" target="_blank"
-                                aria-label="YouTube logo linked to the YouTube homepage" rel="noopener"><i
-                                    class="fa-brands fa-youtube"></i></a>
-                        </div>
+    <footer class="text-center d-flex align-items-center d-flex pb-2">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 col-md-4 pt-2 offset-md-4">
+                    <div class="flex-row justify-content-center social-links">
+                        <p class="m-0 pe-2">Follow us on our socials:</p>
+                        <a href="https://www.instagram.com/" target="_blank"
+                            aria-label="Instagram logo linked to the Instagram homepage" rel="noopener"><i
+                                class="fa-brands fa-instagram icons"></i></a>
+                        <a href="https://www.facebook.com/" target="_blank"
+                            aria-label="Facebook logo linked to the Facebook homepage" rel="noopener"><i
+                                class="fa-brands fa-facebook icons"></i></a>
+                        <a href="https://x.com" target="_blank" aria-label="X logo linked to the X homepage"
+                            rel="noopener"><i class="fa-brands fa-x-twitter icons"></i></a>
+                        <a href="https://www.youtube.com/" target="_blank"
+                            aria-label="YouTube logo linked to the YouTube homepage" rel="noopener"><i
+                                class="fa-brands fa-youtube"></i></a>
                     </div>
                 </div>
             </div>
-        </footer>
+        </div>
+    </footer>
 
-        {% block postloadjs %}
-        <script type="text/javascript">
-            $('.toast').toast('show');
-        </script>
-        {% endblock %}
+    {% block postloadjs %}
+    <script type="text/javascript">
+        $('.toast').toast('show');
+    </script>
+    {% endblock %}
 </body>
 
 </html>

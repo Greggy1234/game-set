@@ -13,8 +13,10 @@ h1,
 h2,
 h3,
 h4,
+h4 a,
 h5,
-.navbar-brand {
+.navbar-brand,
+#top-of-page a {
     font-family: var(--title-font);
     color: var(--main-colour);
 }
@@ -47,6 +49,10 @@ hr {
     background-color: white;
 }
 
+.bold-text {
+    font-weight: bold;
+}
+
 .large-p {
     font-size: 1.2rem;
 }
@@ -75,6 +81,17 @@ hr {
 
 .big-button-links {
     text-decoration: none;
+}
+
+.small-button {
+    border: 1px solid var(--secondary-colour);
+    background-color: var(--secondary-highlight);
+    padding-left: 1rem;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-right: 1rem;
+    text-decoration: none;
+    border-radius: 10px;
 }
 
 
@@ -134,8 +151,35 @@ nav {
     color: var(--main-colour);
 }
 
+.product-button {
+    border: 1px solid var(--main-highlight);
+}
+
+#top-of-page {
+    text-decoration: none;
+    color: white;
+    bottom: 10px;
+    right: 10px;
+    height: 35px;
+    width: 35px;
+    position: fixed;
+    opacity: 0;
+    transition: opacity 0.5s;
+    pointer-events: none;
+}
+
+#top-of-page.show-button {
+    opacity: 1;
+    pointer-events: auto;
+    cursor: pointer;
+}
+
 
 /* Footer */
 footer {
     background-color: #F2F4F4;
+}
+
+.social-links a {
+    color: var(--main-colour);
 }

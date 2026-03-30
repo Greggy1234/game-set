@@ -18,6 +18,7 @@ def all_products(request):
     tag = None
     sort = None
     direction = None
+    current_category = None
     
     if request.GET:
         if 'q' in request.GET:
@@ -46,11 +47,13 @@ def all_products(request):
         if 'category' in request.GET:
             cat = request.GET['category']
             products = products.filter(category__name=cat)
+            current_category = cat
             
         if 'tag' in request.GET:
             tag= request.GET['tag'].split(",")
             products = products.filter(tag__name__in=tag)
         
+    categories = Category.objects.all()
     tags = Tag.objects.all()
     
     current_sorting = f'{sort}_{direction}'
@@ -60,6 +63,8 @@ def all_products(request):
         'user_query': query,
         'tags': tags,
         'current_sorting': current_sorting,
+        'categories': categories,
+        'current_category': current_category,
     }
     
     return render(request, 'product/shop.html', context)
