@@ -1,6 +1,14 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_css %}
+<style>
+    .grandslam-image {
+        background-image: url("{% static 'images\grandslam-image.webp' %}");
+    }
+</style>
+{% endblock %}
+
 {% block extra_title %}Home{% endblock %}
 
 {% block content %}
@@ -22,25 +30,41 @@
 </div>
 <div class="container mt-4">
     <div class="row justify-content-center">
-        <div class="col-12 col-lg-6 text-center white-text">
-            <i class="fa-solid fa-shop"></i>
-            <h3 class="white-text">SHOP</h3>
-            <p class="white-text large-p">Get all your tennis needs from our fully stocked shop.</p>
+        <div class="col-12 col-lg-6 text-center">
+            <a class="big-button-links" href="{% url 'shop' %}">
+                <div class="big-button-border mb-2 home-page-button d-flex flex-column justify-content-center">
+                    <i class="fa-solid fa-shop pt-3 white-text"></i>
+                    <h3 class="white-text">SHOP</h3>
+                    <p class="white-text large-p">Get all your tennis needs from our fully stocked shop!</p>
+                </div>
+            </a>
         </div>
-        <div class="col-12 col-lg-6 text-center white-text">
-            <i class="fa-solid fa-person-running"></i>
-            <h3 class="white-text">PLAY</h3>
-            <p class="white-text large-p">Book a court or a coach. Get out there and play!</p>
+        <div class="col-12 col-lg-6 text-center">
+            <a class="big-button-links" href="#">
+                <div class="big-button-border mb-2 home-page-button d-flex flex-column justify-content-center">
+                    <i class="fa-solid fa-person-running pt-3 white-text"></i>
+                    <h3 class="white-text">PLAY</h3>
+                    <p class="white-text large-p">Book a court or a coach. Get out there and play!</p>
+                </div>
+            </a>
         </div>
-        <div class="col-12 col-lg-6 text-center white-text">
-            <i class="fa-solid fa-trophy"></i>
-            <h3 class="white-text">MATCH</h3>
-            <p class="white-text large-p">Review the latest tournaments on both WTA and the ATP tour!</p>
+        <div class="col-12 col-lg-6 text-center">
+            <a class="big-button-links" href="{% url 'match' %}">
+                <div class="big-button-border mb-2 home-page-button d-flex flex-column justify-content-center big-button-border-image grandslam-image">
+                    <i class="fa-solid fa-trophy pt-3 white-text"></i>
+                    <h3 class="white-text">MATCH</h3>
+                    <p class="white-text large-p">Review the latest tournaments on both WTA and the ATP tour!</p>
+                </div>
+            </a>
         </div>
-        <div class="col-12 col-lg-6 text-center white-text">
-            <i class="fa-solid fa-newspaper"></i>
-            <h3 class="white-text">NEWS</h3>
-            <p class="white-text large-p">Keep up to date with everything happening in the tennis world!</p>
+        <div class="col-12 col-lg-6 text-center">
+            <a class="big-button-links" href="#">
+                <div class="big-button-border mb-2 home-page-button d-flex flex-column justify-content-center">
+                    <i class="fa-solid fa-newspaper pt-3 white-text"></i>
+                    <h3 class="white-text">NEWS</h3>
+                    <p class="white-text large-p">Keep up to date with everything happening in the tennis world!</p>
+                </div>
+            </a>
         </div>
     </div>
 </div>
@@ -57,7 +81,7 @@
             </ul>
         </div>
     </div>
-    <form id="feedback-form" method="POST">
+    <form id="feedback-form" method="POST" class="pb-4">
         <div class="row justify-content-center">
             {% csrf_token %}
             <div class="col-12 col-lg-3">
@@ -74,7 +98,7 @@
         </div>
         <div class="row">
             <div class="col-2 offset-lg-3">
-                <button type="submit" class="button">Submit</button>
+                <button type="submit" class="small-button white-text">SUBMIT</button>
             </div>
         </div>
     </form>

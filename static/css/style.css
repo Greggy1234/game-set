@@ -83,6 +83,10 @@ hr {
     text-decoration: none;
 }
 
+.home-page-button {
+    min-height:200px;
+}
+
 .small-button {
     border: 1px solid var(--secondary-colour);
     background-color: var(--secondary-highlight);
@@ -92,6 +96,7 @@ hr {
     padding-right: 1rem;
     text-decoration: none;
     border-radius: 10px;
+    font-family: var(--text-font);
 }
 
 
