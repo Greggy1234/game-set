@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %}Shop{% endblock %}
+
+{% block content %}
+<div class="container pt-4">
+    <div class="row text-center">
+        <div class="col-12">
+            <h1><strong>GAME</strong> <i>SET</i> SHOP</h1>
+        </div>
+        <div class="col-12">
+            <h2>Stock-up on clothes, gear and accessories!</h2>
+        </div>
+        <div class="col-12 col-lg-8 offset-lg-2 justify-content-center">
+            <p>The SHOP hub contains has everything you need to succeed at your game.
+                View our sportswear, upgrade your gear, complete your look with accessories, and be the best player on
+                the court!
+            </p>
+        </div>
+    </div>
+</div>
+<div class="container py-4 product-container">
+    <div class="row selector-box pb-4">
+        <div class="col-12 col-md-6">
+            <select id="choose-sorting" class="form-select form-select-sm" aria-label="Sorting options selector">
+                <option value="reset" {% if current_sorting == 'None_None' %}selected{% endif %}>Sort by...
+                </option>
+                <option value="price_asc" {% if current_sorting == 'price_asc' %}selected{% endif %}>Price
+                    (low to high)</option>
+                <option value="price_desc" {% if current_sorting == 'price_desc' %}selected{% endif %}>Price
+                    (high to low)</option>
+                <option value="name_asc" {% if current_sorting == 'name_asc' %}selected{% endif %}>Name (A-Z)
+                </option>
+                <option value="name_desc" {% if current_sorting == 'name_desc' %}selected{% endif %}>Name
+                    (Z-A)</option>
+                <option value="category_asc" {% if current_sorting == 'category_asc' %}selected{% endif %}>
+                    Category (A-Z)</option>
+                <option value="category_desc" {% if current_sorting == 'category_desc' %}selected{% endif %}>
+                    Category (Z-A)</option>
+                <option value="tag_asc" {% if current_sorting == 'tag_asc' %}selected{% endif %}>
+                    Tag (A-Z)</option>
+                <option value="tag_desc" {% if current_sorting == 'tag_desc' %}selected{% endif %}>
+                    Tag (Z-A)</option>
+            </select>
+        </div>
+    </div>
+    <div class="row" id="products">
+        {% for prod in products %}
+        <div class="col-6 col-md-4 col-lg-3 pb-4">
+            <div class="card border-0 d-flex flex-column h-100">
+                <a>
+                    {% if prod.image_name %}
+                    <img class="card-img-top" alt="{{ prod.name }}"
+                    src="{% static 'images/products/' %}{{ prod.image_name }}">
+                    {% else %}
+                    <img class="card-img-top" alt="{{ prod.name }}"
+                    src="{% static 'images/no-image.png' %}">
+                    {% endif %}
+                </a>
+                <h5 class="card-title text-center pt-2">{{ prod.name }}</h5>
+                <p class="card-text">
+                    {{ prod.description|truncatechars:50 }}
+                </p>
+                <div class="mt-auto">
+                    <p>
+                        <strong>£{{ prod.price }}</strong>
+                        <br>
+                        {{ prod.category.friendly_name }}
+                        <br>
+                        {{prod.tag.friendly_name}}
+                        <br>
+                        <span class="small-p">
+                            {% if prod.rating %}
+                            {{ prod.rating }}
+                            {% else %}
+                            No ratings
+                            {% endif %}
+                        </span>
+                    </p>
+                    <a href="#" class="btn btn-primary w-50 mt-auto">View the product</a>
+                </div>
+            </div> 
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+<script type="text/javascript">
+    $('.btt-link').click(function (e) {
+        window.scrollTo(0, 0)
+    })
+</script>
+
+<script type="text/javascript">
+    $('#choose-sorting').change(function () {
+        var selector = $(this);
+        var currentUrl = new URL(window.location);
+        var selectedVal = selector.val();
+        if (selectedVal != "reset") {
+            var sort = selectedVal.split("_")[0];
+            var direction = selectedVal.split("_")[1];
+            currentUrl.searchParams.set("sort", sort);
+            currentUrl.searchParams.set("direction", direction);
+            window.location.replace(currentUrl);
+        } else {
+            currentUrl.searchParams.delete("sort");
+            currentUrl.searchParams.delete("direction");
+            window.location.replace(currentUrl);
+        }
+    })
+</script>
+{% endblock %}

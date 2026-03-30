@@ -97,6 +97,19 @@ def calendar(request, tour):
 def tournament_detail(request, tour, slug):
     """
     Displays the matches and bracket for the tournament
+    
+    **Context**
+    ``tournament``
+        The tournament chosen for detail
+    ``matches``
+        All matches within the chosen tournament
+     ``rounds_possible``
+        A list of the rounds possible that is ordered
+    ``rounds_matches``
+        A dictionary of key=round and values=matches in that round
+    
+    **Template**
+        :template:`tournament/tournament-detail.html`
     """
     tournament = get_object_or_404(Tournament, tour=tour, slug=slug)
     matches = Matches.objects.filter(tournament=tournament)

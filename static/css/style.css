@@ -129,6 +129,12 @@ nav {
 }
 
 
+/* Shop App */
+.card-title{
+    color: var(--main-colour);
+}
+
+
 /* Footer */
 footer {
     background-color: #F2F4F4;
