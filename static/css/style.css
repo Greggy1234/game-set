@@ -21,8 +21,13 @@ h5,
     color: var(--main-colour);
 }
 
-p {
+p,
+form label {
     font-family: var(--text-font);
+    color: var(--main-colour);
+}
+
+.navbar i {
     color: var(--main-colour);
 }
 

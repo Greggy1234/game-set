@@ -159,13 +159,33 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-3">
-                    {% if 'book' in request.path %}
-                    <i class="fa-solid fa-calendar"></i>
-                    {% endif %}
-                    {% if 'shop' in request.path %}
-                    <i class="fa-solid fa-basket-shopping"></i>
-                    {% endif %}
+                {% if 'book' in request.path %}
+                <div class="col-3 nav-link d-flex flex-column justify-content-center">                    
+                    <div class="d-flex flex-column align-items-center">
+                        <i class="fa-solid fa-calendar"></i>
+                        <p class="large-p">
+                            {% if grand_total %}
+                            <strong>£{{ grand_total }}</strong>
+                            {% else %}
+                            £00.00
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+                {% endif %}                   
+                {% if 'shop' in request.path %}
+                <div class="col-3 nav-link d-flex flex-column justify-content-center">
+                    <div class="d-flex flex-column align-items-center">
+                        <i class="fa-solid fa-basket-shopping"></i>
+                        <p class="large-p">
+                            {% if grand_total %}
+                            <strong>£{{ grand_total }}</strong>
+                            {% else %}
+                            £00.00
+                            {% endif %}
+                        </p>
+                    </div>
+                {% endif %}
                 </div>
             </div>
         </div>
