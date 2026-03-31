@@ -88,14 +88,14 @@ hr {
 }
 
 .small-button {
-    border: 1px solid var(--secondary-colour);
+    border: 2px solid var(--secondary-colour);
     background-color: var(--secondary-highlight);
     padding-left: 1rem;
     padding-top: 7px;
     padding-bottom: 7px;
     padding-right: 1rem;
     text-decoration: none;
-    border-radius: 10px;
+    border-radius: 1px;
     font-family: var(--text-font);
 }
 
