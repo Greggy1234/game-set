@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_js %}
+<script src="{% static 'js/product.js' %}"></script>
+{% endblock %}
+
+{% block extra_title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+<div class="container pt-4 mb-4">
+    <div class="row">
+        <div class="col-12 col-md-6">
+            {% if product.image_name %}
+            <img class="card-img-top" alt="{{ product.name }}"
+                src="{% static 'images/products/' %}{{ product.image_name }}">
+            {% else %}
+            <img class="card-img-top" alt="{{ product.name }}" src="{% static 'images/no-image.png' %}">
+            {% endif %}
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="d-flex flex-column">
+                <h1>{{ product.name }}</h1>
+                <h2>£{{ product.price }}</h2>
+                <div class="d-none d-md-block">
+                    <p>{{ product.category.friendly_name }} | {{ product.tag.friendly_name }}</p>
+                </div>
+                <div class="d-md-none">
+                    <p>
+                        {{ product.category.friendly_name }}
+                        <br>
+                        {{ product.tag.friendly_name }}
+                    </p>
+                </div>
+                {% if product.rating %}
+                {{ product.rating }}/5.00
+                {% else %}
+                <p class="p-small">No rating</p>
+                {% endif %}
+                <h3>DESCRIPTION</h3>
+                <p>{{ product.description }}</p>
+                <form action="#" method="POST" id="add-to-bag">
+                    {% if product.has_sizes %}
+                    <div class="mb-2">
+                        <p class="p-small"><strong>Size {% if product.tag.name == "shoes" %}
+                                - all sizes in UK {% endif %}</strong></p>
+                        <select id="choose-size" class="form-select" aria-label="Size options selector">
+                            {% if product.tag.name == "shoes" %}
+                            <option value="2">2</option>
+                            <option value="2.5">2.5</option>
+                            <option value="3">3</option>
+                            <option value="3.5">3.5</option>
+                            <option value="4">4</option>
+                            <option value="4.5">4.5</option>
+                            <option value="5">5</option>
+                            <option value="5.5">5.5</option>
+                            <option value="6">6</option>
+                            <option value="6.5">6.5</option>
+                            <option value="7">7</option>
+                            <option value="7.5">7.5</option>
+                            <option value="8 selected">8</option>
+                            <option value="8.5 selected">8.5</option>
+                            <option value="9">9</option>
+                            <option value="9.5">9.5</option>
+                            <option value="10">10</option>
+                            <option value="10.5">10.5</option>
+                            <option value="11">11</option>
+                            <option value="11.5">11.5</option>
+                            <option value="12">12</option>
+                            <option value="12.5">12.5</option>
+                            <option value="13">13</option>
+                            <option value="13.5">13.5</option>
+                            {% else %}
+                            <option value="xs">XS</option>
+                            <option value="s">S</option>
+                            <option value="m" selected>M</option>
+                            <option value="l">L</option>
+                            <option value="xl">XL</option>
+                            {% endif %}
+                        </select>
+                    </div>
+                    {% endif %}
+                    <div class="d-flex flex-column product-detail-links">
+                        <button type="submit" class="small-button white-text w-50 mb-4"><strong>ADD TO BAG</strong></button>
+                        <a href="{% url 'shop' %}" class="white-text small-button w-25 text-center"><strong>ALL PRODUCTS</strong></a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <hr>
+        </div>
+        <div class="col-12 justify-content-center">
+            <h3>REVIEWS</h3>
+            <p>Have your say on the product and let future users know your thoughts!</p>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

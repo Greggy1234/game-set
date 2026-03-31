@@ -67,7 +67,7 @@
         {% for prod in products %}
         <div class="col-12 col-sm-6 col-md-4 col-lg-3 pb-5">
             <div class="card border-0 d-flex flex-column h-100">
-                <a>
+                <a href="{% url 'product_detail' sku=prod.sku %}">
                     {% if prod.image_name %}
                     <img class="card-img-top" alt="{{ prod.name }}"
                     src="{% static 'images/products/' %}{{ prod.image_name }}">
@@ -98,7 +98,7 @@
                             {% endif %}
                         </span>
                     </p>
-                    <a href="#" class="white-text small-button w-50"><strong>VIEW PRODUCT</strong></a>
+                    <a href="{% url 'product_detail' sku=prod.sku %}" class="white-text small-button w-50"><strong>VIEW PRODUCT</strong></a>
                 </div>
             </div> 
         </div>

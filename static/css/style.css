@@ -104,6 +104,19 @@ hr {
     font-family: var(--text-font);
 }
 
+.small-button:hover {
+    border: 2px solid var(--secondary-highlight);
+    background-color: white;
+    padding-left: 1rem;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-right: 1rem;
+    text-decoration: none;
+    border-radius: 1px;
+    font-family: var(--text-font);
+    color: var(--main-colour)!important;
+}
+
 
 /* Nav */
 nav {
@@ -182,6 +195,10 @@ nav {
     opacity: 1;
     pointer-events: auto;
     cursor: pointer;
+}
+
+.product-detail-links a {
+    font-size: 0.8rem;
 }
 
 

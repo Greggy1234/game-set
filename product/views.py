@@ -80,4 +80,4 @@ def product_detail(request, sku):
         'product': product,
     }
     
-    return render(request, 'product/product_detail.html', context)
+    return render(request, 'product/product-detail.html', context)
