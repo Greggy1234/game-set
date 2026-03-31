@@ -1,4 +1,8 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.db.models import Avg
+from django.core.validators import MinValueValidator, MaxValueValidator
+from django_extensions.db.fields import AutoSlugField
 
 # Create your models here.
 class Category(models.Model):
@@ -37,6 +41,53 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2)
     rating = models.DecimalField(max_digits=3, decimal_places=2, null=True, blank=True)
     image_name = models.CharField(max_length=254, null=True, blank=True)
+    
+    
+    def avg_rating(self):
+        """
+        Update rating with average of all reviews
+        """
+        average = self.review_product.aggregate(Avg('rating'))['rating__avg']
+        if not average:
+            self.rating = None
+        else:
+            average_round = round(average, 2)
+            self.rating = average_round
+        self.save()
+
 
     def __str__(self):
         return self.name
+
+
+class Review(models.Model):
+    """
+    Stores a single instance of a review entry,
+    related to :model:`product.Product` and :model:`auth.User`
+    """
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="review_user"
+    )
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, related_name="review_product"
+    )
+    review = models.TextField()
+    rating = models.DecimalField(max_digits=3, decimal_places=2,
+                                 validators=[
+                                     MinValueValidator(1.00),
+                                     MaxValueValidator(5.00)
+                                 ], blank=True, null=True)
+    created_on = models.DateTimeField(auto_now_add=True)
+    slug = AutoSlugField(populate_from=['user__username', 'product__sku', 'id'])
+    
+    
+    def save(self, *args, **kwargs):
+        """
+        Call the avg_rating method
+        """
+        super().save(*args, **kwargs)
+        self.product.avg_rating()
+    
+    
+    def __str__(self):
+        return f'Review of {self.product} by {self.user}'

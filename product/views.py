@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.db.models import Q
 from django.db.models.functions import Lower
-from .models import Category, Tag, Product
+from .models import Category, Tag, Product, Review
 
 # Create your views here.
 def all_products(request):
@@ -75,9 +75,15 @@ def product_detail(request, sku):
     """
     
     product = get_object_or_404(Product, sku=sku)
+    reviews = Review.objects.filter(product=product).order_by('-created_on')
+    user_review = reviews.filter(user=request.user).first()
+    review_count = reviews.count()
     
     context = {
         'product': product,
+        'reviews': reviews,
+        'user_review': user_review,
+        'review_count': review_count,
     }
     
     return render(request, 'product/product-detail.html', context)

@@ -40,6 +40,7 @@
                 <h3>DESCRIPTION</h3>
                 <p>{{ product.description }}</p>
                 <form action="#" method="POST" id="add-to-bag">
+                    {% csrf_token %}
                     {% if product.has_sizes %}
                     <div class="mb-2">
                         <p class="p-small"><strong>Size {% if product.tag.name == "shoes" %}
