@@ -22,7 +22,9 @@ h5,
 }
 
 p,
-form label {
+form label,
+input,
+select {
     font-family: var(--text-font);
     color: var(--main-colour);
 }
@@ -117,6 +119,24 @@ hr {
     color: var(--main-colour)!important;
 }
 
+/* Toasts */
+.toast-container {
+    top: 100px;
+    right: 15px;
+}
+
+.toast-header-error {
+    background-color: red;
+}
+
+.toast-body {
+    background-color: #F2F4F4;
+}
+
+.toast-close-button {
+    color: var(--main-colour);
+    border: 2px solid var(--secondary-highlight)
+}
 
 /* Nav */
 nav {
