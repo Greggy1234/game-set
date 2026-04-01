@@ -26,17 +26,33 @@
 </div>
 <div class="container py-4 product-container">
     <div class="row pb-4">
-        <div class="col-12 justify-content-center d-flex">
+        <div class="col-12 col-lg-6 justify-content-center justify-content-lg-start d-flex">
             <div class="d-flex flex-row">
                 {% for cat in categories %}
                 <h4 class="me-1">
                     <span class="{% if cat.name == current_category %}bold-text{% endif %}">
-                    <a class="text-decoration-none" href="{% url 'shop' %}?category={{ cat.name }}">
-                        {{ cat.friendly_name }}</a>
+                        <a class="text-decoration-none" href="{% url 'shop' %}?category={{ cat.name }}">
+                            {{ cat.friendly_name }}</a>
                     </span>
-                    {% if not forloop.last %}|{% endif %}</h4>
+                    {% if not forloop.last %}|{% endif %}
+                </h4>
                 {% endfor %}
             </div>
+        </div>
+        <div class="col-12 col-lg-6 justify-content-center justify-content-lg-end">
+            <form method="GET" action="{% url 'shop' %}">
+                <div class="input-group w-50">
+                    <input class="form-control border border-black rounded-0" type="text" name="q"
+                        placeholder="Search the SHOP hub">
+                    <div class="input-group-append">
+                        <button class="form-control btn btn-black border border-black rounded-0" type="submit">
+                            <span class="icon">
+                                <i class="fas fa-search"></i>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
     <div class="row selector-box pb-4">
@@ -70,10 +86,9 @@
                 <a href="{% url 'product_detail' sku=prod.sku %}">
                     {% if prod.image_name %}
                     <img class="card-img-top" alt="{{ prod.name }}"
-                    src="{% static 'images/products/' %}{{ prod.image_name }}">
+                        src="{% static 'images/products/' %}{{ prod.image_name }}">
                     {% else %}
-                    <img class="card-img-top" alt="{{ prod.name }}"
-                    src="{% static 'images/no-image.png' %}">
+                    <img class="card-img-top" alt="{{ prod.name }}" src="{% static 'images/no-image.png' %}">
                     {% endif %}
                 </a>
                 <h5 class="card-title text-center pt-2">{{ prod.name }}</h5>
@@ -98,15 +113,16 @@
                             {% endif %}
                         </span>
                     </p>
-                    <a href="{% url 'product_detail' sku=prod.sku %}" class="white-text small-button w-50"><strong>VIEW PRODUCT</strong></a>
+                    <a href="{% url 'product_detail' sku=prod.sku %}" class="white-text small-button w-50"><strong>VIEW
+                            PRODUCT</strong></a>
                 </div>
-            </div> 
+            </div>
         </div>
         {% if forloop.counter|divisibleby:1 %}
         <div class="col-12 d-sm-none mb-5">
             <hr>
         </div>
-        {% endif %}                        
+        {% endif %}
         {% if forloop.counter|divisibleby:2 %}
         <div class="col-12 d-none d-sm-block d-md-none mb-5">
             <hr>
@@ -126,7 +142,7 @@
     </div>
 </div>
 <div class="small-button p-1" id="top-of-page" data-css-bottom="10">
-    <a class="d-flex h-100 text-decoration-none" >
+    <a class="d-flex h-100 text-decoration-none">
         <i class="fa-solid fa-angles-up mx-auto my-auto"></i>
     </a>
 </div>

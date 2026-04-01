@@ -2,9 +2,11 @@
 
 // Wait until DOM is loaded
 document.addEventListener("DOMContentLoaded", function () {
-    window.onscroll = function() {
-        buttonShowHide()
-     } 
+    if (window.location.pathname === "/shop" || window.location.pathname === "/shop/") {
+        window.onscroll = function () {
+            buttonShowHide()
+        }
+    }
 })
 
 /**
@@ -15,7 +17,7 @@ function buttonShowHide() {
     const topButton = document.getElementById("top-of-page");
     const footer = document.getElementsByTagName('footer')[0];
 
-    if(document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
         topButton.classList.add("show-button");
     } else {
         topButton.classList.remove("show-button");

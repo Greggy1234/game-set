@@ -35,7 +35,7 @@
                 {% if product.rating %}
                 {{ product.rating }}/5.00
                 {% else %}
-                <p class="p-small">No rating</p>
+                <p class="small-p">No rating</p>
                 {% endif %}
                 <h3>DESCRIPTION</h3>
                 <p>{{ product.description }}</p>
@@ -43,7 +43,7 @@
                     {% csrf_token %}
                     {% if product.has_sizes %}
                     <div class="mb-2">
-                        <p class="p-small"><strong>Size {% if product.tag.name == "shoes" %}
+                        <p class="small-p"><strong>Size {% if product.tag.name == "shoes" %}
                                 - all sizes in UK {% endif %}</strong></p>
                         <select id="choose-size" class="form-select" aria-label="Size options selector">
                             {% if product.tag.name == "shoes" %}
@@ -82,8 +82,10 @@
                     </div>
                     {% endif %}
                     <div class="d-flex flex-column product-detail-links">
-                        <button type="submit" class="small-button white-text w-50 mb-4"><strong>ADD TO BAG</strong></button>
-                        <a href="{% url 'shop' %}" class="white-text small-button w-25 text-center"><strong>ALL PRODUCTS</strong></a>
+                        <button type="submit" class="small-button white-text w-50 mb-4 text-center"><strong>ADD TO
+                                BAG</strong></button>
+                        <a href="{% url 'shop' %}" class="white-text small-button w-50 text-center"><strong>BACK TO ALL
+                                PRODUCTS</strong></a>
                     </div>
                 </form>
             </div>
@@ -93,10 +95,68 @@
         <div class="col-12">
             <hr>
         </div>
-        <div class="col-12 justify-content-center">
+        <div class="col-12 justify-content-center text-center">
             <h3>REVIEWS</h3>
             <p>Have your say on the product and let future users know your thoughts!</p>
         </div>
+        {% if user.is_authenticated %}
+        {% if user_review %}
+        <div class="col-12">
+            <h4>YOUR REVIEW FOR {{ product.name }}</h4>
+            <p>{{ user_review.review }}</p>
+            <p class="small-p">{{ user_review.rating }}</p>
+            <button id="edit-product-review-rating-button" class="small-button white-text w-50 mb-4">
+                <strong>EDIT REVIEW {% if user_review.rating %}OR RATING {% else %}
+                    OR ADD RATING{% endif %}</strong></button>
+        </div>
+        {% else %}
+        <div class="col-12 justify-content-center">
+            <h4>ADD YOUR REVIEW FOR {{ product.name }}</h4>
+        </div>
+        <div>
+            <form id="user_review_product_form" method="POST" action="#">
+                {% csrf_token %}
+                <div class="col-12 col-md-4 order-md-1">
+                    {{ review_form.rating | as_crispy_field }}
+                </div>
+                <div class="col-12 col-md-8">
+                    {{ review_form.review | as_crispy_field }}
+                </div>
+                <button type="submit" class="small-button white-text w-50 mb-4 text-center"><strong>ADD
+                        REVIEW</strong></button>
+            </form>
+        </div>
+        {% endif %}
+        {% else %}
+        <div class="text-center col-12">
+            <h4>LOGIN OR REGISTER TO SUBMIT YOUR REVIEW FOR {{ product.name }}</h4>
+        </div>
+        <div class="col-6 col-lg-3 offset-lg-3 justify-content-end d-flex">
+            <a id="login-product-page" class="small-button white-text mb-4 text-center" href="#">
+                <strong>LOGIN</strong></a>
+        </div>
+        <div class="col-6 col-lg-3 justify-content-start d-flex">
+            <a id="login-product-page" class="small-button white-text mb-4 text-center" href="#">
+                <strong>REGISTER</strong></a>
+        </div>
+        {% endif %}
+    </div>
+    <div class="row">
+        {% if reviews %}
+        {% for rev in reviews %}
+        <div class="col-12">
+            <h5>{{ rev.user }}</h5>
+            <p>{{ rev.review }}</p>
+            <p class="small-p">{% if rev.rating %}{{ rev.rating }}{% else %}No rating{% endif %}</p>
+            {% if not forloop.last %}
+            <hr>{% endif %}
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="col-12 text-center">
+            <h5 class="mt-4">NO REVIEWS YET - BE THE FIRST TO GIVE ONE!</h5>
+        </div>  
+        {% endif %}
     </div>
 </div>
 
