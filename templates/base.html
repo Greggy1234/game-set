@@ -91,12 +91,15 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="{% url 'shop' %}">All Products</a></li>
-                                    <li><a class="dropdown-item" href="{% url 'shop' %}?category=mens_sportswear">Men's Sportswear</a>
+                                    <li><a class="dropdown-item" href="{% url 'shop' %}?category=mens_sportswear">Men's
+                                            Sportswear</a>
                                     </li>
-                                    <li><a class="dropdown-item" href="{% url 'shop' %}?category=womens_sportswear">Women's
+                                    <li><a class="dropdown-item"
+                                            href="{% url 'shop' %}?category=womens_sportswear">Women's
                                             Sportswear</a></li>
                                     <li><a class="dropdown-item" href="{% url 'shop' %}?category=gear">Gear</a></li>
-                                    <li><a class="dropdown-item" href="{% url 'shop' %}?category=accessories">Accessories</a></li>
+                                    <li><a class="dropdown-item"
+                                            href="{% url 'shop' %}?category=accessories">Accessories</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
@@ -160,7 +163,7 @@
                     </div>
                 </div>
                 {% if 'book' in request.path %}
-                <div class="col-3 nav-link d-flex flex-column justify-content-center">                    
+                <div class="col-3 nav-link d-flex flex-column justify-content-center">
                     <div class="d-flex flex-column align-items-center">
                         <i class="fa-solid fa-calendar"></i>
                         <p class="large-p">
@@ -172,20 +175,24 @@
                         </p>
                     </div>
                 </div>
-                {% endif %}                   
+                {% endif %}
                 {% if 'shop' in request.path %}
                 <div class="col-3 nav-link d-flex flex-column justify-content-center">
-                    <div class="d-flex flex-column align-items-center">
-                        <i class="fa-solid fa-basket-shopping"></i>
-                        <p class="large-p">
-                            {% if grand_total %}
-                            <strong>£{{ grand_total }}</strong>
-                            {% else %}
-                            £0.00
-                            {% endif %}
-                        </p>
-                    </div>
-                {% endif %}
+                    <a href="{% url 'basket' %}" class="text-decoration-none">
+                        <div class="d-flex flex-column align-items-center">
+
+                            <i class="fa-solid fa-basket-shopping"></i>
+                            <p class="large-p">
+                                {% if grand_total %}
+                                <strong>£{{ grand_total }}</strong>
+                                {% else %}
+                                £0.00
+                                {% endif %}
+                            </p>
+
+                        </div>
+                    </a>
+                    {% endif %}
                 </div>
             </div>
         </div>

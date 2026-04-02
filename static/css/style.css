@@ -119,6 +119,40 @@ hr {
     color: var(--main-colour)!important;
 }
 
+.small-button-delete-basket {
+    border: 2px solid red;
+    background-color: red;
+    padding-left: 1rem;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-right: 1rem;
+    text-decoration: none;
+    border-radius: 1px;
+    font-family: var(--text-font);
+    font-size: 0.7rem;
+}
+
+.small-button-delete-basket:hover {
+    border: 2px solid red;
+    background-color: white;
+    padding-left: 1rem;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-right: 1rem;
+    text-decoration: none;
+    border-radius: 1px;
+    font-family: var(--text-font);
+    font-size: 0.7rem;
+    color: red!important;
+}
+
+.table-header {
+    font-family: var(--title-font);
+    color: var(--main-colour)!important;
+    font-size: 1.2rem;
+    font-weight: normal!important;
+}
+
 /* Toasts */
 .toast-container {
     top: 100px;
@@ -228,6 +262,10 @@ nav {
 
 .product-detail-links a {
     font-size: 0.8rem;
+}
+
+.basket-image {
+    max-height: 250px;
 }
 
 

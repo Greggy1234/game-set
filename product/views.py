@@ -95,6 +95,13 @@ def product_detail(request, sku):
     return render(request, 'product/product-detail.html', context)
 
 
+def basket(request):
+    """
+    Renders the current session basket
+    """
+    return render(request, 'product/basket.html')
+
+
 def add_to_basket(request):
     """
     Add an item to the shopping basket
