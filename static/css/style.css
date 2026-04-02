@@ -125,8 +125,17 @@ hr {
     right: 15px;
 }
 
-.toast-header-error {
+.toast-header-error,
+.toast-header-warning {
     background-color: red;
+}
+
+.toast-header-info {
+    background-color: var(--secondary-highlight);
+}
+
+.toast-header-success {
+    background-color: var(--secondary-colour);
 }
 
 .toast-body {
