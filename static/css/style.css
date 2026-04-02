@@ -264,6 +264,10 @@ nav {
     font-size: 0.8rem;
 }
 
+.delivery-notice {
+    background-color: var(--secondary-colour);
+}
+
 .basket-image {
     max-height: 250px;
 }

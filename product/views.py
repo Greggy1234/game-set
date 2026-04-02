@@ -104,7 +104,7 @@ def basket(request):
 
 def add_to_basket(request):
     """
-    Add an item to the shopping basket
+    Add a product to the shopping basket
     """
     sku = request.POST.get("sku")
     product = get_object_or_404(Product, sku=sku)
@@ -140,3 +140,29 @@ def add_to_basket(request):
     url = request.META.get('HTTP_REFERER')
     
     return redirect(url)
+
+
+def remove_from_basket(request, sku):
+    """
+    Remove a product from the shopping basket
+    """
+    product = get_object_or_404(Product, sku=sku)
+    size = None
+    if 'product_size' in request.POST:
+        size = request.POST.get('product_size')
+    basket = request.session.get('basket', {})
+    
+    if size:
+        del basket[sku]['product_sizes'][size]
+        if basket[sku]['product_sizes']:
+            messages.success(request, f'Removed {product.name} in size {size.upper()} from your basket')
+        else:
+            basket.pop(sku)
+            messages.success(request, f'Removed {product.name} in size {size.upper()} from your basket')
+    else:
+        basket.pop(sku)
+        messages.success(request, f'Removed {product.name} from your basket')
+    
+    request.session['basket'] = basket
+    
+    return render(request, 'product/basket.html')

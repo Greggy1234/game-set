@@ -14,10 +14,19 @@
         <div class="col-12">
             <h1>YOUR BASKET</h1>
         </div>
-        <div class="col-12">
-            <h2>SEE WHAT ITEMS ARE IN YOUR BASKET!</h2>
-        </div>
     </div>
+</div>
+<div class="text-center w-100 delivery-notice py-2 mb-4">
+    <h2 class="white-text mb-0">
+        {% if delivery > 0 %}
+        You can get free delivery on all orders over £{{free_delivery_threshold}}.
+        {% if basket_items %}
+        You only need to spend another £{{ free_delivery }} to take advantage of this!
+        {% endif %}
+        {% else %}
+        Your basket is over £{{free_delivery_threshold}} so delivery is on us. You don't have to pay a thing!
+        {% endif %}
+    </h2>
 </div>
 <div class="container">
     <div class="row">
@@ -47,7 +56,8 @@
                                 {% endif %}
                             </div>
                             <div class="delete-basket-item-button-container my-2">
-                                <a href="#" class="white-text small-button-delete-basket text-center ">
+                                <a href="{% url 'remove_from_basket' sku=prod.product.sku %}"
+                                    class="white-text small-button-delete-basket text-center ">
                                     <strong>REMOVE ITEM</strong></a>
                             </div>
                         </td>
@@ -55,7 +65,7 @@
                             <div class="d-flex flex-column">
                                 <h3>{{ prod.product.name }}</h3>
                                 {% if prod.size %}
-                                <h4>SIZE: {{ prod.size|upper }}</h4>
+                                <h5>SIZE: {{ prod.size|upper }}</h5>
                                 {% endif %}
                                 <p>{{ prod.product.category.friendly_name }} | {{ prod.product.tag.friendly_name }}</p>
                                 <p class="small-p">{{ prod.product.sku }}</p>
@@ -86,7 +96,7 @@
                         <td>
                             <h4>£{{ total }}</h4>
                             <h4>{% if delivery %}
-                                £{{ delivery }}
+                                £{{ delivery|floatformat:2 }}
                                 {% else %}
                                 FREE DELIVERY
                                 {% endif %}
@@ -101,20 +111,23 @@
                             <h3>GRAND TOTAL:</h3>
                         </td>
                         <td>
-                            <h3>£{{ grand_total }}</h3>
+                            <h3>£{{ grand_total|floatformat:2 }}</h3>
                         </td>
                     </tr>
                 </tbody>
             </table>
             {% else %}
-            <div class="col-12 justify-content-center text-center">
-                <h3>EMPTY BASKET</h3>
-                <p>You've not added anything to your basket yet! Check out the rest of our SHOP hub to find some gear.
-                </p>
-            </div>
-            <div class="col-12 col-lg-2 offset-lg-3">
-                <a href="{% url 'shop' %}" class="white-text small-button text-center"><strong>BACK TO ALL
-                        PRODUCTS</strong></a>
+            <div class="empty-basket-notice-container mb-5">
+                <div class="col-12 justify-content-center text-center">
+                    <h3>EMPTY BASKET</h3>
+                    <p>You've not added anything to your basket yet! Check out the rest of our SHOP hub to find some
+                        gear.
+                    </p>
+                </div>
+                <div class="col-12 justify-content-center text-center">
+                    <a href="{% url 'shop' %}" class="white-text small-button text-center"><strong>BACK TO ALL
+                            PRODUCTS</strong></a>
+                </div>
             </div>
             {% endif %}
         </div>
