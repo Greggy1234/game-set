@@ -95,9 +95,9 @@ def product_detail(request, sku):
     return render(request, 'product/product-detail.html', context)
 
 
-def add_to_bag(request, sku):
+def add_to_basket(request, sku):
     """
-    Add an item to the shopping bag
+    Add an item to the shopping basket
     """
     
     product = get_object_or_404(Product, sku=sku)
@@ -107,28 +107,28 @@ def add_to_bag(request, sku):
     size = None
     if 'product_size' in request.POST:
         size = request.POST['product_size']
-    bag = request.session.get('bag', {})
+    basket = request.session.get('basket', {})
     
     if size:
-        if sku in list(bag.keys()):
-            if size in bag[sku]['product_sizes'].keys():
-                bag[sku]['product_sizes'][size] += quantity
-                messages.success(request, f'Increased quantity of {product.name} in size {size.upper()} to {bag[sku]["items_by_size"][size]}')
+        if sku in list(basket.keys()):
+            if size in basket[sku]['product_sizes'].keys():
+                basket[sku]['product_sizes'][size] += quantity
+                messages.success(request, f'Increased quantity of {product.name} in size {size.upper()} to {basket[sku]["items_by_size"][size]}')
             else:
-                bag[sku]['product_sizes'][size] = quantity
+                basket[sku]['product_sizes'][size] = quantity
                 messages.success(request, f'Added {product.name} in size {size.upper()} to your basket')
         else:
-            bag[sku] = {'product_sizes': {size: quantity}}
+            basket[sku] = {'product_sizes': {size: quantity}}
             messages.success(request, f'Added {product.name} in size {size.upper()} to your basket')
     else:
-        if sku in list(bag.keys()):
-            bag[sku] += quantity
-            messages.success(request, f'Increased quantity of {product.name} to {bag[sku]}')
+        if sku in list(basket.keys()):
+            basket[sku] += quantity
+            messages.success(request, f'Increased quantity of {product.name} to {basket[sku]}')
         else:
-            bag[sku] = quantity
+            basket[sku] = quantity
             messages.success(request, f'Added {product.name} to your basket')
     
-    request.session['bag'] = bag
+    request.session['basket'] = basket
     
     url = request.META.get['HTTP_REFERER']
     

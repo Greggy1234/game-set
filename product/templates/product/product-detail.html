@@ -39,7 +39,7 @@
                 {% endif %}
                 <h3>DESCRIPTION</h3>
                 <p>{{ product.description }}</p>
-                <form action="#" method="POST" id="add-to-bag">
+                <form action="add_to_basket" method="POST" id="add-to-basket">
                     {% csrf_token %}
                     {% if product.has_sizes %}
                     <div class="mb-2">
@@ -82,8 +82,8 @@
                     </div>
                     {% endif %}
                     <div class="d-flex flex-column product-detail-links">
-                        <button type="submit" class="small-button white-text w-50 mb-4 text-center"><strong>ADD TO
-                                BAG</strong></button>
+                        <button type="submit" class="small-button white-text w-50 mb-4 text-center" value="Add to basket">
+                            <strong>ADD TO BASKET</strong></button>
                         <a href="{% url 'shop' %}" class="white-text small-button w-50 text-center"><strong>BACK TO ALL
                                 PRODUCTS</strong></a>
                     </div>
