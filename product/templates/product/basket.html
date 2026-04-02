@@ -18,13 +18,14 @@
 </div>
 <div class="text-center w-100 delivery-notice py-2 mb-4">
     <h2 class="white-text mb-0">
-        {% if delivery > 0 %}
-        You can get free delivery on all orders over £{{free_delivery_threshold}}.
         {% if basket_items %}
+        {% if delivery > 0 %}
         You only need to spend another £{{ free_delivery }} to take advantage of this!
-        {% endif %}
         {% else %}
         Your basket is over £{{free_delivery_threshold}} so delivery is on us. You don't have to pay a thing!
+        {% endif %}
+        {% else %}
+        You can get free delivery on all orders over £{{free_delivery_threshold}}!
         {% endif %}
     </h2>
 </div>
@@ -56,9 +57,14 @@
                                 {% endif %}
                             </div>
                             <div class="delete-basket-item-button-container my-2">
-                                <a href="{% url 'remove_from_basket' sku=prod.product.sku %}"
-                                    class="white-text small-button-delete-basket text-center ">
-                                    <strong>REMOVE ITEM</strong></a>
+                                <form action="{% url 'remove_from_basket' sku=prod.product.sku %}" method="POST">
+                                    {% csrf_token %}
+                                    <button type="submit" class="white-text small-button-delete-basket text-center ">
+                                        <strong>REMOVE ITEM</strong></button>
+                                    {% if prod.size %}
+                                    <input type="hidden" name="size" value="{{ prod.size }}">
+                                    {% endif %}
+                                </form>
                             </div>
                         </td>
                         <td>

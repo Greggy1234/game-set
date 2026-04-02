@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.db.models import Q
 from django.db.models.functions import Lower
+from django.http import HttpResponseRedirect
 from .models import Category, Tag, Product, Review
 from .forms import ReviewForm
 
@@ -112,8 +113,8 @@ def add_to_basket(request):
     if 'quantity' in request.POST:
         quantity = int(request.POST.get('quantity'))
     size = None
-    if 'product_size' in request.POST:
-        size = request.POST.get('product_size')
+    if 'product_sizes' in request.POST:
+        size = request.POST.get('product_sizes')
     basket = request.session.get('basket', {})
     
     if size:
@@ -148,8 +149,8 @@ def remove_from_basket(request, sku):
     """
     product = get_object_or_404(Product, sku=sku)
     size = None
-    if 'product_size' in request.POST:
-        size = request.POST.get('product_size')
+    if 'size' in request.POST:
+        size = request.POST.get('size')
     basket = request.session.get('basket', {})
     
     if size:
@@ -165,4 +166,4 @@ def remove_from_basket(request, sku):
     
     request.session['basket'] = basket
     
-    return render(request, 'product/basket.html')
+    return HttpResponseRedirect(reverse('basket'))

@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     "home",
     "tournament",
     "product",
+    "user_profile",
 ]
 
 MIDDLEWARE = [
