@@ -95,25 +95,25 @@ def product_detail(request, sku):
     return render(request, 'product/product-detail.html', context)
 
 
-def add_to_basket(request, sku):
+def add_to_basket(request):
     """
     Add an item to the shopping basket
     """
-    
+    sku = request.POST.get("sku")
     product = get_object_or_404(Product, sku=sku)
     quantity = 1
     if 'quantity' in request.POST:
-        quantity = request.POST['quantity']
+        quantity = int(request.POST.get('quantity'))
     size = None
     if 'product_size' in request.POST:
-        size = request.POST['product_size']
+        size = request.POST.get('product_size')
     basket = request.session.get('basket', {})
     
     if size:
         if sku in list(basket.keys()):
             if size in basket[sku]['product_sizes'].keys():
                 basket[sku]['product_sizes'][size] += quantity
-                messages.success(request, f'Increased quantity of {product.name} in size {size.upper()} to {basket[sku]["items_by_size"][size]}')
+                messages.success(request, f'Increased quantity of {product.name} in size {size.upper()} to {basket[sku]["product_sizes"][size]}')
             else:
                 basket[sku]['product_sizes'][size] = quantity
                 messages.success(request, f'Added {product.name} in size {size.upper()} to your basket')
@@ -130,6 +130,6 @@ def add_to_basket(request, sku):
     
     request.session['basket'] = basket
     
-    url = request.META.get['HTTP_REFERER']
+    url = request.META.get('HTTP_REFERER')
     
     return redirect(url)

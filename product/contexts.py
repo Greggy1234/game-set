@@ -11,9 +11,9 @@ def basket_items(request):
     basket = request.session.get('basket', {})
     
     for sku, info in basket.items():
-        if 'product_sizes' in info:
+        if not isinstance(info, int):
             product = get_object_or_404(Product, sku=sku)
-            for size, quan in info['product_sizes']:
+            for size, quan in info['product_sizes'].items():
                 total += quan * product.price
                 product_count += quan
                 basket_items.append({

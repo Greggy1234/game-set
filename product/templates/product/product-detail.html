@@ -39,7 +39,7 @@
                 {% endif %}
                 <h3>DESCRIPTION</h3>
                 <p>{{ product.description }}</p>
-                <form action="add_to_basket" method="POST" id="add-to-basket">
+                <form action="{% url 'add_to_basket' %}" method="POST" id="add-to-basket">
                     {% csrf_token %}
                     {% if product.has_sizes %}
                     <div class="mb-2">
@@ -59,8 +59,8 @@
                             <option value="6.5">6.5</option>
                             <option value="7">7</option>
                             <option value="7.5">7.5</option>
-                            <option value="8 selected">8</option>
-                            <option value="8.5 selected">8.5</option>
+                            <option value="8" selected>8</option>
+                            <option value="8.5">8.5</option>
                             <option value="9">9</option>
                             <option value="9.5">9.5</option>
                             <option value="10">10</option>
@@ -87,6 +87,7 @@
                         <a href="{% url 'shop' %}" class="white-text small-button w-50 text-center"><strong>BACK TO ALL
                                 PRODUCTS</strong></a>
                     </div>
+                    <input type="hidden" name="sku" value="{{ product.sku }}">
                 </form>
             </div>
         </div>

@@ -11,4 +11,4 @@ class Feedback(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'{self.message}'
+        return f'{self.name}: {self.message}'
