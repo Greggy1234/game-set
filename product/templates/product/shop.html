@@ -139,6 +139,23 @@
         {% endfor %}
     </div>
 </div>
+<div class="collapsable-tag-selector-button" data-bs-toggle="collapse" data-bs-target="#tag-selector-container"
+aria-expanded="false" aria-controls="tag-selector" id="tag-selector-button-container">
+    <button class="small-button small-p d-flex align-items-center" id="tag-selector-button">
+        <i class="fa-solid fa-angles-right"></i>
+        <span class="d-none d-md-block ps-2">FILTER BY TYPE</span></button>
+</div>
+<div class="collapsable-tag-selector collapse collapse-horizontal" id="tag-selector-container">
+    <div id="tag-selector">
+        {% for prod in product %}
+        {% ifchanged prod.tag.name %}
+        <input type="checkbox" id="sort-for-{{ prod.tag.name }}" name="{{ prod.tag.name }}" value="{{ prod.tag.name }}">
+        <label for="sort-for-{{ prod.tag.name }}" class="white-text">{{ prod.tag.friendly_name }}</label><br>
+        {% endifchanged %}
+        {% endfor %}
+        <p id="tag-selector-update" class="white-text pt-2 small-p">FILTER SELECTED</p>
+    </div>
+</div>
 <div class="small-button p-1" id="top-of-page" data-css-bottom="10">
     <a class="d-flex h-100 text-decoration-none">
         <i class="fa-solid fa-angles-up mx-auto my-auto"></i>

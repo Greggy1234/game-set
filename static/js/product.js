@@ -3,6 +3,10 @@
 // Wait until DOM is loaded
 document.addEventListener("DOMContentLoaded", function () {
     if (window.location.pathname === "/shop" || window.location.pathname === "/shop/") {
+        const tagSelec = document.getElementById("tag-selector-update")
+        tagSelec.addEventListener("click", function () {
+            updateUrlWTag();
+        })
         window.onscroll = function () {
             buttonShowHide();
         }
@@ -99,4 +103,28 @@ function quantityChange(item) {
         quanContain.classList.remove("d-none");
         quanContain.classList.add("d-flex");
     })
+}
+
+/**
+ * This function updates the URL with the correct tag search parameters as determined by the user
+ */
+function updateUrlWTag() {
+    let checkboxes = document.querySelectorAll('input[type=checkbox');
+    selecCheckboxes = [];
+    for (let check of checkboxes) {
+        if (check.checked) {
+            selecCheckboxes.push(check.value);
+        }
+    }
+    let strSelecCheckboxes = selecCheckboxes.toString();
+    let currentURL = window.location.href;
+    let currentParams = new URLSearchParams(window.location.search);
+    let currentURLNoQ = currentURL.split('?')[0];
+    if (selecCheckboxes.length > 0) {
+        currentParams.set('tag', strSelecCheckboxes)
+    } else {
+        currentParams.delete('tag')
+    }
+    let newURL = currentURLNoQ.concat("?", currentParams);
+    window.location = newURL;
 }

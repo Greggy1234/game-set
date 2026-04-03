@@ -24,7 +24,8 @@ h5,
 p,
 form label,
 input,
-select {
+select,
+label {
     font-family: var(--text-font);
     color: var(--main-colour);
 }
@@ -73,6 +74,11 @@ hr {
     text-decoration: underline;
 }
 
+.vertical-text {
+    transform: rotate(90deg);
+    transform-origin: right top 0;
+}
+
 .big-button-border {
     border: 2px solid var(--secondary-highlight);
     border-radius: 25px;
@@ -87,8 +93,8 @@ hr {
 }
 
 .big-button-border-image {
-        background-position: center;
-        background-size: cover;
+    background-position: center;
+    background-size: cover;
 }
 
 .big-button-links {
@@ -96,7 +102,7 @@ hr {
 }
 
 .home-page-button {
-    min-height:200px;
+    min-height: 200px;
 }
 
 .small-button {
@@ -121,7 +127,7 @@ hr {
     text-decoration: none;
     border-radius: 1px;
     font-family: var(--text-font);
-    color: var(--main-colour)!important;
+    color: var(--main-colour) !important;
 }
 
 .small-button-delete-basket {
@@ -148,15 +154,16 @@ hr {
     border-radius: 1px;
     font-family: var(--text-font);
     font-size: 0.7rem;
-    color: red!important;
+    color: red !important;
 }
+
 
 .quantity-update-button {
     background: none;
-	color: var(--main-colour);
-	border: none;
-	padding: 0;
-	font-family: var(--text-font);
+    color: var(--main-colour);
+    border: none;
+    padding: 0;
+    font-family: var(--text-font);
     font-size: 0.7rem;
     text-decoration: underline;
     outline: none;
@@ -168,9 +175,9 @@ hr {
 
 .table-header {
     font-family: var(--title-font);
-    color: var(--main-colour)!important;
+    color: var(--main-colour) !important;
     font-size: 1.2rem;
-    font-weight: normal!important;
+    font-weight: normal !important;
 }
 
 /* Toasts */
@@ -238,7 +245,7 @@ nav {
 
 .bracket-header {
     font-family: "Tourney", sans-serif;
-    margin:5px;
+    margin: 5px;
 }
 
 .round {
@@ -247,18 +254,49 @@ nav {
 
 .match {
     border: 1px solid var(--secondary-highlight);
-     border-radius: 10px;
-     margin:5px;
+    border-radius: 10px;
+    margin: 5px;
 }
 
 
 /* Shop App */
-.card-title{
+.card-title {
     color: var(--main-colour);
 }
 
 .product-button {
     border: 1px solid var(--main-highlight);
+}
+
+#tag-selector-button {
+    position: fixed;
+    top: 120px;
+    left: 0px;
+}
+
+#tag-selector-container {
+    min-height: 200px;
+    max-height: 250px;
+    position: fixed;
+    overflow-y: auto;
+    top: 153px;
+    left: 0px;
+    border: 2px solid var(--secondary-colour);
+    background-color: var(--secondary-highlight);
+    padding-left: 1rem;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-right: 1rem;
+    border-radius: 1px;
+}
+
+#tag-selector {
+    width: 190px;
+}
+
+#tag-selector-update {
+    cursor: pointer;
+    text-decoration: underline;
 }
 
 #top-of-page {

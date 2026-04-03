@@ -161,8 +161,10 @@ def update_quantity(request, sku):
     
     if size:
         basket[sku]['product_sizes'][size] = quantity
+        messages.success(request, f'Changed the quantity of {product.name} in size {size.upper()} to {quantity}')
     else:
         basket[sku] = quantity
+        messages.success(request, f'Changed the quantity of {product.name} to {quantity}')
 
     request.session['basket'] = basket
     
