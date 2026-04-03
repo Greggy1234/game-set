@@ -100,7 +100,12 @@ def basket(request):
     """
     Renders the current session basket
     """
-    return render(request, 'product/basket.html')
+    quantity_values = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    
+    context = {
+        'quantity_values': quantity_values
+    }
+    return render(request, 'product/basket.html', context)
 
 
 def add_to_basket(request):
@@ -142,6 +147,26 @@ def add_to_basket(request):
     
     return redirect(url)
 
+
+def update_quantity(request, sku):
+    """
+    Add a product to the shopping basket
+    """
+    product = get_object_or_404(Product, sku=sku)
+    quantity = int(request.POST.get('quantity_selection'))
+    size = None
+    if 'size' in request.POST:
+        size = request.POST.get('size')
+    basket = request.session.get('basket', {})
+    
+    if size:
+        basket[sku]['product_sizes'][size] = quantity
+    else:
+        basket[sku] = quantity
+
+    request.session['basket'] = basket
+    
+    return HttpResponseRedirect(reverse('basket'))
 
 def remove_from_basket(request, sku):
     """

@@ -68,6 +68,11 @@ hr {
     font-size: 0.7rem;
 }
 
+.clickable-p {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
 .big-button-border {
     border: 2px solid var(--secondary-highlight);
     border-radius: 25px;
@@ -144,6 +149,21 @@ hr {
     font-family: var(--text-font);
     font-size: 0.7rem;
     color: red!important;
+}
+
+.quantity-update-button {
+    background: none;
+	color: var(--main-colour);
+	border: none;
+	padding: 0;
+	font-family: var(--text-font);
+    font-size: 0.7rem;
+    text-decoration: underline;
+    outline: none;
+}
+
+.quantity-update-button:focus {
+    outline: revert;
 }
 
 .table-header {

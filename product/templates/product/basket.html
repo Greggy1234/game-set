@@ -46,9 +46,9 @@
                 <tbody>
                     {% for prod in basket_items %}
                     <tr>
-                        <td>
-                            {% if prod.product.image_name %}
+                        <td>                            
                             <div class="basket-image-container">
+                                {% if prod.product.image_name %}
                                 <img class="basket-image" alt="{{ prod.product.name }}"
                                     src="{% static 'images/products/' %}{{ prod.product.image_name }}">
                                 {% else %}
@@ -82,7 +82,50 @@
                         </td>
                         <td>
                             <div class="d-flex flex-column">
-                                <p class="large-p">{{ prod.quantity }}</p>
+                                <div class="d-flex flex-column"
+                                    id="quantity-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}-container">
+                                    <p class="large-p"
+                                        id="quantity-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}">
+                                        {{ prod.quantity }}</p>
+                                        
+                                    <p class="small-p clickable-p"
+                                    id="change-quantity-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}"
+                                    data-sku="{{ prod.product.sku }}" data-size="{% if prod.size %}{{ prod.size }}{% else %}None{% endif %}"
+                                    data-quan="{{ prod.quantity }}">
+                                        CHANGE QUANTITY
+                                    </p>
+                                </div>
+                                <div class="d-none"
+                                    id="choose-quantity-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}-container">
+                                    <form action="{% url 'update_quantity' sku=prod.product.sku %}" method="POST"
+                                    id="choose-quantity-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}">
+                                        {% csrf_token %}
+                                        <div class="d-flex flex-column">
+                                            <select
+                                                class="form-select-sm mb-4" aria-label="Quantity options selector"
+                                                name="quantity_selection"
+                                                id="quantity-selector-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}">
+                                                {% for val in quantity_values %}
+                                                <option value="{{ val }}" {% if val == prod.quantity %}selected{% endif %}>
+                                                    {{ val }}
+                                                </option>
+                                                {% endfor %}
+                                            </select>
+                                            <div id="keep-quantity-button-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}-container">
+                                                <button class="quantity-update-button"
+                                                id="keep-quantity-button-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}"
+                                                type="button">
+                                                KEEP QUANTITY</button>
+                                            </div>
+                                            <div id="change-quantity-button-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}-container"
+                                            class="d-none">
+                                                <button id="change-quantity-button-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}"
+                                                class="quantity-update-button" type="submit">UPDATE QUANTITY</button>
+                                            </div>
+                                        </div>
+                                        <input type="hidden" name="size" value="{{ prod.size }}">
+                                    </form>
+                                </div>
                             </div>
                         </td>
                         <td>
@@ -91,9 +134,7 @@
                     </tr>
                     {% endfor %}
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td colspan="3"></td>
                         <td>
                             <h4>BASKET TOTAL:</h4>
                             <h4>DELIVERY COST:
@@ -110,9 +151,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td colspan="3"></td>
                         <td>
                             <h3>GRAND TOTAL:</h3>
                         </td>
