@@ -4,7 +4,7 @@ from django.db.models import Q
 from django.db.models.functions import Lower
 from django.http import HttpResponseRedirect
 from .models import Category, Tag, Product, Review
-from .forms import ReviewForm, ProductFormEdit
+from .forms import ReviewForm, ProductFormEdit, ProductFormAdd
 
 # Create your views here.
 def all_products(request):
@@ -194,6 +194,28 @@ def remove_from_basket(request, sku):
     request.session['basket'] = basket
     
     return HttpResponseRedirect(reverse('basket'))
+
+
+def add_product(request, sku):
+    """
+    Edit a product currently displayed in the SHOP hub
+    """
+    product = get_object_or_404(Product, sku=sku)
+    if request.method == 'POST':
+        form = ProductFormAdd(request.POST, request.FILES)
+        if form.is_valid():
+            product = form.save()
+            messages.success(request, 'Product has been added to store!')
+            return redirect(reverse('product_detail', args=[product.sku]))
+        else:
+            messages.error(request, 'Product has not been added to store! Please ensure the form is valid.')
+    else:
+        form = ProductFormAdd()
+    context = {
+        'form': form,
+    }
+
+    return render(request, 'product/add-product.html', context)
 
 
 def edit_product(request, sku):
