@@ -173,6 +173,33 @@ hr {
     outline: revert;
 }
 
+.small-button-edit-product {
+    border: 2px solid orange;
+    background-color: orange;
+    padding-left: 0.8rem;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 0.8rem;
+    text-decoration: none;
+    border-radius: 1px;
+    font-family: var(--text-font);
+    font-size: 0.5rem;
+}
+
+.small-button-edit-product:hover {
+    border: 2px solid orange;
+    background-color: white;
+    padding-left: 0.8rem;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 0.8rem;
+    text-decoration: none;
+    border-radius: 1px;
+    font-family: var(--text-font);
+    font-size: 0.5rem;
+    color: orange !important;
+}
+
 .table-header {
     font-family: var(--title-font);
     color: var(--main-colour) !important;

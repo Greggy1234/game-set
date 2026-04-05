@@ -8,4 +8,5 @@ urlpatterns = [
     path("remove-from-basket/<str:sku>/", views.remove_from_basket, name='remove_from_basket'),
     path("update-quantity/<str:sku>/", views.update_quantity, name='update_quantity'),
     path("<str:sku>/", views.product_detail, name='product_detail'),
+    path("<str:sku>/edit/", views.edit_product, name='edit_product'),
 ]

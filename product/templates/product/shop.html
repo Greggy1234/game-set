@@ -43,12 +43,12 @@
             <form method="GET" action="{% url 'shop' %}">
                 <div class="input-group ">
                     <input class="form-control border border-black rounded-0" type="text" name="q"
-                        placeholder="Search the SHOP hub">                    
+                        placeholder="Search the SHOP hub">
                     <button class="small-button" type="submit">
                         <span class="icon">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </span>
-                    </button>                    
+                    </button>
                 </div>
             </form>
         </div>
@@ -111,8 +111,16 @@
                             {% endif %}
                         </span>
                     </p>
-                    <a href="{% url 'product_detail' sku=prod.sku %}" class="white-text small-button w-50"><strong>VIEW
-                            PRODUCT</strong></a>
+                    <div>
+                        <a href="{% url 'product_detail' sku=prod.sku %}"
+                            class="white-text small-button w-50"><strong>VIEW
+                                PRODUCT</strong></a>
+                    </div>
+                    <div class="mt-3">
+                        <a href="{% url 'product_detail' sku=prod.sku %}"
+                            class="white-text small-button-edit-product w-50">
+                            <strong>EDIT PRODUCT</strong></a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -140,18 +148,16 @@
     </div>
 </div>
 <div class="collapsable-tag-selector-button" data-bs-toggle="collapse" data-bs-target="#tag-selector-container"
-aria-expanded="false" aria-controls="tag-selector" id="tag-selector-button-container">
+    aria-expanded="false" aria-controls="tag-selector" id="tag-selector-button-container">
     <button class="small-button small-p d-flex align-items-center" id="tag-selector-button">
         <i class="fa-solid fa-angles-right"></i>
         <span class="d-none d-md-block ps-2">FILTER BY TYPE</span></button>
 </div>
 <div class="collapsable-tag-selector collapse collapse-horizontal" id="tag-selector-container">
     <div id="tag-selector">
-        {% for prod in product %}
-        {% ifchanged prod.tag.name %}
-        <input type="checkbox" id="sort-for-{{ prod.tag.name }}" name="{{ prod.tag.name }}" value="{{ prod.tag.name }}">
-        <label for="sort-for-{{ prod.tag.name }}" class="white-text">{{ prod.tag.friendly_name }}</label><br>
-        {% endifchanged %}
+        {% for tag in tags %}
+        <input type="checkbox" id="sort-for-{{ tag.name }}" name="{{ tag.name }}" value="{{ tag.name }}">
+        <label for="sort-for-{{ tag.name }}" class="white-text">{{ tag.friendly_name }}</label><br>
         {% endfor %}
         <p id="tag-selector-update" class="white-text pt-2 small-p">FILTER SELECTED</p>
     </div>
