@@ -4,7 +4,7 @@ from django.db.models import Q
 from django.db.models.functions import Lower
 from django.http import HttpResponseRedirect
 from .models import Category, Tag, Product, Review
-from .forms import ReviewForm, ProductForm
+from .forms import ReviewForm, ProductFormEdit
 
 # Create your views here.
 def all_products(request):
@@ -202,7 +202,7 @@ def edit_product(request, sku):
     """
     product = get_object_or_404(Product, sku=sku)
     if request.method == 'POST':
-        form = ProductForm(request.POST, request.FILES, instance=product)
+        form = ProductFormEdit(request.POST, request.FILES, instance=product)
         if form.is_valid():
             form.save()
             messages.success(request, f'Successfully updated {product.name}!')
@@ -210,7 +210,7 @@ def edit_product(request, sku):
         else:
             messages.error(request, 'Failed to update product. Please ensure the form is valid.')
     else:
-        form = ProductForm(instance=product)
+        form = ProductFormEdit(instance=product)
         messages.info(request, f'You are editing {product.name}')
 
     context = {
@@ -218,4 +218,4 @@ def edit_product(request, sku):
         'product': product,
     }
 
-    return render(request, 'products/edit-product.html', context)
+    return render(request, 'product/edit-product.html', context)
