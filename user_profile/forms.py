@@ -32,7 +32,31 @@ class ProfileInfo(forms.ModelForm):
             self.fields[field].label = False
 
 
-class ProfileStats(forms.ModelForm):
+class ProfileStatsYear(forms.ModelForm):
     class Meta:
         model = Profile
-        include = ('years_playing', 'fave_surface', 'fave_shot',)
+        fields = ('years_playing',)
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['years_playing'].label = "Year's you've been playing"
+        
+        
+class ProfileStatsSurface(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('fave_surface',)
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['fave_surface'].label = "Your Favourite Surface"
+        
+        
+class ProfileStatsShot(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('fave_shot',)
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['fave_shot'].label = "Your Favourite Shot"

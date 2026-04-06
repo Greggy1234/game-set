@@ -158,7 +158,8 @@ hr {
 }
 
 
-.quantity-update-button {
+.quantity-update-button,
+.stats-update-button {
     background: none;
     color: var(--main-colour);
     border: none;
@@ -169,7 +170,8 @@ hr {
     outline: none;
 }
 
-.quantity-update-button:focus {
+.quantity-update-button:focus,
+.stats-update-button:focus {
     outline: revert;
 }
 

@@ -56,7 +56,7 @@ function quantityChange(item) {
     let itemSku = item.getAttribute("data-sku");
     let itemSize = item.getAttribute("data-size");
     let itemQuanCurrent = item.getAttribute("data-quan");
-    let selectQuantity = "To be set"
+    let selectQuantity = "To be set";
     let quanContain = "To be set";
     let changeQuanContain = "To be set";
     let keepQuanButtonContain = "To be set";

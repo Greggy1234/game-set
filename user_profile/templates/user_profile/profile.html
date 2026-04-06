@@ -25,24 +25,69 @@
         </div>
         <div class="col-12 col-md-4">
             <h4>YEARS PLAYING TENNIS</h4>
-            <form method="POST" action="#">
-                {% csrf_token %}
-                {{ stats_form.years_playing | as_crispy_field }}
-            </form>
+            <div id="years-playing-info">
+                <p class="large-p">
+                    {% if profile.years_playing %}
+                    {{ profile.get_years_playing_display }}
+                    {% else %}
+                    No info give
+                    {% endif %}
+                </p>
+                <button id="years-playing-form-show" class="stats-update-button" type="button">
+                    UPDATE YEARS PLAYING</button>
+            </div>
+            <div id="years-playing-form-container" class="d-none">
+                <form method="POST" action="{% url 'update_years' username=request.user.username %}">
+                    {% csrf_token %}
+                    {{ stats_form_year | crispy }}
+                    <button id="years-playing-form-submit" class="stats-update-button" type="submit">
+                        UPDATE YEARS PLAYING</button>
+                </form>
+            </div>
         </div>
         <div class="col-12 col-md-4">
             <h4>FAVOURITE SURFACE</h4>
-            <form method="POST" action="#">
-                {% csrf_token %}
-                {{ stats_form.fave_surface | as_crispy_field }}
-            </form>
+            <div id="fave-surface-info">
+                <p class="large-p">
+                    {% if profile.fave_surface %}
+                    {{ profile.get_fave_surface_display }}
+                    {% else %}
+                    No info give
+                    {% endif %}
+                </p>
+                <button id="fave-surface-form-show" class="stats-update-button" type="button">
+                    UPDATE FAVOURITE SURFACE</button>
+            </div>
+            <div id="fave-surface-form-container" class="d-none">
+                <form method="POST" action="{% url 'update_surface' username=request.user.username %}">
+                    {% csrf_token %}
+                    {{ stats_form_surf | crispy }}
+                    <button id="fave-surface-form-submit" class="stats-update-button" type="submit">
+                        UPDATE FAVOURITE SURFACE</button>
+                </form>
+            </div>
         </div>
         <div class="col-12 col-md-4">
             <h4>FAVOURITE SHOT</h4>
-            <form method="POST" action="#">
-                {% csrf_token %}
-                {{ stats_form.fave_shot | as_crispy_field }}
-            </form>
+            <div id="fave-shot-info">
+                <p class="large-p">
+                    {% if profile.fave_shot %}
+                    {{ profile.get_fave_shot_display }}
+                    {% else %}
+                    No info give
+                    {% endif %}
+                </p>
+                <button id="fave-shots-form-show" class="stats-update-button" type="button">
+                    UPDATE FAVOURITE SHOT</button>
+            </div>
+            <div id="fave-shot-form-container" class="d-none">
+                <form method="POST" action="{% url 'update_shot' username=request.user.username %}">
+                    {% csrf_token %}
+                    {{ stats_form_shot | crispy }}
+                    <button id="fave-shot-form-submit" class="stats-update-button" type="submit">
+                        UPDATE FAVOURITE SHOT</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
@@ -51,18 +96,18 @@
         <div class="col-12">
             <h3>DEFAULT DELIVERY INFORMATION</h3>
         </div>
-        <div class="col-12">
-            <form action="#" method="POST">
-                {% csrf_token %}
-                <div class="col-12 col-lg-6 justify-content-center">
-                    {{ details_form | crispy }}
-                </div>
-                <div class="col-12 col-lg-2 offset-lg-3">
-                    <button type="submit" class="small-button white-text"><strong>SUBMIT</strong></button>
-                </div>
-            </form>
-        </div>
+
+        <form action="{% url 'user_profile' username=request.user.username %}" method="POST">
+            {% csrf_token %}
+            <div class="col-12 col-lg-6 offset-lg-3 justify-content-center">
+                {{ details_form | crispy }}
+            </div>
+            <div class="col-12 col-lg-2 offset-lg-3">
+                <button type="submit" class="small-button white-text"><strong>UPDATE DETAILS</strong></button>
+            </div>
+        </form>
     </div>
+</div>
 </div>
 <div class="container pt-4">
     <div class="row text-center">
@@ -72,10 +117,9 @@
         <div class="col-12 col-lg-6">
             <h4>SHOP HUB ORDERS</h4>
         </div>
-         <div class="col-12 col-lg-6">
+        <div class="col-12 col-lg-6">
             <h4>BOOK HUB ORDERS</h4>
         </div>
     </div>
 </div>
-
 {% endblock %}
