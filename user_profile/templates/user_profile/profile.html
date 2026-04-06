@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_js %}
+<script src="{% static 'js/profile.js' %}"></script>
+{% endblock %}
+
+{% block extra_title %}{{ username }}'s Profile{% endblock %}
+
+{% block content %}
+<div class="container pt-4">
+    <div class="row text-center">
+        <div class="col-12">
+            <h1>{{ username }}' PROFILE</h1>
+        </div>
+        <div class="col-12">
+            <h2>View your details, past orders from the SHOP and BOOK hub, and your stats</h2>
+        </div>
+    </div>
+</div>
+<div class="container pt-4">
+    <div class="row text-center">
+        <div class="col-12">
+            <h3>YOUR STATS</h3>
+        </div>
+        <div class="col-12 col-md-4">
+            <h4>YEARS PLAYING TENNIS</h4>
+            <form method="POST" action="#">
+                {% csrf_token %}
+                {{ stats_form.years_playing | as_crispy_field }}
+            </form>
+        </div>
+        <div class="col-12 col-md-4">
+            <h4>FAVOURITE SURFACE</h4>
+            <form method="POST" action="#">
+                {% csrf_token %}
+                {{ stats_form.fave_surface | as_crispy_field }}
+            </form>
+        </div>
+        <div class="col-12 col-md-4">
+            <h4>FAVOURITE SHOT</h4>
+            <form method="POST" action="#">
+                {% csrf_token %}
+                {{ stats_form.fave_shot | as_crispy_field }}
+            </form>
+        </div>
+    </div>
+</div>
+<div class="container pt-4">
+    <div class="row text-center">
+        <div class="col-12">
+            <h3>DEFAULT DELIVERY INFORMATION</h3>
+        </div>
+        <div class="col-12">
+            <form action="#" method="POST">
+                {% csrf_token %}
+                <div class="col-12 col-lg-6 justify-content-center">
+                    {{ details_form | crispy }}
+                </div>
+                <div class="col-12 col-lg-2 offset-lg-3">
+                    <button type="submit" class="small-button white-text"><strong>SUBMIT</strong></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="container pt-4">
+    <div class="row text-center">
+        <div class="col-12">
+            <h3>YOUR PREVIOUS ORDERS</h3>
+        </div>
+        <div class="col-12 col-lg-6">
+            <h4>SHOP HUB ORDERS</h4>
+        </div>
+         <div class="col-12 col-lg-6">
+            <h4>BOOK HUB ORDERS</h4>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
