@@ -237,6 +237,15 @@ hr {
     border: 2px solid var(--secondary-highlight)
 }
 
+.basket-image-toast,
+.basket-image-container-toast {
+    height: 75px;
+}
+
+.product_info_toast {
+    height:150px;
+}
+
 /* Nav */
 nav {
     background-color: #F2F4F4;
@@ -358,6 +367,8 @@ nav {
 .basket-image {
     max-height: 250px;
 }
+
+
 
 
 /* Footer */

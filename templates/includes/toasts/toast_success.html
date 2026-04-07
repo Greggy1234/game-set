@@ -1,3 +1,6 @@
+{% load static %}
+{% load basket_tools %}
+
 <div class="toast-container" id="toast">
     <div id="liveToast" class="toast" role="status" aria-live="polite" aria-atomic="true" data-bs-autohide="false">
         <div class="toast-header-success">
@@ -14,5 +17,56 @@
         <div class="toast-body">
             <p>{{ message }}</p>
         </div>
+        {% if grand_total and 'shop' in request.path %}
+        <p class="ps-2"><strong>Items in bag: {{ product_count }}</strong></p>
+        <div class="container">
+            <div class="row overflow-y-auto product_info_toast">
+                {% for prod in basket_items %}
+                <div class="col-3">
+                    <div class="basket-image-container-toast">
+                        {% if prod.product.image_name %}
+                        <img class="basket-image-toast" alt="{{ prod.product.name }}"
+                            src="{% static 'images/products/' %}{{ prod.product.image_name }}">
+                        {% else %}
+                        <img class="basket-image-toast" alt="{{ prod.product.name }}"
+                            src="{% static 'images/no-image.png' %}">
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-9">
+                    <div class="d-flex flex-column">
+                        <p class="mb-0">{{ prod.product.name }}</p>
+                        {% if prod.size %}
+                        <p class="mb-0">Size: {{ prod.size|upper }}</p>
+                        {% endif %}
+                        <p class="mb-0">Quantity: {{ prod.quantity }}</p>
+                    </div>
+                </div>
+                <hr>
+                {% endfor %}
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <p class="mb-0">Basket Total: £{{ total }}</p>
+                    <p class="mb-0">
+                        Delivery Cost:
+                        {% if delivery %}
+                        £{{ delivery|floatformat:2 }} (Only £{{ free_delivery }} until you get free delivery)
+                        {% else %}
+                        FREE DELIVERY
+                        {% endif %}
+                    </p>
+                    <p class="large-p mb-0 pb-3">
+                        <strong>Grand Total: £{{ grand_total|floatformat:2 }}</strong>
+                    </p>
+                    <div class="mb-3">
+                        <a class="small-button" href="{% url 'basket' %}">
+                            VIEW BAG
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
     </div>
 </div>

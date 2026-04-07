@@ -5,7 +5,7 @@ from django_extensions.db.fields import AutoSlugField
 # Create your models here.
 class Article(models.Model):
     """
-    Stores a single blog post entry related to  :model:`auth.User`
+    Stores a single news article related to  :model:`auth.User`
     """
     title = models.CharField(max_length=200, unique=True)
     slug = AutoSlugField(populate_from=['title', 'created_on'])
