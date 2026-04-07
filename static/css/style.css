@@ -9,6 +9,10 @@
 }
 
 /* General */
+body {
+    background-color: #F2F3F4;
+}
+
 h1,
 h2,
 h3,
@@ -27,11 +31,7 @@ input,
 select,
 label {
     font-family: var(--text-font);
-    color: var(--main-colour);
-}
-
-.navbar i {
-    color: var(--main-colour);
+    color: var(--main-colour) !important;
 }
 
 hr {
@@ -243,18 +243,41 @@ hr {
 }
 
 .product_info_toast {
-    height:150px;
+    height: 150px;
 }
 
 /* Nav */
 nav {
-    background-color: #F2F4F4;
+    background-color: white;
 }
 
 .nav-logo {
     font-size: 2.5rem;
 }
 
+.navbar i {
+    color: var(--main-colour);
+}
+
+/* Allauth templates */
+.allauth-link {
+    background: none;
+    color: var(--main-colour);
+    border: none;
+    padding: 0;
+    font-family: var(--text-font);
+    text-decoration: underline;
+    outline: none;
+}
+
+.allauth-link:focus {
+    outline: revert;
+}
+
+#id_password_helptext a {
+    color: var(--main-colour);
+    font-family: var(--text-font);
+}
 
 /* Home App */
 .feedback-list {
@@ -373,7 +396,7 @@ nav {
 
 /* Footer */
 footer {
-    background-color: #F2F4F4;
+    background-color: white;
 }
 
 .social-links a {

@@ -152,9 +152,9 @@
                                 <ul class="dropdown-menu">
                                     {% if user.is_authenticated %}
                                     <li><a class="dropdown-item" href="{% url 'user_profile' username=request.user.username %}">Profile</a></li>
-                                    <li><a class="dropdown-item" href="#">Logout</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'account_logout' %}">Logout</a></li>
                                     {% else %}
-                                    <li><a class="dropdown-item" href="#">Sign in</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'account_login' %}">Sign in</a></li>
                                     <li><a class="dropdown-item" href="#">Create an account</a></li>
                                     {% endif %}
                                 </ul>

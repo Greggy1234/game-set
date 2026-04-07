@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% load i18n %}
+{% load allauth account %}
+
+{% block extra_title %}Login{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <h1>SIGN IN</h1>
+        </div>
+        <div class="col-12">
+            <p>Sign in below to track your orders and bookings, give your reviews on the SHOP hub, and leave comments on the NEWS hub</p>
+            <p>If you haven't created an account yet, <a href="#" class="allauth-link">sign up here</a></p>
+        </div>
+        <div class="col-12">
+            <form action="{% url 'account_login' %}" method="POST">
+                {% csrf_token %}
+                 {{ form|crispy }}
+                <div class="d-flex">
+                    <button class="small-button white-text me-2"><strong>SIGN IN</strong></button>
+                    <a class="small-button white-text" href="{% url 'home' %}"><strong>BACK TO HOME</strong></a>                    
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

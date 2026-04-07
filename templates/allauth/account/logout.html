@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block extra_title %}Logout{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <h1>SIGN OUT</h1>
+        </div>
+        <div class="col-12">
+            <p>Are you sure you want to sign out?</p>
+        </div>
+        <div class="col-12">
+            <form action="{% url 'account_logout' %}" no_visible_fields=True method="POST">
+                {% csrf_token %}
+                <div class="d-flex">
+                    <button class="small-button white-text me-2"><strong>SIGN OUT</strong></button>
+                    <a class="small-button white-text" href="{% url 'home' %}"><strong>BACK TO HOME</strong></a>                    
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
