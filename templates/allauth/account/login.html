@@ -13,8 +13,8 @@
             <h1>SIGN IN</h1>
         </div>
         <div class="col-12">
-            <p>Sign in below to track your orders and bookings, give your reviews on the SHOP hub, and leave comments on the NEWS hub</p>
-            <p>If you haven't created an account yet, <a href="#" class="allauth-link">sign up here</a></p>
+            <p>Sign in to track your orders and bookings, give your reviews on the SHOP hub, and leave comments on the NEWS hub.</p>
+            <p>If you haven't created an account yet, <a href="{% url 'account_signup' %}" class="allauth-link">sign up here</a>.</p>
         </div>
         <div class="col-12">
             <form action="{% url 'account_login' %}" method="POST">
