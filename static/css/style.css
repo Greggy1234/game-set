@@ -50,7 +50,7 @@ hr {
 }
 
 .white-text {
-    color: white;
+    color: white!important;
 }
 
 .white-background {
