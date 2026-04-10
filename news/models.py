@@ -13,9 +13,11 @@ class Article(models.Model):
         User, on_delete=models.CASCADE, related_name="blog_posts"
     )
     article = models.TextField()
-    created_on = models.DateTimeField(auto_now_add=True)
+    created_on = models.DateTimeField(auto_now_add=True, null=True)
     status = models.BooleanField(default=False)
-    updated_on = models.DateTimeField(auto_now=True)
+    updated_on = models.DateTimeField(auto_now=True,  null=True)
+    extract = models.TextField(blank=True, null=True)
+    published_on = models.DateField(blank=True, null=True)
 
     class Meta:
         ordering = ["-created_on"]
