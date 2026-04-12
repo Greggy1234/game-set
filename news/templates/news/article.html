@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %}{{ article.title }}{% endblock %}
+
+{% block content %}
+<div class="container pt-4">
+    <div class="row text-center">
+        <div class="col-12 col-lg-8 offset-lg-2">
+            <h1>{{ article.title }}</h1>
+        </div>
+        <div class="col-12 col-lg-8 offset-lg-2">
+            <h2>{{ article.extract }}</h2>
+        </div>
+    </div>
+</div>
+<div class="container py-4 article-container">
+    <div class="row">
+        <div class="col-12 col-lg-8 offset-lg-2">
+            <p class="article">{{ article.article|linebreaks }}</p>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <hr>
+        </div>
+        <div class="col-12 justify-content-center text-center">
+            <h3>Comments</h3>
+            <p>Give your thoughts on the news!</p>
+        </div>
+        {% if user.is_authenticated %}
+        {% if user_comment %}
+        <div class="col-12">
+            <h4>YOUR COMMENT</h4>
+            <p>{{ user_comment.comment }}</p>
+            <button id="edit-comment-button" class="small-button white-text w-50 mb-4">
+                <strong>EDIT COMMENT</strong></button>
+        </div>
+        {% else %}
+        <div class="col-12 justify-content-center">
+            <h4>ADD YOUR COMMENT</h4>
+        </div>
+        <div>
+            <form id="user_comment_article" method="POST" action="#">
+                {% csrf_token %}
+                <div class="col-12 col-md-6 order-md-1">
+                    {{ comment_form.comment | as_crispy_field }}
+                </div>
+                <button type="submit" class="small-button white-text w-50 mb-4 text-center"><strong>ADD
+                        COMMENT</strong></button>
+            </form>
+        </div>
+        {% endif %}
+        {% else %}
+        <div class="text-center col-12">
+            <h4>LOGIN OR REGISTER TO SUBMIT YOUR COMMENT</h4>
+        </div>
+        <div class="col-6 col-lg-3 offset-lg-3 justify-content-end d-flex">
+            <a id="login-news-page" class="small-button white-text mb-4 text-center" href="#">
+                <strong>LOGIN</strong></a>
+        </div>
+        <div class="col-6 col-lg-3 justify-content-start d-flex">
+            <a id="register-news-page" class="small-button white-text mb-4 text-center" href="#">
+                <strong>REGISTER</strong></a>
+        </div>
+        {% endif %}
+    </div>
+    <div class="row">
+        {% if comment %}
+        {% for com in comment %}
+        <div class="col-12">
+            <h5>{{ com.user }}</h5>
+            <p>{{ com.review }}</p>
+            {% if not forloop.last %}
+            <hr>{% endif %}
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="col-12 text-center">
+            <h5 class="mt-4">NO COMMENTS YET - BE THE FIRST TO GIVE ONE!</h5>
+        </div>  
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

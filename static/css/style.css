@@ -426,6 +426,9 @@ nav {
     color: var(--main-colour)!important;
 }
 
+.article {
+    line-height: 20px;
+}
 
 /* Footer */
 footer {

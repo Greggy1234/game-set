@@ -12,12 +12,12 @@ class ArticleList(generic.ListView):
     paginate_by = 10
 
 
-def article_detail(request, slug):
-    article = get_object_or_404(Article, slug=slug)
-    comment = Comment.objects.all.filter(post=article)
+def article_detail(request, pk):
+    article = get_object_or_404(Article, pk=pk)
+    comment = Comment.objects.filter(post=article)
     user_comment = None
     if request.user.is_authenticated:
-        user_comment = comment.filter(user=request.user).first()
+        user_comment = comment.filter(author=request.user).first()
     comment_count = comment.count()
     
     comment_form = CommentForm()

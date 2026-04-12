@@ -23,7 +23,7 @@
             <h4>{{ art.extract }}</h4>
             <p class="small-p">Published on: {{ art.published_on }} </p>
             <p class="small-p">Written by: {{ art.author.username }} </p>
-            <a class="small-button white-text" href="#"><strong>READ THE FULL ARTICLE</strong></a>
+            <a class="small-button white-text" href="{% url 'article' pk=art.pk %}"><strong>READ THE FULL ARTICLE</strong></a>
         </div>
         <div class="col-12 justify-content-center">
             <hr>
