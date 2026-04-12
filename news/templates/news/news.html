@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %}News{% endblock %}
+
+{% block content %}
+<div class="container pt-4">
+    <div class="row text-center">
+        <div class="col-12">
+            <h1><strong>GAME</strong> <i>SET</i> NEWS</h1>
+        </div>
+        <div class="col-12">
+            <h2>Read up on what's happening in the tennis world!</h2>
+        </div>
+    </div>
+</div>
+<div class="container py-4 article-container">
+    {% for art in article %}
+    {% if art.status %}
+    <div class="row">
+        <div class="col-12">
+            <h3>{{ art.title }}</h3>
+            <h4>{{ art.extract }}</h4>
+            <p class="small-p">Published on: {{ art.published_on }} </p>
+            <p class="small-p">Written by: {{ art.author.username }} </p>
+            <a class="small-button white-text" href="#"><strong>READ THE FULL ARTICLE</strong></a>
+        </div>
+        <div class="col-12 justify-content-center">
+            <hr>
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% if is_paginated %}
+    <nav aria-label="Article page navigation">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li><a href="?page={{ page_obj.previous_page_number }}" class="small-button-news-page white-text me-2">&laquo; PREV PAGE</a></li>
+            {% endif %}
+            <li>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</li>
+            {% if page_obj.has_next %}
+            <li><a href="?page={{ page_obj.next_page_number }}" class="small-button-news-page white-text ms-2"> NEXT PAGE &raquo;</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>
+{% endblock %}

@@ -50,7 +50,7 @@ hr {
 }
 
 .white-text {
-    color: white!important;
+    color: white !important;
 }
 
 .white-background {
@@ -391,7 +391,40 @@ nav {
     max-height: 250px;
 }
 
+/* News App */
+.pagination {
+    background-color: #F2F3F4;
+}
 
+.pagination li {
+    font-family: var(--text-font);
+    color: var(--main-colour);
+}
+
+.small-button-news-page {
+    border: 2px solid var(--main-colour);
+    padding-left: 0.8rem;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 0.8rem;
+    background-color: var(--main-colour);
+    text-decoration: none;
+    border-radius: 1px;
+    font-size: 0.5rem;
+}
+
+.small-button-news-page:hover {
+    border: 2px solid var(--main-colour);
+    padding-left: 0.8rem;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 0.8rem;
+    background-color: white;
+    text-decoration: none;
+    border-radius: 1px;
+    font-size: 0.5rem;
+    color: var(--main-colour)!important;
+}
 
 
 /* Footer */

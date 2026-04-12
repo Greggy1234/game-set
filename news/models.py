@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django_extensions.db.fields import AutoSlugField
+from datetime import date
 
 # Create your models here.
 class Article(models.Model):
@@ -21,6 +22,16 @@ class Article(models.Model):
 
     class Meta:
         ordering = ["-created_on"]
+    
+    def save(self, *args, **kwargs):
+        if self.pk:
+            article = Article.object.filter_by(pk=self.pk)
+            if not article.status and self.status:
+                self.published_on = date.today()
+            else:
+                if self.status:
+                    self.published_on = date.today()
+            super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.title} | written by {self.author}"

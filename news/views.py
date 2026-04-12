@@ -6,7 +6,7 @@ from .forms import CommentForm
 
 # Create your views here.
 class ArticleList(generic.ListView):
-    queryset = Article.objects.filter(status=True)
+    queryset = Article.objects.filter(status=True).order_by('-published_on')
     template_name = "news/news.html"
     context_object_name = "article"
     paginate_by = 10
