@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     "product",
     "user_profile",
     "news",
+    "book",
 ]
 
 MIDDLEWARE = [
