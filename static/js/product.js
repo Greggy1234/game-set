@@ -26,7 +26,8 @@ document.addEventListener("DOMContentLoaded", function () {
  */
 function buttonShowHide() {
     const topButton = document.getElementById("top-of-page");
-    const footer = document.getElementsByTagName('footer')[0];
+    const footer = document.getElementById('footer-wrapper');
+
 
     if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
         topButton.classList.add("show-button");
@@ -34,17 +35,15 @@ function buttonShowHide() {
         topButton.classList.remove("show-button");
     }
 
-    let topButtonBottomValue = parseInt(topButton.getAttribute("data-css-bottom"));
-    let footerRect = footer.getBoundingClientRect();
-    let footerRecYValue = footerRect.y;
-    let topButtonRectYValue = topButton.getBoundingClientRect().bottom;
+    let baseBottom = parseInt(topButton.getAttribute("data-css-bottom"));
+    let footerTop = footer.getBoundingClientRect().top;
+    let viewportHeight = window.innerHeight;
 
-    if (footerRecYValue < topButtonRectYValue) {
-        let yDiff = topButtonRectYValue - footerRecYValue;
-        let newBottomValue = topButtonBottomValue + yDiff;
-        topButton.style.bottom = newBottomValue + "px";
+    if (footerTop < viewportHeight) {
+    let footerVisibleHeight = viewportHeight - footerTop;
+    topButton.style.bottom = (baseBottom + footerVisibleHeight) + "px";
     } else {
-        topButton.style.bottom = topButtonBottomValue + "px";
+    topButton.style.bottom = baseBottom + "px";
     }
 }
 
@@ -56,12 +55,12 @@ function quantityChange(item) {
     let itemSku = item.getAttribute("data-sku");
     let itemSize = item.getAttribute("data-size");
     let itemQuanCurrent = item.getAttribute("data-quan");
-    let selectQuantity = "To be set";
-    let quanContain = "To be set";
-    let changeQuanContain = "To be set";
-    let keepQuanButtonContain = "To be set";
-    let changeQuanButtonContain = "To be set";
-    let keepQuanButton = "To be set";
+    let selectQuantity = undefined;
+    let quanContain = undefined;
+    let changeQuanContain = undefined;
+    let keepQuanButtonContain = undefined;
+    let changeQuanButtonContain = undefined;
+    let keepQuanButton = undefined;
     if (itemSize == "None") {
         quanContain = document.getElementById(`quantity-${itemSku}-container`);
         changeQuanContain = document.getElementById(`choose-quantity-${itemSku}-container`);
