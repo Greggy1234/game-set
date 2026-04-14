@@ -12,8 +12,8 @@ class ArticleList(generic.ListView):
     paginate_by = 10
 
 
-def article_detail(request, pk):
-    article = get_object_or_404(Article, pk=pk)
+def article_detail(request, slug):
+    article = get_object_or_404(Article, slug=slug)
     comment = Comment.objects.filter(post=article)
     user_comment = None
     if request.user.is_authenticated:
