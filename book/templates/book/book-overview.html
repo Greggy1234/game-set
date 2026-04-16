@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %}Book{% endblock %}
+
+{% block content %}
+<div class="overlay"></div>
+<div class="text-center w-100 delivery-notice py-2 mb-4 white-text">
+    <h3 class="mb-0 white-text">
+        Courts are only available to book if you are based in the UK!
+    </h3>
+</div>
+<div class="container pt-4">
+    <div class="row text-center">
+        <div class="col-12">
+            <h1 class="white-text"><strong>GAME</strong> <i>SET</i> BOOK</h1>
+        </div>
+        <div class="col-12">
+            <h2 class="white-text">Book a cout and get out there and play!</h2>
+        </div>
+        <div class="col-12 col-lg-8 offset-lg-2">
+            <p class="white-text">We have a range of locations around London which you can book out to play with your
+                friends.
+                We also have a range of coaches ready to work with you to increase your skill level!</p>
+        </div>
+    </div>
+</div>
+<div class="container">
+    {% for loc in locations %}
+    <div class="row">
+        <div class="col-12 justify-content-center">
+            <h3 class="white-text">{{ loc.name }}</h3>
+            {% if loc.name == "Clapham Community Tennis Club" %}
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2486.0577568454514!2d-0.13937279999999996!3d51.457096!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4876044b60a007e3%3A0x188688308c888736!2sClapham%20Community%20Tennis%20Club%20(Lifetime%20Tennis)!5e0!3m2!1sen!2suk!4v1776352023424!5m2!1sen!2suk"
+                width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+            {% elif loc.name == "Linkside Tennis Club" %}
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2479.898118565082!2d0.027361576881952485!3d51.57010120612049!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47d8a71098b48437%3A0xf493374b32fbfea6!2sLinkside%20Lawn%20Tennis%20Club!5e0!3m2!1sen!2suk!4v1776352354169!5m2!1sen!2suk"
+                width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+            {% elif loc.name == "West Middlesex Tennis Club" %}
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2482.8725100671563!2d-0.3311823231206285!3d51.51555491010721!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4876127fe9314031%3A0xf3eeef56abc7b4ec!2sWest%20Middlesex%20Lawn%20Tennis%20Club!5e0!3m2!1sen!2suk!4v1776352381321!5m2!1sen!2suk"
+                width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+            {% elif loc.name == "Highgate Tennis Club" %}
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2479.2078880101485!2d-0.13728082311742065!3d51.582753205195374!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48761bcee36f21a1%3A0x794b71afe99e5394!2sHighgate%20Cricket%20and%20Lawn%20Tennis%20Club!5e0!3m2!1sen!2suk!4v1776352404917!5m2!1sen!2suk"
+                width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+            {% endif %}
+            <p class="white-text">{{ loc.street_address1 }}</p>
+            {% if loc.street_address2 %}
+            <p class="white-text">{{ loc.street_address2 }}</p>
+            {% endif %}
+            <p class="white-text">{{ loc.postcode }}</p>
+        </div>
+        {% for court in loc.courts.all %}
+        <div class="col-12 col-lg-6">
+            <h4 class="white-text">{{ court.name }}</h4>
+            <p class="white-text"> {{ court.get_surface_display }} |
+                {% if court.outside %}
+                Outside
+                {% else %}
+                Inside
+                {% endif %}
+            </p>
+        </div>
+        {% endfor %}
+    </div>
+    {% if not forloop.last %}
+    <hr>
+    {% endif %}
+    {% endfor %}
+</div>
+{% endblock %}
