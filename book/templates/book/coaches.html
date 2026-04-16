@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %}Book{% endblock %}
+
+{% block content %}
+<div class="overlay"></div>
+<div class="container pt-4">
+    <div class="row text-center">
+        <div class="col-12">
+            <h1 class="white-text"><strong>GAME</strong> <i>SET</i> COACH</h1>
+        </div>
+        <div class="col-12">
+            <h2 class="white-text">Take a look at all the coaches that are available</h2>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        {% for coach in coaches %}
+        <div class="col-12 col-lg-6">
+            <div class="d-flex flex-column h-100">
+                <div class="pb-2">
+                    <img src="{% static 'images/coaches/' %}{{ coach.slug }}.webp" alt="{{ coach.name }}"
+                        class="coach-image-container">
+                </div>
+                <h3 class="white-text">{{ coach.name }} ({{ coach.nickname }})</h3>
+                <p class="white-text">{{ coach.specialty }}</p>
+                <br>
+                <div class="mt-auto">
+                    <h4 class="white-text">available at {{ coach.location_available.name }}</h4>
+                    <p class="white-text">
+                        {% for time in coach.shift_times %}
+                        {{ time }}
+                        <br>
+                        {% endfor %}
+                    </p>
+                    <a href="{% url 'book_overview' %}#{{ coach.location_available.slug }}"
+                        class="small-button white-text"><strong>CHOOSE A COURT</strong></a>
+                </div>
+            </div>
+        </div>
+        {% if forloop.counter|divisibleby:2 %}
+        <div class="col-12 d-none d-lg-block">
+            <div class="d-flex justify-content-center">
+                <hr class="w-75 py-4">
+            </div>
+        </div>
+        {% else %}
+        <div class="col-12 d-lg-none">
+            <div class="d-flex justify-content-center">
+                <hr class="w-75 py-4">
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

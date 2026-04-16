@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import MinValueValidator
 from django_extensions.db.fields import AutoSlugField
+from collections import defaultdict
 
 # Create your models here.
 DAYS_OF_WEEK_CHOICES = [
@@ -91,6 +92,26 @@ class Coach(models.Model):
     
     def __str__(self):
         return f'{self.name} ({self.nickname}) at {self.location_available.name}'
+    
+    
+    def shift_times(self):
+        times = defaultdict(list)
+        shift_times = []
+        
+        for ca in self.coach_times.all():
+            times[ca.day].append(ca)
+        
+        for day in days:
+            d = day.capitalize()
+            if day in times:
+                periods = ', '.join(
+                    f'{ca.shift_start.strftime("%I%p")} - {ca.shift_end.strftime("%I%p")}'
+                    for ca in times[day]
+                )                
+                shift_times.append(f'{d}: {periods}')
+            else:
+                shift_times.append(f'{d}: Not Working')
+        return shift_times
 
 
 class CoachAvailability(models.Model):    

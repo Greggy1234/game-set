@@ -27,7 +27,7 @@
 </div>
 <div class="container pb-4">
     {% for loc in locations %}
-    <div class="row">
+    <div class="row" id="{{ loc.slug }}">
         <div class="col-12 justify-content-center">
             <h3 class="white-text">{{ loc.name }}</h3>
             {% if loc.name == "Clapham Community Tennis Club" %}
@@ -86,16 +86,18 @@
         </div>
         {% for coach in loc.coaches.all %}
         <div class="col-12 col-lg-6">
-            <h4 class="white-text">{{ coach.name }} ({{ coach.nickname }})</h4>            
-            <p class="white-text">{{ coach.specialty }}</p>
-            <div class="pb-4">
-                <img src="{% static 'images/coaches/' %}{{ coach.slug }}.webp" alt="{{ coach.name }}"
-                    class="coach-image-container">
+            <div class="d-flex flex-column h-100">
+                <h4 class="white-text">{{ coach.name }} ({{ coach.nickname }})</h4>
+                <p class="white-text">{{ coach.specialty }}</p>
+                <div class="pb-4 mt-auto">
+                    <img src="{% static 'images/coaches/' %}{{ coach.slug }}.webp" alt="{{ coach.name }}"
+                        class="coach-image-container">
+                </div>
             </div>
         </div>
         {% endfor %}
         <div>
-            <a href="#" class="small-button white-text"><strong>VIEW ALL COACHES</strong></a>
+            <a href="{% url 'coaches' %}" class="small-button white-text"><strong>VIEW ALL COACHES</strong></a>
         </div>
     </div>
     {% if not forloop.last %}
