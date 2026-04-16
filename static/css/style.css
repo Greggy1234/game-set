@@ -430,6 +430,11 @@ nav {
     line-height: 20px;
 }
 
+/* Book App*/
+.coach-image-container {
+    height: 250px;
+}
+
 /* Footer */
 footer {
     background-color: white;

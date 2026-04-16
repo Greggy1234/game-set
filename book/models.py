@@ -13,6 +13,8 @@ DAYS_OF_WEEK_CHOICES = [
         ("sunday" ,"Sunday"),
     ]
 
+days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+
 
 class Location(models.Model):
     name = models.CharField(max_length=150)
@@ -46,6 +48,23 @@ class Court(models.Model):
     
     def __str__(self):
         return f'{self.name} on a {self.get_surface_display()}'
+    
+    
+    def opening_times(self):
+        times = {}
+        opening_times = []
+        
+        for ca in self.court_times.all():
+            times[ca.day] = ca
+        
+        for day in days:
+            d = day.capitalize()
+            if day in times:
+                ca = times[day]                
+                opening_times.append(f'{d}: {ca.open_time.strftime("%I%p")} - {ca.close_time.strftime("%I%p")}')
+            else:
+                opening_times.append(f'{d}: Closed')
+        return opening_times
 
 
 class CourtAvailability(models.Model):  
@@ -59,6 +78,7 @@ class CourtAvailability(models.Model):
     
     def __str__(self):
         return f'{self.court.name} | {self.day} | {self.open_time} | {self.close_time}'
+        
 
 
 class Coach(models.Model):

@@ -25,7 +25,7 @@
         </div>
     </div>
 </div>
-<div class="container">
+<div class="container pb-4">
     {% for loc in locations %}
     <div class="row">
         <div class="col-12 justify-content-center">
@@ -51,11 +51,11 @@
                 width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"></iframe>
             {% endif %}
-            <p class="white-text">{{ loc.street_address1 }}</p>
-            {% if loc.street_address2 %}
-            <p class="white-text">{{ loc.street_address2 }}</p>
-            {% endif %}
-            <p class="white-text">{{ loc.postcode }}</p>
+            <p class="white-text small-p">{{ loc.street_address1 }},
+                {% if loc.street_address2 %}
+                {{ loc.street_address2 }},
+                {% endif %}
+                {{ loc.postcode }}</p>
         </div>
         {% for court in loc.courts.all %}
         <div class="col-12 col-lg-6">
@@ -67,8 +67,36 @@
                 Inside
                 {% endif %}
             </p>
+            <h5 class="white-text">Opening Times:</h5>
+            <p class="white-text">
+                {% for t in court.opening_times %}
+                {{ t }}
+                {% if not forloop.last %}
+                <br>
+                {% endif %}
+                {% endfor %}
+            </p>
+            <div class="pb-5">
+                <a href="#" class="small-button white-text"><strong>BOOK THIS COURT</strong></a>
+            </div>
         </div>
         {% endfor %}
+        <div class="col-12">
+            <h3 class="white-text">COACHES FOR THIS LOCATION</h3>
+        </div>
+        {% for coach in loc.coaches.all %}
+        <div class="col-12 col-lg-6">
+            <h4 class="white-text">{{ coach.name }} ({{ coach.nickname }})</h4>            
+            <p class="white-text">{{ coach.specialty }}</p>
+            <div class="pb-4">
+                <img src="{% static 'images/coaches/' %}{{ coach.slug }}.webp" alt="{{ coach.name }}"
+                    class="coach-image-container">
+            </div>
+        </div>
+        {% endfor %}
+        <div>
+            <a href="#" class="small-button white-text"><strong>VIEW ALL COACHES</strong></a>
+        </div>
     </div>
     {% if not forloop.last %}
     <hr>

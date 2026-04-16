@@ -4,9 +4,11 @@ from .models import Location
 # Create your views here.
 def book_overview(request):
     locations = Location.objects.all()
+    days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
     
     context = {
         "locations": locations,
+        "days": days,
     }
     
     return render(request, "book/book-overview.html", context)
