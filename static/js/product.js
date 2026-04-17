@@ -3,7 +3,8 @@
 // Wait until DOM is loaded
 document.addEventListener("DOMContentLoaded", function () {
     if (window.location.pathname === "/shop" || window.location.pathname === "/shop/") {
-        const tagSelec = document.getElementById("tag-selector-update")
+        const tagSelec = document.getElementById("tag-selector-update");
+        updateTagSelec();
         tagSelec.addEventListener("click", function () {
             updateUrlWTag();
         })
@@ -126,4 +127,25 @@ function updateUrlWTag() {
     }
     let newURL = currentURLNoQ.concat("?", currentParams);
     window.location = newURL;
+}
+
+/**
+ * This function updates the tag select box to tick any tags that have been selected
+ */
+function updateTagSelec(){
+    let currentParams = new URLSearchParams(window.location.search);
+    let selecTags = [];
+    for (const [key, value] of currentParams){
+        if (key == "tag"){
+            selecTags.push(value);
+        }
+    }
+    let splitStringSelecTags = selecTags[0].split(",");
+    let checkboxes = document.querySelectorAll('input[type=checkbox');
+    for (let check of checkboxes) {
+        checkValue = check.getAttribute("value");
+        if (splitStringSelecTags.includes(checkValue)) {
+            check.checked = true;
+        }
+    }
 }

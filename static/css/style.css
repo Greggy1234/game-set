@@ -321,6 +321,10 @@ nav {
 
 
 /* Shop App */
+#products .card {
+    background-color: #F2F3F4;
+}
+
 .card-title {
     color: var(--main-colour);
 }
