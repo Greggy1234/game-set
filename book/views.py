@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from .models import Location, Coach, Court
 from collections import defaultdict
 from datetime import datetime, timedelta, date
+import json
 
 # Create your views here.
 days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
@@ -28,7 +29,7 @@ def court_book(request, slug):
     coach_2_times = defaultdict(list)
     final_slots = {}
     coach_1_slots = {}
-    coach_2_slots = {}
+    coach_2_slots = {}    
     
     for ca in court.court_times.all():
         times[ca.day] = ca
@@ -66,7 +67,10 @@ def court_book(request, slug):
                 while current_time < end_time:
                     ca_2_slots.append(current_time.strftime("%H:%M"))
                     current_time += timedelta(minutes = 60)
-            coach_2_slots[day] = ca_1_slots
+            coach_2_slots[day] = ca_2_slots
+    
+    coach_1_slots_json = json.dumps(coach_1_slots)
+    coach_2_slots_json = json.dumps(coach_2_slots)
     
     context = {
         "court": court,
@@ -75,6 +79,8 @@ def court_book(request, slug):
         "coach_2": coach_2,
         "coach_1_slots": coach_1_slots,
         "coach_2_slots": coach_2_slots,
+        "coach_1_slots_json": coach_1_slots_json,
+        "coach_2_slots_json": coach_2_slots_json,
     }
     
     return render(request, "book/book-court.html", context)

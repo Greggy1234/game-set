@@ -62,7 +62,7 @@ class Court(models.Model):
             d = day.capitalize()
             if day in times:
                 ca = times[day]                
-                opening_times.append(f'{d}: {ca.open_time.strftime("%I%p")} - {ca.close_time.strftime("%I%p")}')
+                opening_times.append(f'{d}: {ca.open_time.strftime("%H:%M")} - {ca.close_time.strftime("%H:%M")}')
             else:
                 opening_times.append(f'{d}: Closed')
         return opening_times
@@ -105,7 +105,7 @@ class Coach(models.Model):
             d = day.capitalize()
             if day in times:
                 periods = ', '.join(
-                    f'{ca.shift_start.strftime("%I%p")} - {ca.shift_end.strftime("%I%p")}'
+                    f'{ca.shift_start.strftime("%H:%M")} - {ca.shift_end.strftime("%H:%M")}'
                     for ca in times[day]
                 )                
                 shift_times.append(f'{d}: {periods}')

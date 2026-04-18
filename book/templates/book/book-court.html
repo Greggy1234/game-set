@@ -64,21 +64,88 @@
         </div>
     </div>
 </div>
-<div class="container" id="step-3-container">
+<div class="container d-none mb-4" id="step-3-container" data-coach-1-slots="{{ coach_1_slots_json }}"
+    data-coach-2-slots="{{ coach_2_slots_json }}">
     <div class="row">
         <div class="col-12">
             <h3 class="step-header-text white-text">STEP 3 - COACH</h3>
-            <p>{{ coach_1.name }}</p>
-            {% for day, shifts in coach_1_slots.items %}
-            <h5>{{ day }}</h5>
-            {% for shift in shifts %}
-            <p>{{ shift }}</p>
-            {% endfor %}
-            {% endfor %}
+        </div>
+        <div id="no-coaches-available-container" class="d-none">
+            <div id="no-coaches-available" class="col-12">                
+                <h4 class="white-text">No coaches at that time</h4>
+                <p id="step-3-coach-no-time" class="white-text">Unfortunately, there are no coaches available to hire
+                    during
+                    that time. Here are the two coaches for this court, and when they are available:</p>
+                <p id="step-3-coach-already-booked" class="white-text d-none">Unfortunately, the available coaches are
+                    booked
+                    during this time. Here are the two coaches for this court, and when they are available:</p>
+            </div>
+            <div class="row">
+                <div class="col-12 col-lg-6">
+                    <div class="d-flex flex-column h-100">
+                        <div class="pb-2">
+                            <img src="{% static 'images/coaches/' %}{{ coach_1.slug }}.webp" alt="{{ coach_1.name }}"
+                                class="coach-image-container">
+                        </div>
+                        <h3 class="white-text">{{ coach_1.name }} ({{ coach_1.nickname }})</h3>
+                        <p class="white-text">{{ coach_1.specialty }}</p>
+                        <br>
+                        <div class="mt-auto">
+                            <p class="white-text">
+                                {% for time in coach_1.shift_times %}
+                                {{ time }}
+                                <br>
+                                {% endfor %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <div class="d-flex flex-column h-100">
+                        <div class="pb-2">
+                            <img src="{% static 'images/coaches/' %}{{ coach_2.slug }}.webp" alt="{{ coach_2.name }}"
+                                class="coach-image-container">
+                        </div>
+                        <h3 class="white-text">{{ coach_2.name }} ({{ coach_2.nickname }})</h3>
+                        <p class="white-text">{{ coach_2.specialty }}</p>
+                        <br>
+                        <div class="mt-auto">
+                            <p class="white-text">
+                                {% for time in coach_2.shift_times %}
+                                {{ time }}
+                                <br>
+                                {% endfor %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6 d-none" id="coach-1-available">
+            <h4 class="white-text">Coach Available - £75 extra</h4>
+            <div class="d-flex flex-column h-100">
+                <div class="pb-2">
+                    <img src="{% static 'images/coaches/' %}{{ coach_1.slug }}.webp" alt="{{ coach_1.name }}"
+                        class="coach-image-container">
+                </div>
+                <h3 class="white-text">{{ coach_1.name }} ({{ coach_1.nickname }})</h3>
+                <p class="white-text">{{ coach_1.specialty }}</p>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6 d-none" id="coach-2-available">
+            <h4 class="white-text">Coach Available - £75 extra</h4>
+            <div class="d-flex flex-column h-100">
+                <div class="pb-2">
+                    <img src="{% static 'images/coaches/' %}{{ coach_2.slug }}.webp" alt="{{ coach_2.name }}"
+                        class="coach-image-container">
+                </div>
+                <h3 class="white-text">{{ coach_2.name }} ({{ coach_2.nickname }})</h3>
+                <p class="white-text">{{ coach_2.specialty }}</p>
+            </div>
         </div>
     </div>
 </div>
-<div class="container" id="booking-summary-container">
+<div class="container my-4" id="booking-summary-container">
     <div class="row">
         <div class="col-12">
             <h3 class="step-header-text white-text">BOOKING SUMMARY</h3>
