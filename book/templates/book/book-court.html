@@ -68,6 +68,13 @@
     <div class="row">
         <div class="col-12">
             <h3 class="step-header-text white-text">STEP 3 - COACH</h3>
+            <p>{{ coach_1.name }}</p>
+            {% for day, shifts in coach_1_slots.items %}
+            <h5>{{ day }}</h5>
+            {% for shift in shifts %}
+            <p>{{ shift }}</p>
+            {% endfor %}
+            {% endfor %}
         </div>
     </div>
 </div>
