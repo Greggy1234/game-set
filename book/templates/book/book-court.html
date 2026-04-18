@@ -40,17 +40,27 @@
             <div id="step-1-date-input-container">
                 <input type="hidden" id="step-1-date-input-hidden" placeholder="Pick a date below" data-id="altinput">
             </div>
+            <h4 id="date-chosen-field" class=" white-text d-none mt-4"></h4>
+            <button id="go-to-step-2" class="small-button white-text mt-4 d-none"><strong>GO TO STEP 2</strong></button>
+            <button id="change-date-picker" class="small-button white-text mt-4 d-none"><strong>CHANGE
+                    DATE</strong></button>
         </div>
-        <div class="col-12 col-lg-6" id="step-2-container">
+        <div class="col-12 col-lg-6 d-none" id="step-2-container">
             <h3 class="step-header-text white-text">STEP 2 - TIME</h3>
             {% for day, slots in final_slots.items %}
-            <div id="{{ day }}">
+            <div id="{{ day }}" class="d-none time-slot-dat-container">
                 <h4 class="white-text">{{ day | capfirst }}</h4>
-                {% for slot in slots %}
-                <p class="white-text">{{ slot }}</p>
-                {% endfor %}
+                <div class="time-slot-grid">
+                    {% for slot in slots %}
+                    <button class="time-slot-button-not-selected time-slot-button">{{ slot }}</button>
+                    {% endfor %}
+                </div>
             </div>
             {% endfor %}
+            <h4 id="time-chosen-field" class=" white-text d-none mt-4"></h4>
+            <button id="go-to-step-3" class="small-button white-text mt-4 d-none"><strong>GO TO STEP 3</strong></button>
+            <button id="change-time-picker" class="small-button white-text mt-4 d-none"><strong>CHANGE
+                    TIME</strong></button>
         </div>
     </div>
 </div>
