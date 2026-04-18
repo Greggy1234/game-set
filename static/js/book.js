@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
         changeDate();
     })
     let changeTimeButton = document.getElementById("change-time-picker");
-    changeTimeButton.addEventListener("click" function() {
+    changeTimeButton.addEventListener("click", function () {
         changeTime()
     })
 });
@@ -100,7 +100,7 @@ function changeDate() {
         tb.classList.add("time-slot-button-not-selected");
         tb.classList.remove("time-slot-button-selected");
     }
-    let timeSlotDays = document.getElementsByClassName("time-slot-dat-container");
+    let timeSlotDays = document.getElementsByClassName("time-slot-date-container");
     for (let tsd of timeSlotDays) {
         tsd.classList.add("d-none");
         tsd.classList.remove("d-block");
@@ -165,10 +165,41 @@ function selectedTime(button) {
 }
 
 /**
+ * This function allows a user to change their selected time
+ */
+function changeTime() {
+    let timeButtons = document.getElementsByClassName("time-slot-button");
+    for (let tb of timeButtons) {
+        tb.classList.add("time-slot-button-not-selected");
+        tb.classList.remove("time-slot-button-selected");
+    }
+    let showSelecTime = document.getElementById("time-chosen-field");
+    showSelecTime.innerHTML = ``;
+    showSelecTime.classList.add("d-none");
+    showSelecTime.classList.remove("d-block");
+    let goToStep3Button = document.getElementById("go-to-step-3");
+    let changeTimeButton = document.getElementById("change-time-picker");
+    let step3Contain = document.getElementById("step-3-container");
+    let step2Contain = document.getElementById("step-2-container");
+    let dayOfWeekTimes = document.getElementById(daySelected);
+    dayOfWeekTimes.classList.remove("d-none");
+    step2Contain.classList.remove("d-none");
+    step2Contain.classList.add("d-block");
+    step3Contain.classList.add("d-none");
+    step3Contain.classList.remove("d-block");
+    goToStep3Button.classList.remove("d-block");
+    goToStep3Button.classList.add("d-none");
+    changeTimeButton.classList.add("d-none");
+    changeTimeButton.classList.remove("d-block");
+
+}
+
+
+/**
  * This function checks if coaches are available for the selected time, then shows step 3 with the right information
  */
 function showStep3() {
-    let timeSlotDays = document.getElementsByClassName("time-slot-dat-container");
+    let timeSlotDays = document.getElementsByClassName("time-slot-date-container");
     for (let tsd of timeSlotDays) {
         tsd.classList.add("d-none");
         tsd.classList.remove("d-block");
@@ -189,12 +220,6 @@ function showStep3() {
     let coach2SlotsJson = step3Contain.getAttribute("data-coach-2-slots");
     let coach1Slots = JSON.parse(coach1SlotsJson);
     let coach2Slots = JSON.parse(coach2SlotsJson);
-    console.log(daySelected);
-    console.log(timeSelected);
-    console.log(coach1Slots);
-    console.log(coach2Slots);
-    console.log(coach1Slots[daySelected])
-    console.log(coach2Slots[daySelected])
     if (coach1Slots[daySelected] != undefined) {
         for (let time of coach1Slots[daySelected]) {
             if (time == timeSelected) {
@@ -205,9 +230,6 @@ function showStep3() {
     }
     if (coach2Slots[daySelected] != undefined) {
         for (let time of coach2Slots[daySelected]) {
-            console.log(time)
-            console.log(timeSelected)
-            console.log(String(time))
             if (String(time) == String(timeSelected)) {
                 coach2AvailableContain.classList.remove("d-none");
                 coach2AvailableContain.classList.add("d-block");

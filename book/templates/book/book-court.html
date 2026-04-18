@@ -48,8 +48,8 @@
         <div class="col-12 col-lg-6 d-none" id="step-2-container">
             <h3 class="step-header-text white-text">STEP 2 - TIME</h3>
             {% for day, slots in final_slots.items %}
-            <div id="{{ day }}" class="d-none time-slot-dat-container">
-                <h4 class="white-text">{{ day | capfirst }}</h4>
+            <div id="{{ day }}" class="d-none time-slot-date-container">
+                <h4 class="white-text">{{ day }}</h4>
                 <div class="time-slot-grid">
                     {% for slot in slots %}
                     <button class="time-slot-button-not-selected time-slot-button">{{ slot }}</button>
@@ -71,7 +71,7 @@
             <h3 class="step-header-text white-text">STEP 3 - COACH</h3>
         </div>
         <div id="no-coaches-available-container" class="d-none">
-            <div id="no-coaches-available" class="col-12">                
+            <div id="no-coaches-available" class="col-12">
                 <h4 class="white-text">No coaches at that time</h4>
                 <p id="step-3-coach-no-time" class="white-text">Unfortunately, there are no coaches available to hire
                     during
@@ -130,6 +130,10 @@
                 </div>
                 <h3 class="white-text">{{ coach_1.name }} ({{ coach_1.nickname }})</h3>
                 <p class="white-text">{{ coach_1.specialty }}</p>
+                <div class="mt-auto mb-4">
+                    <button data-coach="{{ coach_1 }}" class="small-button white-text"><strong>BOOK THIS
+                        COACH</strong></button>
+                </div>
             </div>
         </div>
         <div class="col-12 col-lg-6 d-none" id="coach-2-available">
@@ -141,6 +145,15 @@
                 </div>
                 <h3 class="white-text">{{ coach_2.name }} ({{ coach_2.nickname }})</h3>
                 <p class="white-text">{{ coach_2.specialty }}</p>
+                <div class="mt-auto mb-4">
+                    <button data-coach="{{ coach_2 }}" class="small-button white-text"><strong>BOOK THIS
+                            COACH</strong></button>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 py-4">
+            <div>
+                <button id="finalise-booking" class="small-button white-text"><strong>FINALISE BOOKING</strong></button>
             </div>
         </div>
     </div>
