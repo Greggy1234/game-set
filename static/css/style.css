@@ -439,6 +439,15 @@ nav {
     height: 250px;
 }
 
+.step-header-text {
+    font-family: "Tourney", sans-serif;
+    margin: 5px;
+}
+
+.alt-input-date-picker {
+    font-family: var(--text-font);
+}
+
 /* Footer */
 footer {
     background-color: white;

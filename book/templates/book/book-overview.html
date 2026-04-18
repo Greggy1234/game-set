@@ -16,7 +16,7 @@
             <h1 class="white-text"><strong>GAME</strong> <i>SET</i> BOOK</h1>
         </div>
         <div class="col-12">
-            <h2 class="white-text">Book a cout and get out there and play!</h2>
+            <h2 class="white-text">Book a court and get out there and play!</h2>
         </div>
         <div class="col-12 col-lg-8 offset-lg-2">
             <p class="white-text">We have a range of locations around London which you can book out to play with your
@@ -77,7 +77,8 @@
                 {% endfor %}
             </p>
             <div class="pb-5">
-                <a href="#" class="small-button white-text"><strong>BOOK THIS COURT</strong></a>
+                <a href="{% url 'court_book' slug=court.slug %}" class="small-button white-text"><strong>BOOK THIS
+                        COURT</strong></a>
             </div>
         </div>
         {% endfor %}

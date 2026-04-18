@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="{% static 'js/book.js' %}"></script>
+{% endblock %}
+
+{% block extra_title %}{{ court.name }}{% endblock %}
+
+{% block content %}
+<div class="overlay"></div>
+<div class="text-center w-100 delivery-notice py-2 mb-4 white-text">
+    <h3 class="mb-0 white-text">
+        Courts are only available to book if you are based in the UK!
+    </h3>
+</div>
+<div class="container pt-4">
+    <div class="row text-center">
+        <div class="col-12">
+            <h1 class="white-text"><strong>GAME</strong> <i>SET</i> BOOK</h1>
+        </div>
+        <div class="col-12">
+            <h2 class="white-text">Book your time on {{ court.name }}</h2>
+        </div>
+        <div class="col-12 col-lg-8 offset-lg-2">
+            <p class="white-text">Go through each of the steps below to finalise your booking for {{ court.name }} at
+                {{ court.location.name }}</p>
+        </div>
+    </div>
+</div>
+<div class="container my-4" id="step-1-2-container">
+    <div class="row">
+        <div class="col-12 col-lg-6" id="step-1-container">
+            <h3 class="step-header-text white-text">STEP 1 - DATE</h3>
+            <div id="step-1-date-input-container">
+                <input type="hidden" id="step-1-date-input-hidden" placeholder="Pick a date below" data-id="altinput">
+            </div>
+        </div>
+        <div class="col-12 col-lg-6" id="step-2-container">
+            <h3 class="step-header-text white-text">STEP 2 - TIME</h3>
+            {% for day, slots in final_slots.items %}
+            <div id="{{ day }}">
+                <h4 class="white-text">{{ day | capfirst }}</h4>
+                {% for slot in slots %}
+                <p class="white-text">{{ slot }}</p>
+                {% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<div class="container" id="step-3-container">
+    <div class="row">
+        <div class="col-12">
+            <h3 class="step-header-text white-text">STEP 3 - COACH</h3>
+        </div>
+    </div>
+</div>
+<div class="container" id="booking-summary-container">
+    <div class="row">
+        <div class="col-12">
+            <h3 class="step-header-text white-text">BOOKING SUMMARY</h3>
+        </div>
+    </div>
+</div>
+{% endblock %}
