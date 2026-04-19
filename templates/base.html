@@ -112,7 +112,7 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="{% url 'book_overview' %}">Overview</a></li>
-                                    <li><a class="dropdown-item" href="#">Coaches</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'coaches' %}">Coaches</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
@@ -167,7 +167,7 @@
                         <i class="fa-solid fa-calendar"></i>
                         <p class="large-p">
                             {% if total_booking_amount %}
-                            <strong>£{{ total_booking_amount }}</strong>
+                            <strong>£{{ total_booking_amount|floatformat:2 }}</strong>
                             {% else %}
                             £0.00
                             {% endif %}

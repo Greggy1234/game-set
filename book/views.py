@@ -98,8 +98,9 @@ def coach_overview(request):
     return render(request, "book/coaches.html", context)
 
 
-def add_booking(request, slug):
-    court = get_object_or_404(Court, slug=slug)
+def add_booking(request):
+    court_slug = request.POST.get("slug")
+    court = get_object_or_404(Court, slug=court_slug)
     court_id = court.id
     time = request.POST.get("time")
     date = request.POST.get("date")

@@ -200,7 +200,7 @@
                     <td id="booking-summary-cost">£10</td>
                 </tr>
             </table>
-            <form action="#" method="POST" id="add-booking">
+            <form action="{% url 'add_booking' %}" method="POST" id="add-booking">
                 {% csrf_token %}
                 <button type="submit" class="small-button white-text"><strong>COMPLETE BOOKING</strong></button>
                 <input type="hidden" name="location" value="{{ court.location }}">
@@ -209,6 +209,7 @@
                 <input id="form-submit-time" type="hidden" name="time" value="">
                 <input id="form-submit-coach" type="hidden" name="coach" value="None">
                 <input id="form-submit-cost" type="hidden" name="cost" value="10">
+                <input type="hidden" name="slug" value="{{ court.slug }}">
             </form>
         </div>
     </div>
