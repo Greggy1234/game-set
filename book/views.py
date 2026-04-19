@@ -105,11 +105,11 @@ def add_booking(request):
     time = request.POST.get("time")
     date = request.POST.get("date")
     date_as_date = datetime.strptime(date, "%Y-%m-%d")
-    date_human_readable = date_as_date.strftime("%A, %B %#d %Y")
+    date_human_readable = date_as_date.strftime("%A, %B %#d, %Y")
     coach_name = request.POST.get("coach")
     coach = None
     coach_id = None
-    if coach_name:
+    if coach_name != "None":
         coach = get_object_or_404(Coach, name=coach_name)
         coach_id = coach.id
     cost = int(request.POST.get("cost"))

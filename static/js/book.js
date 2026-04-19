@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
     changeCoachButton.addEventListener("click", function () {
         showStep3();
     })
-    let finaliseBookingButton = document.getElementById("finalise-booking-button")
+    let finaliseBookingButton = document.getElementById("finalise-booking-button");
     finaliseBookingButton.addEventListener("click", function () {
         showBookingSummary();
     })
@@ -229,7 +229,7 @@ function showStep3() {
         tsd.classList.add("d-none");
         tsd.classList.remove("d-block");
     }
-    
+
     let goToStep3Button = document.getElementById("go-to-step-3");
     let changeTimeButton = document.getElementById("change-time-picker");
     let changeCoachButton = document.getElementById("change-coach-button");
@@ -246,6 +246,8 @@ function showStep3() {
     let noCoachContain = document.getElementById("no-coaches-available-container")
     let coach1AvailableContain = document.getElementById("coach-1-available")
     let coach2AvailableContain = document.getElementById("coach-2-available")
+    let finaliseBookingButton = document.getElementById("finalise-booking-button");
+    let showSelecCoach = document.getElementById("coach-chosen-field");
     step3Contain.classList.remove("d-none");
     step3Contain.classList.add("d-block");
     noCoachContain.classList.add("d-none");
@@ -254,12 +256,13 @@ function showStep3() {
     coach1AvailableContain.classList.remove("d-block");
     coach2AvailableContain.classList.add("d-none");
     coach2AvailableContain.classList.remove("d-block");
+    showSelecCoach.innerHTML = ``;
+    showSelecCoach.classList.remove("d-none");
+    showSelecCoach.classList.add("d-block");
     let coach1SlotsJson = step3Contain.getAttribute("data-coach-1-slots");
     let coach2SlotsJson = step3Contain.getAttribute("data-coach-2-slots");
     let coach1Slots = JSON.parse(coach1SlotsJson);
     let coach2Slots = JSON.parse(coach2SlotsJson);
-    let showSelecCoach = document.getElementById("coach-chosen-field");
-    let showBookConfirm = document.getElementById("finalise-booking-button");
     let coach1available = false;
     let coach2available = false;
     if (coach1Slots[daySelected] != undefined) {
@@ -282,12 +285,9 @@ function showStep3() {
         showSelecCoach.innerHTML = `YOUR SELECTED COACH: NO COACH AVAILABLE AT THE SELECTED TIME AND DATE`;
         showSelecCoach.classList.remove("d-none");
         showSelecCoach.classList.add("d-block");
-        showBookConfirm.classList.remove("d-none");
-        showBookConfirm.classList.add("d-block");
     }
-    console.log(coach2available)
-    console.log(coach1available)
-
+    finaliseBookingButton.classList.remove("d-none");
+    finaliseBookingButton.classList.add("d-block");
 }
 
 /**
@@ -298,15 +298,18 @@ function bookCoach(button) {
     coachNumber = button.getAttribute("data-coach-number");
     coachSelected = coachName;
     let showSelecCoach = document.getElementById("coach-chosen-field");
-    let showBookConfirm = document.getElementById("finalise-booking-button");
+    let finaliseBookingButton = document.getElementById("finalise-booking-button");
     let changeCoachButton = document.getElementById("change-coach-button");
     let coach1AvailableContain = document.getElementById("coach-1-available");
     let coach2AvailableContain = document.getElementById("coach-2-available");
+    let bookingSummaryContain = document.getElementById("booking-summary-container");
+    bookingSummaryContain.classList.add("d-none");
+    bookingSummaryContain.classList.remove("d-block");
     showSelecCoach.innerHTML = `YOUR SELECTED COACH: ${coachName}`;
     showSelecCoach.classList.remove("d-none");
     showSelecCoach.classList.add("d-block");
-    showBookConfirm.classList.remove("d-none");
-    showBookConfirm.classList.add("d-block");
+    finaliseBookingButton.classList.remove("d-none");
+    finaliseBookingButton.classList.add("d-block");
     changeCoachButton.classList.remove("d-none");
     changeCoachButton.classList.add("d-block");
     coach1AvailableContain.classList.add("d-none");
@@ -320,8 +323,11 @@ function bookCoach(button) {
  */
 function showBookingSummary() {
     let bookingSummaryContain = document.getElementById("booking-summary-container");
+    let finaliseBookingButton = document.getElementById("finalise-booking-button")
     bookingSummaryContain.classList.remove("d-none");
     bookingSummaryContain.classList.add("d-block");
+    finaliseBookingButton.classList.add("d-none");
+    finaliseBookingButton.classList.remove("d-block");
     let bookingSummaryDate = document.getElementById("booking-summary-date");
     let bookingSummaryTime = document.getElementById("booking-summary-time");
     let bookingSummaryCoach = document.getElementById("booking-summary-coach");
@@ -332,15 +338,15 @@ function showBookingSummary() {
     let costFormValue = document.getElementById("form-submit-cost");
     let datePickerInput = document.getElementById("step-1-date-input-hidden");
     let datePickerValue = datePickerInput.value;
-    bookingSummaryDate.innerText = fullDateSelected;
-    bookingSummaryTime.innerText = fullTimeSelected;
-    bookingSummaryCoach.innerText = `No coach selected`;
-    bookingSummaryCost.innerText = `£10`;
+    bookingSummaryDate.innerHTML = `<p class="white-text large-p">${fullDateSelected}</p>`;
+    bookingSummaryTime.innerHTML = `<p class="white-text large-p">${fullTimeSelected}</p>`;
+    bookingSummaryCoach.innerHTML = `<p class="white-text large-p">No coach selected</p>`;
+    bookingSummaryCost.innerHTML = `<p class="white-text large-p">£10</p>`;
     dateFormValue.setAttribute("value", `${datePickerValue}`);
     timeFormValue.setAttribute("value", `${timeSelected}`)
     if (coachSelected != undefined) {
-        bookingSummaryCoach.innerText = coachSelected;
-        bookingSummaryCost.innerText = `£85`;
+        bookingSummaryCoach.innerHTML = `<p class="white-text large-p">${coachSelected}</p>`;
+        bookingSummaryCost.innerHTML = `<p class="white-text large-p">£85</p>`;
         coachFormValue.setAttribute("value", `${coachSelected}`);
         costFormValue.setAttribute("value", "85");
     }

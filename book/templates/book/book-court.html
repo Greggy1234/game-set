@@ -134,7 +134,7 @@
                 <h3 class="white-text">{{ coach_1.name }} ({{ coach_1.nickname }})</h3>
                 <p class="white-text">{{ coach_1.specialty }}</p>
                 <div class="mb-4">
-                    <button data-coach="{{ coach_1 }}" data-coach-name="{{ coach_2.name }}"
+                    <button data-coach="{{ coach_1 }}" data-coach-name="{{ coach_1.name }}"
                     data-coach-number="coach_1" class="small-button white-text book-coach-button">
                     <strong>BOOK THIS COACH</strong></button>
                 </div>
@@ -176,28 +176,28 @@
             <p class="white-text">If you would like to change any part of your booking, please select the relevant change button above</p>
             <table id="booking-summary-table" class="table">
                 <tr>
-                    <td><strong>Location</strong></td>
-                    <td>{{ court.location.name }}</td>
+                    <td><p class="white-text large-p"><strong>Location</strong></p></td>
+                    <td><p class="white-text large-p">{{ court.location.name }}</p></td>
                 </tr>
                 <tr>
-                    <td><strong>Court</strong></td>
-                    <td>{{ court.name }}</td>
+                    <td><p class="white-text large-p"><strong>Court</strong></p></td>
+                    <td><p class="white-text large-p">{{ court.name }}</p></td>
                 </tr>
                 <tr>
-                    <td><strong>Date</strong></td>
+                    <td><p class="white-text large-p"><strong>Date</strong></p></td>
                     <td id="booking-summary-date"></td>
                 </tr>
                 <tr>
-                    <td><strong>Time</strong></td>
+                    <td><p class="white-text large-p"><strong>Time</strong></p></td>
                     <td id="booking-summary-time"></td>
                 </tr>
                 <tr>
-                    <td><strong>Coach</strong></td>
+                    <td><p class="white-text large-p"><strong>Coach</strong></p></td>
                     <td id="booking-summary-coach"></td>
                 </tr>
                 <tr>
-                    <td><strong>Cost</strong></td>
-                    <td id="booking-summary-cost">£10</td>
+                    <td><p class="white-text large-p"><strong>Cost</strong></p></td>
+                    <td id="booking-summary-cost"></td>
                 </tr>
             </table>
             <form action="{% url 'add_booking' %}" method="POST" id="add-booking">

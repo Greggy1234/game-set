@@ -509,15 +509,35 @@ nav {
     font-weight: bold;
 }
 
-#booking-summary-table {
-    font-family: var(--text-font);
-    font-size: 1.2rem;
+#booking-summary-table td {
     background-color: var(--main-colour);
 }
 
-#booking-summary-table td {
-    color:white;
-    background-color: var(--main-colour);
+.small-button-delete-booking {
+    border: 2px solid red;
+    background-color: red;
+    padding-left: 1rem;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-right: 1rem;
+    text-decoration: none;
+    border-radius: 1px;
+    font-family: var(--text-font);
+    font-size: 0.7rem;
+}
+
+.small-button-delete-booking:hover {
+    border: 2px solid red;
+    background-color: white;
+    padding-left: 1rem;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-right: 1rem;
+    text-decoration: none;
+    border-radius: 1px;
+    font-family: var(--text-font);
+    font-size: 0.7rem;
+    color: red !important;
 }
 
 /* Footer */
