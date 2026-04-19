@@ -295,6 +295,7 @@ function showStep3() {
  */
 function bookCoach(button) {
     coachName = button.getAttribute("data-coach-name");
+    coachNumber = button.getAttribute("data-coach-number");
     coachSelected = coachName;
     let showSelecCoach = document.getElementById("coach-chosen-field");
     let showBookConfirm = document.getElementById("finalise-booking-button");
@@ -325,14 +326,22 @@ function showBookingSummary() {
     let bookingSummaryTime = document.getElementById("booking-summary-time");
     let bookingSummaryCoach = document.getElementById("booking-summary-coach");
     let bookingSummaryCost = document.getElementById("booking-summary-cost");
+    let dateFormValue = document.getElementById("form-submit-date");
+    let timeFormValue = document.getElementById("form-submit-time");
+    let coachFormValue = document.getElementById("form-submit-coach");
+    let costFormValue = document.getElementById("form-submit-cost");
+    let datePickerInput = document.getElementById("step-1-date-input-hidden");
+    let datePickerValue = datePickerInput.value;
     bookingSummaryDate.innerText = fullDateSelected;
     bookingSummaryTime.innerText = fullTimeSelected;
     bookingSummaryCoach.innerText = `No coach selected`;
     bookingSummaryCost.innerText = `£10`;
+    dateFormValue.setAttribute("value", `${datePickerValue}`);
+    timeFormValue.setAttribute("value", `${timeSelected}`)
     if (coachSelected != undefined) {
         bookingSummaryCoach.innerText = coachSelected;
         bookingSummaryCost.innerText = `£85`;
+        coachFormValue.setAttribute("value", `${coachSelected}`);
+        costFormValue.setAttribute("value", "85");
     }
-
-
 }

@@ -135,7 +135,8 @@
                 <p class="white-text">{{ coach_1.specialty }}</p>
                 <div class="mb-4">
                     <button data-coach="{{ coach_1 }}" data-coach-name="{{ coach_2.name }}"
-                        class="small-button white-text book-coach-button"><strong>BOOK THIS COACH</strong></button>
+                    data-coach-number="coach_1" class="small-button white-text book-coach-button">
+                    <strong>BOOK THIS COACH</strong></button>
                 </div>
             </div>
         </div>
@@ -150,8 +151,9 @@
                 <h3 class="white-text">{{ coach_2.name }} ({{ coach_2.nickname }})</h3>
                 <p class="white-text">{{ coach_2.specialty }}</p>
                 <div class="mb-4">
-                    <button data-coach="{{ coach_2 }}" data-coach-name="{{ coach_2.name }}"
-                        class="small-button white-text book-coach-button"><strong>BOOK THIS COACH</strong></button>
+                    <button data-coach="{{ coach_2 }}" data-coach-name="{{ coach_2.name }}" 
+                    data-coach-number="coach_2" class="small-button white-text book-coach-button">
+                    <strong>BOOK THIS COACH</strong></button>
                 </div>
             </div>
         </div>
@@ -198,9 +200,15 @@
                     <td id="booking-summary-cost">£10</td>
                 </tr>
             </table>
-            <form action="#" method="POST" id="add-to-basket">
+            <form action="#" method="POST" id="add-booking">
                 {% csrf_token %}
                 <button type="submit" class="small-button white-text"><strong>COMPLETE BOOKING</strong></button>
+                <input type="hidden" name="location" value="{{ court.location }}">
+                <input type="hidden" name="court" value="{{ court }}">
+                <input id="form-submit-date" type="hidden" name="date" value="">
+                <input id="form-submit-time" type="hidden" name="time" value="">
+                <input id="form-submit-coach" type="hidden" name="coach" value="None">
+                <input id="form-submit-cost" type="hidden" name="cost" value="10">
             </form>
         </div>
     </div>
