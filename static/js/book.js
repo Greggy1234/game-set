@@ -2,6 +2,7 @@
 // Global variables which will hold the selected day and the time
 daySelected = undefined
 timeSelected = undefined
+coachSelected = undefined
 
 
 // Wait until DOM is loaded
@@ -36,6 +37,20 @@ document.addEventListener("DOMContentLoaded", function () {
     let changeTimeButton = document.getElementById("change-time-picker");
     changeTimeButton.addEventListener("click", function () {
         changeTime()
+    })
+    let bookCoachButtons = document.getElementsByClassName("book-coach-button");
+    for (let cb of bookCoachButtons) {
+        cb.addEventListener("click", function () {
+            bookCoach(this);
+        })
+    }
+    let changeCoachButton = document.getElementById("change-coach-button");
+    changeCoachButton.addEventListener("click", function () {
+        showStep3();
+    })
+    let finaliseBookingButton = document.getElementById("finalise-booking-button")
+    finaliseBookingButton.addEventListener("click", function () {
+        showBookingSummary();
     })
 });
 
@@ -191,12 +206,11 @@ function changeTime() {
     goToStep3Button.classList.add("d-none");
     changeTimeButton.classList.add("d-none");
     changeTimeButton.classList.remove("d-block");
-
 }
 
-
 /**
- * This function checks if coaches are available for the selected time, then shows step 3 with the right information
+ * This function checks if coaches are available for the selected time, then shows step 3 with the right information.
+ * If there is no coach available, it shows the finalise booking button.
  */
 function showStep3() {
     let timeSlotDays = document.getElementsByClassName("time-slot-date-container");
@@ -206,10 +220,13 @@ function showStep3() {
     }
     let goToStep3Button = document.getElementById("go-to-step-3");
     let changeTimeButton = document.getElementById("change-time-picker");
+    let changeCoachButton = document.getElementById("change-coach-button");
     goToStep3Button.classList.remove("d-block");
     goToStep3Button.classList.add("d-none");
     changeTimeButton.classList.remove("d-none");
     changeTimeButton.classList.add("d-block");
+    changeCoachButton.classList.remove("d-block");
+    changeCoachButton.classList.add("d-none");
     let step3Contain = document.getElementById("step-3-container");
     let noCoachContain = document.getElementById("no-coaches-available-container")
     let coach1AvailableContain = document.getElementById("coach-1-available")
@@ -220,25 +237,81 @@ function showStep3() {
     let coach2SlotsJson = step3Contain.getAttribute("data-coach-2-slots");
     let coach1Slots = JSON.parse(coach1SlotsJson);
     let coach2Slots = JSON.parse(coach2SlotsJson);
+    let showSelecCoach = document.getElementById("coach-chosen-field");
+    let showBookConfirm = document.getElementById("finalise-booking-button")
+    console.log(coach1Slots[daySelected])
+    console.log(coach2Slots[daySelected])
     if (coach1Slots[daySelected] != undefined) {
         for (let time of coach1Slots[daySelected]) {
             if (time == timeSelected) {
                 coach1AvailableContain.classList.remove("d-none");
                 coach1AvailableContain.classList.add("d-block");
+            } else {
+                noCoachContain.classList.remove("d-none");
+                noCoachContain.classList.add("d-block");
+                showSelecCoach.innerHTML = `YOUR SELECTED COACH: NO COACH AVAILABLE AT THE SELECTED TIME AND DATE`;
+                showSelecCoach.classList.remove("d-none");
+                showSelecCoach.classList.add("d-block");
+                showBookConfirm.classList.remove("d-none");
+                showBookConfirm.classList.add("d-block");
             }
         }
     }
     if (coach2Slots[daySelected] != undefined) {
         for (let time of coach2Slots[daySelected]) {
-            if (String(time) == String(timeSelected)) {
+            if (time == timeSelected) {
                 coach2AvailableContain.classList.remove("d-none");
                 coach2AvailableContain.classList.add("d-block");
+            } else {
+                noCoachContain.classList.remove("d-none");
+                noCoachContain.classList.add("d-block");
+                showSelecCoach.innerHTML = `YOUR SELECTED COACH: NO COACH AVAILABLE AT THE SELECTED TIME AND DATE`;
+                showSelecCoach.classList.remove("d-none");
+                showSelecCoach.classList.add("d-block");
+                showBookConfirm.classList.remove("d-none");
+                showBookConfirm.classList.add("d-block");
             }
         }
     }
     if (coach1Slots[daySelected] == undefined && coach2Slots[daySelected] == undefined) {
         noCoachContain.classList.remove("d-none");
         noCoachContain.classList.add("d-block");
+        showSelecCoach.innerHTML = `YOUR SELECTED COACH: NO COACH AVAILABLE AT THE SELECTED TIME AND DATE`;
+        showSelecCoach.classList.remove("d-none");
+        showSelecCoach.classList.add("d-block");
+        showBookConfirm.classList.remove("d-none");
+        showBookConfirm.classList.add("d-block");
     }
+
+}
+
+/**
+ * This function books the selected coach and then shows the change coach button or finalise booking button.
+ */
+function bookCoach(button) {
+    coachName = button.getAttribute("data-coach-name");
+    coachSelected = coachName;
+    let showSelecCoach = document.getElementById("coach-chosen-field");
+    let showBookConfirm = document.getElementById("finalise-booking-button");
+    let changeCoachButton = document.getElementById("change-coach-button");
+    let coach1AvailableContain = document.getElementById("coach-1-available");
+    let coach2AvailableContain = document.getElementById("coach-2-available");
+    showSelecCoach.innerHTML = `YOUR SELECTED COACH: ${coachName}`;
+    showSelecCoach.classList.remove("d-none");
+    showSelecCoach.classList.add("d-block");
+    showBookConfirm.classList.remove("d-none");
+    showBookConfirm.classList.add("d-block");
+    changeCoachButton.classList.remove("d-none");
+    changeCoachButton.classList.add("d-block");
+    coach1AvailableContain.classList.add("d-none");
+    coach1AvailableContain.classList.remove("d-block");
+    coach2AvailableContain.classList.add("d-none");
+    coach2AvailableContain.classList.remove("d-block");
+}
+
+/**
+ * This function shows the booking summary.
+ */
+function showBookingSummary() {
 
 }

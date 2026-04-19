@@ -25,11 +25,12 @@
             <h1 class="white-text"><strong>GAME</strong> <i>SET</i> BOOK</h1>
         </div>
         <div class="col-12">
-            <h2 class="white-text">Book your time on {{ court.name }}</h2>
+            <h2 class="white-text">Book your time on {{ court.name }} - £10 for an hour</h2>
         </div>
         <div class="col-12 col-lg-8 offset-lg-2">
             <p class="white-text">Go through each of the steps below to finalise your booking for {{ court.name }} at
-                {{ court.location.name }}</p>
+                {{ court.location.name }}. If you add a coach to your booking, that will be an extra £75, but they are
+                not compulsory!</p>
         </div>
     </div>
 </div>
@@ -50,6 +51,7 @@
             {% for day, slots in final_slots.items %}
             <div id="{{ day }}" class="d-none time-slot-date-container">
                 <h4 class="white-text">{{ day }}</h4>
+                <p class="white-text">Due to popularity, only 1 hour may be booked at a time.</p>
                 <div class="time-slot-grid">
                     {% for slot in slots %}
                     <button class="time-slot-button-not-selected time-slot-button">{{ slot }}</button>
@@ -123,6 +125,7 @@
         </div>
         <div class="col-12 col-lg-6 d-none" id="coach-1-available">
             <h4 class="white-text">Coach Available - £75 extra</h4>
+            <p class="white-text">If you don't want to add this coach, click the finalise booking button</p>
             <div class="d-flex flex-column h-100">
                 <div class="pb-2">
                     <img src="{% static 'images/coaches/' %}{{ coach_1.slug }}.webp" alt="{{ coach_1.name }}"
@@ -130,14 +133,15 @@
                 </div>
                 <h3 class="white-text">{{ coach_1.name }} ({{ coach_1.nickname }})</h3>
                 <p class="white-text">{{ coach_1.specialty }}</p>
-                <div class="mt-auto mb-4">
-                    <button data-coach="{{ coach_1 }}" class="small-button white-text"><strong>BOOK THIS
-                        COACH</strong></button>
+                <div class="mb-4">
+                    <button data-coach="{{ coach_1 }}" data-coach-name="{{ coach_2.name }}"
+                        class="small-button white-text book-coach-button"><strong>BOOK THIS COACH</strong></button>
                 </div>
             </div>
         </div>
         <div class="col-12 col-lg-6 d-none" id="coach-2-available">
             <h4 class="white-text">Coach Available - £75 extra</h4>
+            <p class="white-text">If you don't want to add this coach, click the finalise booking button</p>
             <div class="d-flex flex-column h-100">
                 <div class="pb-2">
                     <img src="{% static 'images/coaches/' %}{{ coach_2.slug }}.webp" alt="{{ coach_2.name }}"
@@ -145,15 +149,20 @@
                 </div>
                 <h3 class="white-text">{{ coach_2.name }} ({{ coach_2.nickname }})</h3>
                 <p class="white-text">{{ coach_2.specialty }}</p>
-                <div class="mt-auto mb-4">
-                    <button data-coach="{{ coach_2 }}" class="small-button white-text"><strong>BOOK THIS
-                            COACH</strong></button>
+                <div class="mb-4">
+                    <button data-coach="{{ coach_2 }}" data-coach-name="{{ coach_2.name }}"
+                        class="small-button white-text book-coach-button"><strong>BOOK THIS COACH</strong></button>
                 </div>
             </div>
         </div>
         <div class="col-12 py-4">
             <div>
-                <button id="finalise-booking" class="small-button white-text"><strong>FINALISE BOOKING</strong></button>
+                <h4 id="coach-chosen-field" class=" white-text d-none mt-4"></h4>
+                <button id="change-coach-button" class="small-button white-text d-none"><strong>CHANGE
+                        COACH</strong></button>
+                <br>
+                <button id="finalise-booking-button" class="small-button white-text d-none"><strong>FINALISE
+                        BOOKING</strong></button>
             </div>
         </div>
     </div>
