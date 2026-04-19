@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+{% load static %}
+{% load basket_tools %}
+
+{% block extra_js %}
+<script src="{% static 'js/product.js' %}"></script>
+{% endblock %}
+
+{% block extra_title %}Basket Checkout{% endblock %}
+
+{% block content %}
+<div class="container pt-4">
+    <div class="row text-center">
+        <div class="col-12">
+            <h1>BASKET CHECKOUT</h1>
+        </div>
+    </div>
+</div>
+<div class="text-center w-100 delivery-notice py-2 mb-4">
+    <h2 class="white-text mb-0">
+        {% if basket_items %}
+        {% if delivery > 0 %}
+        You only need to spend another £{{ free_delivery }} to take advantage of this!
+        {% else %}
+        Your basket is over £{{free_delivery_threshold}} so delivery is on us. You don't have to pay a thing!
+        {% endif %}
+        {% else %}
+        You can get free delivery on all orders over £{{free_delivery_threshold}}!
+        {% endif %}
+    </h2>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-lg-6 order-lg-last">
+            <h3>ORDER SUMMARY</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col" class="table-header"></th>
+                        <th scope="col" class="table-header">INFO</th>
+                        <th scope="col" class="table-header">SUB-TOTAL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for prod in basket_items %}
+                    <tr>
+                        <td>
+                            <div class="basket-image-container">
+                                {% if prod.product.image_name %}
+                                <img class="checkout-summary-image" alt="{{ prod.product.name }}"
+                                    src="{% static 'images/products/' %}{{ prod.product.image_name }}">
+                                {% else %}
+                                <img class="checkout-summary-image" alt="{{ prod.product.name }}"
+                                    src="{% static 'images/no-image.png' %}">
+                                {% endif %}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex flex-column">
+                                <h3>{{ prod.product.name }}</h3>
+                                {% if prod.size %}
+                                <h5>SIZE: {{ prod.size|upper }}</h5>
+                                {% endif %}
+                                <p>{{ prod.product.category.friendly_name }} | {{ prod.product.tag.friendly_name }}</p>
+                                <p class="large-p">Quantity: {{ prod.quantity }}</p>
+                            </div>
+                        </td>
+                        <td>
+                            <p class="large-p">£{{ prod.product.price | calc_subtotal:prod.quantity }}</p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <td></td>
+                        <td>
+                            <h4>BASKET TOTAL:</h4>
+                            <h4>DELIVERY COST:</h4>
+                        </td>
+                        <td>
+                            <h4>£{{ total }}</h4>
+                            <h4>{% if delivery %}
+                                £{{ delivery|floatformat:2 }}
+                                {% else %}
+                                FREE
+                                {% endif %}
+                            </h4>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <h3>GRAND TOTAL:</h3>
+                        </td>
+                        <td>
+                            <h3>£{{ grand_total|floatformat:2 }}</h3>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <div class="my-3">
+                                <a href="{% url 'basket' %}" class="white-text small-button">
+                                    <strong>MODIFY YOUR BASKET</strong>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-12 col-lg-6">
+            <h3>Complete your order by filling out the form below</h3>
+            <form action="{% url 'shop_checkout' %}" method="POST" id="shop-checkout-form">
+                {% csrf_token %}
+                <fieldset>
+                    <legend>Personal Details</legend>
+                    {{ shop_order_form.full_name | as_crispy_field }}
+                    {{ shop_order_form.email | as_crispy_field }}
+                </fieldset>
+                <fieldset>
+                    <legend>Delivery Details</legend>
+                    {{ shop_order_form.phone_number | as_crispy_field }}
+                    {{ shop_order_form.country | as_crispy_field }}
+                    {{ shop_order_form.postcode | as_crispy_field }}
+                    {{ shop_order_form.town_or_city | as_crispy_field }}
+                    {{ shop_order_form.street_address1 | as_crispy_field }}
+                    {{ shop_order_form.street_address2 | as_crispy_field }}
+                    {{ shop_order_form.county | as_crispy_field }}
+                    {% if user.is_authenticated %}
+                    <label class="form-check-label" for="save-delivery-info">Save this delivery information to my
+                        profile</label>
+                    <input class="form-check-input" type="checkbox" id="save-delivery-info" name="save-info" checked>
+                    {% else %}
+                    <div>
+                        <h5>Login or register to save your details</h5>
+                        <div>
+                            <a class="white-text small-button" href="{% url 'account_login' %}">LOGIN</a>
+                        </div>
+                        <div>
+                            <a class="white-text small-button" href="{% url 'account_signup' %}">REGISTER</a>
+                        </div>
+                    </div>
+                    {% endif %}
+                </fieldset>
+                <fieldset class="mt-4">
+                    <legend>Payment Details</legend>
+                    <div class="mb-4" id="card-element"></div>
+                    <div class="mb-4 text-danger" id="card-errors"></div>
+                </fieldset>
+                <div class="mb-4">
+                    <a href="{% url 'shop' %}" class="small-button white-text"><strong>BACK TO SHOP</strong></a>
+                </div>
+                <div>
+                    <button id="submit-shop-checkout" type="submit" class="small-button white-text mb-2"><strong>SUBMIT
+                            ORDER</strong></button>
+                    <h5>Your card wil be charged {{ grand_total|floatformat:2 }}!</h5>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+{{ stripe_public_key|json_script:"id_stripe_public_key" }}
+{{ client_secret|json_script:"id_client_secret" }}
+<script src="{% static 'js/shop_stripe_elements.js' %}"></script>
+{% endblock %}

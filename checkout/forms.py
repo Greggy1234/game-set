@@ -29,6 +29,6 @@ class ShopOrderForm(forms.ModelForm):
             if self.fields[field].required:
                 placeholder = f'{placeholders[field]} *'
             else:
-                placeholder = placeholder[field]
-            self.fields[field].widget.attrs["placeholder"]
+                placeholder = placeholders[field]
+            self.fields[field].widget.attrs["placeholder"] = placeholder
             self.fields[field].label = False
