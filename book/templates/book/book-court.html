@@ -167,10 +167,41 @@
         </div>
     </div>
 </div>
-<div class="container my-4" id="booking-summary-container">
+<div class="container my-4 d-none" id="booking-summary-container">
     <div class="row">
-        <div class="col-12">
+        <div class="col-12 col-lg-6">
             <h3 class="step-header-text white-text">BOOKING SUMMARY</h3>
+            <p class="white-text">If you would like to change any part of your booking, please select the relevant change button above</p>
+            <table id="booking-summary-table" class="table">
+                <tr>
+                    <td><strong>Location</strong></td>
+                    <td>{{ court.location.name }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Court</strong></td>
+                    <td>{{ court.name }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Date</strong></td>
+                    <td id="booking-summary-date"></td>
+                </tr>
+                <tr>
+                    <td><strong>Time</strong></td>
+                    <td id="booking-summary-time"></td>
+                </tr>
+                <tr>
+                    <td><strong>Coach</strong></td>
+                    <td id="booking-summary-coach"></td>
+                </tr>
+                <tr>
+                    <td><strong>Cost</strong></td>
+                    <td id="booking-summary-cost">£10</td>
+                </tr>
+            </table>
+            <form action="#" method="POST" id="add-to-basket">
+                {% csrf_token %}
+                <button type="submit" class="small-button white-text"><strong>COMPLETE BOOKING</strong></button>
+            </form>
         </div>
     </div>
 </div>

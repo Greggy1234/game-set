@@ -509,6 +509,17 @@ nav {
     font-weight: bold;
 }
 
+#booking-summary-table {
+    font-family: var(--text-font);
+    font-size: 1.2rem;
+    background-color: var(--main-colour);
+}
+
+#booking-summary-table td {
+    color:white;
+    background-color: var(--main-colour);
+}
+
 /* Footer */
 footer {
     background-color: white;
