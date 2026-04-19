@@ -144,3 +144,7 @@ def add_booking(request):
     url = request.META.get("HTTP_REFERER")
 
     return redirect(url)
+
+
+def view_bookings(request):
+    return render(request, 'book/view-bookings.html')

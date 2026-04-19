@@ -150,11 +150,14 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     {% if user.is_authenticated %}
-                                    <li><a class="dropdown-item" href="{% url 'user_profile' username=request.user.username %}">Profile</a></li>
+                                    <li><a class="dropdown-item"
+                                            href="{% url 'user_profile' username=request.user.username %}">Profile</a>
+                                    </li>
                                     <li><a class="dropdown-item" href="{% url 'account_logout' %}">Logout</a></li>
                                     {% else %}
                                     <li><a class="dropdown-item" href="{% url 'account_login' %}">Sign in</a></li>
-                                    <li><a class="dropdown-item" href="{% url 'account_signup' %}">Create an account</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'account_signup' %}">Create an account</a>
+                                    </li>
                                     {% endif %}
                                 </ul>
                             </li>
@@ -163,16 +166,18 @@
                 </div>
                 {% if 'book' in request.path %}
                 <div class="col-3 nav-link d-flex flex-column justify-content-center">
-                    <div class="d-flex flex-column align-items-center">
-                        <i class="fa-solid fa-calendar"></i>
-                        <p class="large-p">
-                            {% if total_booking_amount %}
-                            <strong>£{{ total_booking_amount|floatformat:2 }}</strong>
-                            {% else %}
-                            £0.00
-                            {% endif %}
-                        </p>
-                    </div>
+                    <a href="{% url 'view_bookings' %}" class="text-decoration-none">
+                        <div class="d-flex flex-column align-items-center">
+                            <i class="fa-solid fa-calendar"></i>
+                            <p class="large-p">
+                                {% if total_booking_amount %}
+                                <strong>£{{ total_booking_amount|floatformat:2 }}</strong>
+                                {% else %}
+                                £0.00
+                                {% endif %}
+                            </p>
+                        </div>
+                    </a>
                 </div>
                 {% endif %}
                 {% if 'shop' in request.path %}
@@ -191,8 +196,8 @@
 
                         </div>
                     </a>
-                    {% endif %}
                 </div>
+                {% endif %}
             </div>
         </div>
     </nav>
