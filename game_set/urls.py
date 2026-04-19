@@ -21,6 +21,7 @@ urlpatterns = [
     path('accounts/', include("allauth.urls")),
     path('admin/', admin.site.urls),
     path('book/', include('book.urls'), name="book-urls"),
+    path('checkout/', include('checkout.urls'), name="checkout-urls"),
     path('match/', include('tournament.urls'), name="match-urls"),
     path('news/', include('news.urls'), name="news-urls"),
     path('profile/', include('user_profile.urls'), name="profile-urls"),
