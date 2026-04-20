@@ -15,30 +15,17 @@ def user_profile(request, username):
     
     if request.method == 'POST':
         details_form = ProfileInfo(request.POST, instance=profile)
-        stats_form_shot = ProfileStatsShot(request.POST, instance=profile)
-        if details_form.is_valid() and details_form.has_changed():
+        if details_form.is_valid():
             details_form.save()
             messages.success(request, 'Profile details have been updated successfully')
         else:
             messages.error(request, 'Your profile details update has failed. Please try again')
-            
-        if stats_form_shot.is_valid() and stats_form_shot.has_changed():
-            stats_form_shot.save()
-            messages.success(request, 'Favourite shot has been updated successfully')
-        else:
-            messages.error(request, 'Favourite shot update has failed. Please try again')
         
     else:
         details_form = ProfileInfo(instance=profile)
-        stats_form_year = ProfileStatsYear(instance=profile)
-        stats_form_surf = ProfileStatsSurface(instance=profile)
-        stats_form_shot = ProfileStatsShot(instance=profile)
     
     context = {
         'details_form': details_form,
-        'stats_form_year': stats_form_year,
-        'stats_form_surf': stats_form_surf,
-        'stats_form_shot': stats_form_shot,
         'username': username,
         'profile': profile,
     }
