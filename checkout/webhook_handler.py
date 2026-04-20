@@ -28,11 +28,12 @@ class StripeWH_Handler:
 
         billing_details = charge.billing_details
         shipping_details = intent.shipping
+        shipping_details_dict = shipping_details.address.to_dict()
         grand_total = round(charge.amount / 100, 2)
         
-        for field, value in shipping_details.address.items():
+        for field, value in shipping_details_dict.items():
             if value == "":
-                shipping_details.address[field] = None
+                shipping_details_dict[field] = None
         
         profile = None
         username = intent.metadata.username
@@ -78,7 +79,7 @@ class StripeWH_Handler:
         else:
             shop_order = None
             try:
-                shop_order = ShopOrder.objects.get(
+                shop_order = ShopOrder.objects.create(
                     full_name=shipping_details.name,
                     email=billing_details.email,
                     phone_number=shipping_details.phone,
@@ -100,7 +101,7 @@ class StripeWH_Handler:
                                 order=shop_order,
                                 quantity=quan,
                                 product=product,
-                                product_size=size
+                                product_size=size,
                             )
                     else:
                         product = get_object_or_404(Product, sku=sku)
@@ -112,7 +113,7 @@ class StripeWH_Handler:
                         shop_order_lineitem.save()
             except Exception as e:
                 if shop_order:
-                    shop_order.delete()
+                    shop_order.delete()                
                 return HttpResponse(
                     content=f'Webhook received: {event["type"]} | ERROR: {e}',
                     status=500)

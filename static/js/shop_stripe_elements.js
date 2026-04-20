@@ -54,6 +54,7 @@ form.addEventListener('submit', function (sub) {
         'client_secret': clientSecret,
         'save_info': saveInfo,
     };
+    console.log(postData)
     var url = '/checkout/cache-shop-checkout-data/';
 
 
