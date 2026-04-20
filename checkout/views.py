@@ -47,7 +47,11 @@ def shop_checkout(request):
         }
         shop_order_form = ShopOrderForm(form_data)
         if shop_order_form.is_valid():
-            shop_order = shop_order_form.save()
+            shop_order = shop_order_form.save(commit=False)
+            pid = request.POST.get('client_secret').split('_secret')[0]
+            shop_order.stripe_pid = pid
+            shop_order.original_basket = json.dumps(basket)
+            shop_order.save()
             for sku, info in basket.items():
                 try:
                     if not isinstance(info, int):

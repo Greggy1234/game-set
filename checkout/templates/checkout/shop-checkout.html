@@ -145,6 +145,7 @@
                     <legend>Payment Details</legend>
                     <div class="mb-4" id="card-element"></div>
                     <div class="mb-4" id="card-errors"></div>
+                    <input type="hidden" value="{{ client_secret }}" name="client_secret">
                 </fieldset>
                 <div class="mb-4">
                     <a href="{% url 'shop' %}" class="small-button white-text"><strong>BACK TO SHOP</strong></a>
