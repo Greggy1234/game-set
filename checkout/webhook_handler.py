@@ -23,17 +23,17 @@ class StripeWH_Handler:
         pid = intent.id
         basket = intent.metadata.basket
         save_info = intent.metadata.save_info
+        print("hello")
         
         charge = stripe.Charge.retrieve(intent.latest_charge)
 
         billing_details = charge.billing_details
         shipping_details = intent.shipping
-        shipping_details_dict = shipping_details.address.to_dict()
         grand_total = round(charge.amount / 100, 2)
         
-        for field, value in shipping_details_dict.items():
+        for field, value in shipping_details.address.to_dict().items():
             if value == "":
-                shipping_details_dict[field] = None
+                shipping_details.address[field] = None
         
         profile = None
         username = intent.metadata.username
