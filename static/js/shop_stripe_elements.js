@@ -17,7 +17,7 @@ var style = {
         iconColor: '#ff0000'
     }
 };
-var card = elements.create('card', {style: style});
+var card = elements.create('card', { style: style });
 card.mount('#card-element');
 
 /** 
@@ -30,10 +30,41 @@ card.addEventListener('change', function (event) {
             <span class="card-error-icon">
                 <i class="fa-solid fa-circle-exclamation"></i> ERROR:
             </span>
-            <span>${event.error.message}</span>
-        `;
+            <span>${event.error.message}</span>`;
         $(errorDiv).html(html);
     } else {
-        errorDiv.textContent = '';        
+        errorDiv.textContent = '';
     }
+});
+
+/** 
+ * This function handles the payment form submission
+*/
+
+var form = document.getElementById("shop-checkout-form")
+form.addEventListener('submit', function (sub) {
+    sub.preventDefault();
+    card.update({ 'disabled': true });
+    $('#submit-shop-checkout').attr('disabled', true);
+    stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+            card: card,
+        }
+    }).then(function (result) {
+        if (result.error) {
+            var errorDiv = document.getElementById('card-errors');
+            var html = `
+            <span class="card-error-icon">
+                <i class="fa-solid fa-circle-exclamation"></i> ERROR:
+            </span>
+            <span>${result.error.message}</span>`;
+            $(errorDiv).html(html);
+            card.update({ 'disabled': false });
+            $('#submit-shop-checkout').attr('disabled', false);
+        } else {
+            if (result.paymentIntent.status === 'succeeded') {
+                form.submit();
+            }
+        }
+    });
 });

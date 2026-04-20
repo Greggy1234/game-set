@@ -27,8 +27,7 @@ def shop_checkout(request):
     shop_order_form = ShopOrderForm()
     
     if not stripe_public_key:
-        messages.warning(request, 'No public key was set for Stripe. Please set this first!')
-    
+        messages.warning(request, 'No public key was set for Stripe. Please set this first!')    
     
     context = {
         "shop_order_form": shop_order_form,
