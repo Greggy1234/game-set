@@ -47,7 +47,7 @@ form.addEventListener('submit', function (sub) {
     $('#submit-shop-checkout').attr('disabled', true);
     $('#loading-overlay').fadeToggle(100);
 
-    var saveInfo = Boolean($('#id-save-info').attr('checked'));
+    var saveInfo = Boolean($('#save-delivery-info').attr('checked'));
     var csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
     var postData = {
         'csrfmiddlewaretoken': csrfToken,
