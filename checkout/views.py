@@ -12,7 +12,7 @@ def shop_checkout(request):
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
     
-    if request.session == "POST":
+    if request.method == "POST":
         basket = request.session.get("basket")
         
         form_data = {
@@ -26,6 +26,7 @@ def shop_checkout(request):
             'street_address2': request.POST['street_address2'],
             'county': request.POST['county'],
         }
+        print(form_data)
         shop_order_form = ShopOrderForm(form_data)
         if shop_order_form.is_valid():
             shop_order = shop_order_form.save()

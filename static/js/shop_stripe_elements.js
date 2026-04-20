@@ -40,7 +40,6 @@ card.addEventListener('change', function (event) {
 /** 
  * This function handles the payment form submission
 */
-
 var form = document.getElementById("shop-checkout-form")
 form.addEventListener('submit', function (sub) {
     sub.preventDefault();

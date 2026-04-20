@@ -8,7 +8,7 @@ def update_on_save(sender, instance, created, **kwargs):
     """
     Update order total on lineitem change or creation
     """
-    instance.order.update_total()
+    instance.order.update_shop_total()
 
 
 @receiver(post_delete, sender=ShopOrderLineItem)
@@ -16,4 +16,4 @@ def update_on_delete(sender, instance, **kwargs):
     """
     Update order total on lineitem deletion
     """
-    instance.order.update_total()
+    instance.order.update_shop_total()

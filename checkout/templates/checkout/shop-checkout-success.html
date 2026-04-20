@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% load static %}
+{% load basket_tools %}
+
+{% block extra_title %}Order Confirmation{% endblock %}
+
+{% block content %}
+<div class="container pt-4">
+    <div class="row text-center">
+        <div class="col-12">
+            <h1>YOUR BASKET</h1>
+            <h2>An email confirmation has been sent to {{ shop_order.email }}</h2>
+            <hr class="my-4">
+        </div>
+    </div>
+</div>
+<div class="container pt-4">
+    <div class="row">
+        <div class="col-12 text-center">
+            <h3>YOUR ORDER</h3>
+        </div>
+        <div class="col-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col" class="table-header"></th>
+                        <th scope="col" class="table-header">ITEM</th>
+                        <th scope="col" class="table-header">PRICE</th>
+                        <th scope="col" class="table-header">QUANTITY</th>
+                        <th scope="col" class="table-header">SUB-TOTAL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in shop_order.lineitems.all %}
+                    <tr>
+                        <td>
+                            <div class="basket-image-container">
+                                {% if item.product.image_name %}
+                                <img class="basket-image" alt="{{ item.product.name }}"
+                                    src="{% static 'images/products/' %}{{ item.product.image_name }}">
+                                {% else %}
+                                <img class="basket-image" alt="{{ item.product.name }}"
+                                    src="{% static 'images/no-image.png' %}">
+                                {% endif %}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex flex-column">
+                                <h3>{{ item.product.name }}</h3>
+                                {% if item.product_size %}
+                                <h5>SIZE: {{ item.product_size|upper }}</h5>
+                                {% endif %}
+                                <p>{{ item.product.category.friendly_name }} | {{ item.product.tag.friendly_name }}</p>
+                                <p class="small-p">{{ item.product.sku }}</p>
+                            </div>
+                        </td>
+                        <td>
+                            <p class="large-p">£{{ item.product.price }}</p>
+                        </td>
+                        <td>
+                            <p class="large-p">£{{ item.quantity }}</p>
+                        </td>
+                        <td>
+                            <p class="large-p">£{{ item.product.price | calc_subtotal:item.quantity }}</p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <td colspan="3"></td>
+                        <td>
+                            <h4>BASKET TOTAL:</h4>
+                            <h4>DELIVERY COST:
+                            </h4>
+                        </td>
+                        <td>
+                            <h4>£{{ shop_order.order_total }}</h4>
+                            <h4>{% if shop_order.delivery_cost > 0 %}
+                                £{{ shop_order.delivery_cost|floatformat:2 }}
+                                {% else %}
+                                FREE DELIVERY
+                                {% endif %}
+                            </h4>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"></td>
+                        <td>
+                            <h3>GRAND TOTAL:</h3>
+                        </td>
+                        <td>
+                            <h3>£{{ shop_order.grand_total|floatformat:2 }}</h3>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-12">
+            <div>
+                <a href="{% url 'shop' %}" class="white-text small-button">BACK TO SHOP HUB</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -41,10 +41,10 @@ function buttonShowHide() {
     let viewportHeight = window.innerHeight;
 
     if (footerTop < viewportHeight) {
-    let footerVisibleHeight = viewportHeight - footerTop;
-    topButton.style.bottom = (baseBottom + footerVisibleHeight) + "px";
+        let footerVisibleHeight = viewportHeight - footerTop;
+        topButton.style.bottom = (baseBottom + footerVisibleHeight) + "px";
     } else {
-    topButton.style.bottom = baseBottom + "px";
+        topButton.style.bottom = baseBottom + "px";
     }
 }
 
@@ -132,20 +132,22 @@ function updateUrlWTag() {
 /**
  * This function updates the tag select box to tick any tags that have been selected
  */
-function updateTagSelec(){
+function updateTagSelec() {
     let currentParams = new URLSearchParams(window.location.search);
     let selecTags = [];
-    for (const [key, value] of currentParams){
-        if (key == "tag"){
+    for (const [key, value] of currentParams) {
+        if (key == "tag") {
             selecTags.push(value);
         }
     }
-    let splitStringSelecTags = selecTags[0].split(",");
-    let checkboxes = document.querySelectorAll('input[type=checkbox');
-    for (let check of checkboxes) {
-        checkValue = check.getAttribute("value");
-        if (splitStringSelecTags.includes(checkValue)) {
-            check.checked = true;
+    if (selecTags.length > 0) {
+        let splitStringSelecTags = selecTags[0].split(",");
+        let checkboxes = document.querySelectorAll('input[type=checkbox');
+        for (let check of checkboxes) {
+            let checkValue = check.getAttribute("value");
+            if (splitStringSelecTags.includes(checkValue)) {
+                check.checked = true;
+            }
         }
     }
 }
