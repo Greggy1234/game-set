@@ -9,7 +9,7 @@ var style = {
         fontSmoothing: 'antialiased',
         fontSize: '1rem',
         '::placeholder': {
-            color: '#aab7c4'
+            color: '#3C638E'
         }
     },
     invalid: {
@@ -19,3 +19,21 @@ var style = {
 };
 var card = elements.create('card', {style: style});
 card.mount('#card-element');
+
+/** 
+ * This function ensures that all errors are reported back to the user if there are any
+*/
+card.addEventListener('change', function (event) {
+    var errorDiv = document.getElementById('card-errors');
+    if (event.error) {
+        var html = `
+            <span class="card-error-icon">
+                <i class="fa-solid fa-circle-exclamation"></i> ERROR:
+            </span>
+            <span>${event.error.message}</span>
+        `;
+        $(errorDiv).html(html);
+    } else {
+        errorDiv.textContent = '';        
+    }
+});

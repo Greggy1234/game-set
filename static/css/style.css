@@ -583,6 +583,11 @@ legend {
     right: .5rem;
 }
 
+.card-error-icon,
+#card-errors {
+    color: red;
+}
+
 /* Footer */
 footer {
     background-color: white;
