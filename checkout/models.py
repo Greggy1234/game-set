@@ -40,6 +40,10 @@ class ShopOrder(models.Model):
             self.delivery_cost = 0
         self.grand_total = self.order_total + self.delivery_cost
         self.save()
+        
+    def numb_of_items(self):
+        numb_of_items = self.lineitems.aggregate(Sum('quantity'))['quantity__sum'] or 0
+        return numb_of_items
     
     def save(self, *args, **kwargs):
         """
