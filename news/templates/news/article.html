@@ -35,21 +35,25 @@
         <div class="col-12">
             <h4>YOUR COMMENT</h4>
             <p>{{ user_comment.comment }}</p>
-            <button id="edit-comment-button" class="small-button white-text w-50 mb-4">
-                <strong>EDIT COMMENT</strong></button>
+            <div>
+                <button id="edit-comment-button" class="small-button white-text mb-4">
+                    <strong>EDIT COMMENT</strong></button>
+            </div>
         </div>
         {% else %}
         <div class="col-12 justify-content-center">
             <h4>ADD YOUR COMMENT</h4>
         </div>
         <div>
-            <form id="user_comment_article" method="POST" action="#">
+            <form id="user_comment_article" method="POST" action="{% url 'add_comment' slug=article.slug %}">
                 {% csrf_token %}
                 <div class="col-12 col-md-6 order-md-1">
                     {{ comment_form.comment | as_crispy_field }}
                 </div>
-                <button type="submit" class="small-button white-text w-50 mb-4 text-center"><strong>ADD
-                        COMMENT</strong></button>
+                <div>
+                    <button type="submit" class="small-button white-text mb-4 text-center"><strong>ADD
+                            COMMENT</strong></button>
+                </div>
             </form>
         </div>
         {% endif %}
@@ -71,16 +75,17 @@
         {% if comment %}
         {% for com in comment %}
         <div class="col-12">
-            <h5>{{ com.user }}</h5>
-            <p>{{ com.review }}</p>
+            <h5>{{ com.author }}</h5>
+            <p>{{ com.comment }}</p>
             {% if not forloop.last %}
-            <hr>{% endif %}
+            <hr>
+            {% endif %}
         </div>
         {% endfor %}
         {% else %}
         <div class="col-12 text-center">
             <h5 class="mt-4">NO COMMENTS YET - BE THE FIRST TO GIVE ONE!</h5>
-        </div>  
+        </div>
         {% endif %}
     </div>
 </div>

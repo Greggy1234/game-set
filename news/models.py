@@ -49,7 +49,7 @@ class Comment(models.Model):
         User, on_delete=models.CASCADE, related_name="commenter")
     comment = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
-    approved = models.BooleanField(default=False)
+    approved = models.BooleanField(default=True)
 
     class Meta:
         ordering = ["-created_on"]

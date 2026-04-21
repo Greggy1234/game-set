@@ -78,7 +78,8 @@
                     class="big-button-border mb-2 home-page-button d-flex flex-column justify-content-center big-button-border-image tennis-interview-image">
                     <i class="fa-solid fa-newspaper pt-3 white-text"></i>
                     <h3 class="white-text">NEWS</h3>
-                    <p class="white-text large-p px-2">Keep up to date with everything happening in the tennis world!</p>
+                    <p class="white-text large-p px-2">Keep up to date with everything happening in the tennis world!
+                    </p>
                 </div>
             </a>
         </div>
@@ -97,7 +98,7 @@
             </ul>
         </div>
     </div>
-    <form id="feedback-form" method="POST" class="pb-4">
+    <form id="feedback-form" method="POST" class="pb-4" action="#">
         {% csrf_token %}
         <div class="row justify-content-center">
             {% csrf_token %}
@@ -114,8 +115,10 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-12 col-lg-2 offset-lg-3">
-                <button type="submit" class="small-button white-text"><strong>SUBMIT</strong></button>
+            <div class="col-12">
+                <div>
+                    <button type="submit" class="small-button white-text"><strong>SUBMIT</strong></button>
+                </div>
             </div>
         </div>
     </form>

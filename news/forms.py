@@ -9,3 +9,12 @@ class CommentForm(forms.ModelForm):
         widgets = {
             "comment": forms.Textarea(attrs={"rows":4})
         }
+    
+    def __init__(self, *args, **kwargs):
+        """
+        Add placeholders to comment form and remove label
+        """        
+        super().__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].label = False
+            self.fields[field].widget.attrs["placeholder"] = "Write your comment here"

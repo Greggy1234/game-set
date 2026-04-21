@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, reverse
 from django.views import generic
 from django.contrib import messages
 from .models import Article, Comment
@@ -19,7 +19,7 @@ def article_detail(request, slug):
     if request.user.is_authenticated:
         user_comment = comment.filter(author=request.user).first()
     comment_count = comment.count()
-    
+        
     comment_form = CommentForm()
     
     context = {
@@ -31,3 +31,20 @@ def article_detail(request, slug):
     }
     
     return render(request, 'news/article.html', context)
+
+
+def add_comment(request, slug):
+    article = get_object_or_404(Article, slug=slug)    
+    if request.method == "POST":
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.author = request.user
+            new_comment.post = article
+            new_comment.save()
+            messages.add_message(
+                request, messages.SUCCESS,
+                f'Thank you for your comment on {article.title}'
+            )
+    
+    return HttpResponseRedirect(reverse('article', args=[slug]))
