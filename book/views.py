@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, HttpResponseRedirect, reverse
 from django.contrib import messages
 from .models import Location, Coach, Court
 from collections import defaultdict
@@ -147,4 +147,28 @@ def add_booking(request):
 
 
 def view_bookings(request):
+    bookings = request.session.get("bookings", {})
+    print(bookings)
     return render(request, 'book/view-bookings.html')
+
+
+def delete_booking(request, court_id):    
+    court = get_object_or_404(Court, id=court_id)
+    court_id = str(court_id)
+    time = request.POST.get("time")
+    date = request.POST.get("date")
+    bookings = request.session.get("bookings", {})
+    
+    del bookings[court_id][date][time]
+    if not bookings[court_id][date]:
+        del bookings[court_id][date]
+    if not bookings[court_id]:
+        bookings.pop(court_id)
+    messages.success(
+        request,
+        f"Successfully removed your booking for {court.name}",
+    )
+    
+    request.session["bookings"] = bookings
+    
+    return HttpResponseRedirect(reverse('view_bookings'))

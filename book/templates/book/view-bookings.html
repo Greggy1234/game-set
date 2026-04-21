@@ -39,10 +39,15 @@
                                 <h3>{{ b.booking_court.location.name }}</h3>
                             </div>
                             <div class="delete-basket-item-button-container my-2">
-                                <form action="#" method="POST">
+                                <form action="{% url 'delete_booking' court_id=b.booking_court.id %}" method="POST">
                                     {% csrf_token %}
-                                    <button type="submit" class="white-text small-button-delete-basket text-center ">
-                                        <strong>REMOVE BOOKING</strong></button>
+                                    <div>
+                                        <button type="submit"
+                                            class="white-text small-button-delete-booking text-center ">
+                                            <strong>REMOVE BOOKING</strong></button>
+                                    </div>
+                                    <input type="hidden" name="date" value="{{ b.booking_date }}">
+                                    <input type="hidden" name="time" value="{{ b.booking_time }}">
                                 </form>
                             </div>
                         </td>
