@@ -29,6 +29,7 @@ p,
 form label,
 input,
 select,
+textarea,
 label {
     font-family: var(--text-font);
     color: var(--main-colour) !important;
@@ -284,9 +285,13 @@ nav {
     list-style-position: inside;
     color: var(--main-colour);
     font-family: var(--text-font);
+    display: inline-block;
+    text-align: left;
 }
 
-
+#feedback-form-container {
+    background-color: #F2F3F4;
+}
 
 /* Tournament App */
 .logo-tour-container {

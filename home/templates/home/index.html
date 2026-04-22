@@ -86,7 +86,7 @@
     </div>
 </div>
 <hr class="mb-0">
-<div class="container-fluid white-background w-100 pt-4 pb-2">
+<div class="container-fluid w-100 pt-4 pb-2" id="feedback-form-container">
     <div class="row text-center">
         <div class="col-12">
             <h4>Your feedback</h4>
@@ -98,7 +98,7 @@
             </ul>
         </div>
     </div>
-    <form id="feedback-form" method="POST" class="pb-4" action="#">
+    <form action="{% url 'add_feedback' %}" id="feedback-form" method="POST" class="pb-4" action="#">
         {% csrf_token %}
         <div class="row justify-content-center">
             {% csrf_token %}
@@ -112,10 +112,6 @@
         <div class="row justify-content-center">
             <div class="col-12 col-lg-6">
                 {{ feedback_form.message | as_crispy_field }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
                 <div>
                     <button type="submit" class="small-button white-text"><strong>SUBMIT</strong></button>
                 </div>
