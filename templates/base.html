@@ -54,7 +54,7 @@
     <!-- Font Awesome kit -->
     <script src="https://kit.fontawesome.com/52abff6c94.js" crossorigin="anonymous"></script>
     <!-- Stripe -->
-     <script src="https://js.stripe.com/dahlia/stripe.js"></script>
+    <script src="https://js.stripe.com/dahlia/stripe.js"></script>
     {% endblock %}
 
     {% block extra_js %}
@@ -65,22 +65,25 @@
 
 <body class="d-flex flex-column min-vh-100">
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg">
+    <nav class="navbar navbar-expand-lg py-2">
         <div class="container-fluid">
             <div class="row w-100">
-                <div class="col-3 text-center my-auto">
-                    <div class="d-flex justify-content-center">
-                        <a class="navbar-brand my-auto" href="{% url 'home' %}">
-                            <h3 class="nav-logo"><strong>GAME</strong> <i>SET</i></h3>
+                <div class="col-3 col-lg-3 text-center my-auto">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <a class="m-0 p-0 navbar-brand my-auto" href="{% url 'home' %}">
+                            <h3 class="nav-logo mb-0"><strong>GAME</strong> <i>SET</i></h3>
                         </a>
                     </div>
                 </div>
-                <div class="col-6 text-center">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
-                        aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+                <div class="col-6 col-lg-6 text-center">
+
+                    <div class="d-flex align-items-center justify-content-center">
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                            aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                    </div>
                     <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
                         <ul class="navbar-nav">
                             <li class="nav-item dropdown">
@@ -150,7 +153,7 @@
                                         <p class="my-0">ACCOUNT</p>
                                     </div>
                                 </a>
-                                <ul class="dropdown-menu">
+                                <ul class="dropdown-menu" id="account-dropdown-menu-nav">
                                     {% if user.is_authenticated %}
                                     <li><a class="dropdown-item"
                                             href="{% url 'user_profile' username=request.user.username %}">Profile</a>
@@ -158,7 +161,8 @@
                                     <li><a class="dropdown-item" href="{% url 'account_logout' %}">Logout</a></li>
                                     {% else %}
                                     <li><a class="dropdown-item" href="{% url 'account_login' %}">Sign in</a></li>
-                                    <li><a class="dropdown-item" href="{% url 'account_signup' %}">Create an account</a>
+                                    <li><a class="dropdown-item" href="{% url 'account_signup' %}">Create an
+                                            account</a>
                                     </li>
                                     {% endif %}
                                 </ul>

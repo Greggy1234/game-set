@@ -32,7 +32,9 @@ input::placeholder,
 select,
 textarea,
 textarea::placeholder,
-label {
+label,
+.dropdown-menu li,
+.dropdown-menu li a {
     font-family: var(--text-font);
     color: var(--main-colour) !important;
 }
@@ -262,6 +264,17 @@ nav {
     color: var(--main-colour);
 }
 
+a.nav-link.dropdown-toggle::after {
+    padding: 0px;
+    margin: 0px;
+}
+
+.dropdown-menu {
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15)!important;
+    border-radius: 0px!important;
+}
+
+
 /* Allauth templates */
 .allauth-link {
     background: none;
@@ -434,7 +447,7 @@ nav {
     text-decoration: none;
     border-radius: 1px;
     font-size: 0.5rem;
-    color: var(--main-colour)!important;
+    color: var(--main-colour) !important;
 }
 
 .article {
@@ -456,7 +469,7 @@ nav {
 }
 
 .time-slot-grid {
-    display:grid;
+    display: grid;
     grid-template-columns: auto auto auto auto;
 }
 
@@ -560,25 +573,25 @@ legend {
 
 .StripeElement,
 .stripe-style-input {
-  box-sizing: border-box;
-  height: 40px;
-  padding: 10px 12px;
-  border: 1px solid transparent;
-  border-radius: 0px;
-  background-color: white;
-  box-shadow: 0 1px 3px 0 #e6ebf1;
-  -webkit-transition: box-shadow 150ms ease;
-  transition: box-shadow 150ms ease;
+    box-sizing: border-box;
+    height: 40px;
+    padding: 10px 12px;
+    border: 1px solid transparent;
+    border-radius: 0px;
+    background-color: white;
+    box-shadow: 0 1px 3px 0 #e6ebf1;
+    -webkit-transition: box-shadow 150ms ease;
+    transition: box-shadow 150ms ease;
 }
 
 .StripeElement--focus,
 .stripe-style-input:focus,
 .stripe-style-input:active {
-  box-shadow: 0 1px 3px 0 #cfd7df;
+    box-shadow: 0 1px 3px 0 #cfd7df;
 }
 
 .StripeElement--webkit-autofill {
-  background-color: #fefde5 !important;
+    background-color: #fefde5 !important;
 }
 
 .stripe-style-input::placeholder {
@@ -596,8 +609,8 @@ legend {
 }
 
 #loading-overlay {
-	display: none;
-	position: fixed;
+    display: none;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -608,7 +621,7 @@ legend {
 }
 
 .loading-spinner {
-	display: flex;
+    display: flex;
     align-items: center;
     justify-content: center;
     margin: 0;
@@ -622,4 +635,38 @@ footer {
 
 .social-links a {
     color: var(--main-colour);
+}
+
+
+/* Media Queries */
+/* For all sizes below 992px (Bootstrap's md and below class) */
+@media (max-width: 991px) {
+
+    /*  Nav */
+
+    #navbarNavDropdown {
+        width: 100vw;
+        position: absolute;
+        background-color: white;
+        left: 0px;
+    }
+
+    .navbar-nav {
+        flex-direction: row;
+        width: 100%;
+        padding-top: 30px;
+        padding-bottom: 10px;
+        z-index: 99999;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .dropdown-menu {
+        position: absolute!important;
+    }
+
+    #account-dropdown-menu-nav {
+        left: auto!important;
+        right: 0!important;
+    }
 }
