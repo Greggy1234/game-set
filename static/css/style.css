@@ -28,8 +28,10 @@ h5,
 p,
 form label,
 input,
+input::placeholder,
 select,
 textarea,
+textarea::placeholder,
 label {
     font-family: var(--text-font);
     color: var(--main-colour) !important;

@@ -13,7 +13,7 @@ class FeedbackForm(forms.ModelForm):
         """        
         super().__init__(*args, **kwargs)
         placeholders = {
-            'name': 'Full Name',
+            'name': 'Full name',
             'email': 'Email to contact you',
             'message': 'Write you message here',
         }        
