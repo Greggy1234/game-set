@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.db.models import Q
 from django.db.models.functions import Lower
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from .models import Category, Tag, Product, Review
 from .forms import ReviewForm, ProductFormEdit, ProductFormAdd
@@ -196,13 +197,18 @@ def remove_from_basket(request, sku):
     return HttpResponseRedirect(reverse('basket'))
 
 
+@login_required
 def add_product(request, sku):
     """
-    Edit a product currently displayed in the SHOP hub
+    Add a product to the SHOP hub
     """
+    if not request.user.is_superuser:
+        messages.error(request, 'You do not have access to that page.')
+        return redirect(reverse('home'))
+    
     product = get_object_or_404(Product, sku=sku)
     if request.method == 'POST':
-        form = ProductFormAdd(request.POST, request.FILES)
+        form = ProductFormAdd(request.POST)
         if form.is_valid():
             product = form.save()
             messages.success(request, 'Product has been added to store!')
@@ -218,13 +224,18 @@ def add_product(request, sku):
     return render(request, 'product/add-product.html', context)
 
 
+@login_required
 def edit_product(request, sku):
     """
     Edit a product currently displayed in the SHOP hub
     """
+    if not request.user.is_superuser:
+        messages.error(request, 'You do not have access to that page.')
+        return redirect(reverse('home'))
+    
     product = get_object_or_404(Product, sku=sku)
     if request.method == 'POST':
-        form = ProductFormEdit(request.POST, request.FILES, instance=product)
+        form = ProductFormEdit(request.POST, instance=product)
         if form.is_valid():
             form.save()
             messages.success(request, f'Successfully updated {product.name}!')
@@ -241,3 +252,30 @@ def edit_product(request, sku):
     }
 
     return render(request, 'product/edit-product.html', context)
+
+
+@login_required
+def remove_product_from_site(request, sku):
+    """
+    Remove a product from showing ont he SHOP hub.
+    This does not remove the product from the database, only the template.
+    """
+    if not request.user.is_superuser:
+        messages.error(request, 'You do not have access to that page.')
+        return redirect(reverse('home'))
+    
+    product = get_object_or_404(Product, sku=sku)
+    if request.method == 'POST':
+        try:
+            product.show_on_site = False
+            messages.success(
+                request, 
+                f'Successfully removed {product.name} from the site!'
+                )
+        except Exception as e:
+            messages.error(
+                request, 
+                f'ERROR: {e}. Try again!'
+                )
+        
+        return redirect(reverse('shop'))
