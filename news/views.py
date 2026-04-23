@@ -46,8 +46,44 @@ def add_comment(request, slug):
                 request, messages.SUCCESS,
                 f'Thank you for your comment on {article.title}'
             )
+        else:
+            messages.add_message(
+                request, messages.ERROR,
+                "Something went wrong posting your comment. Please try again!"
+            )
     
     return HttpResponseRedirect(reverse('article', args=[slug]))
+
+
+def edit_comment(request, comment_id):
+    comment = get_object_or_404(Comment, id=comment_id)
+    article = comment.post
+    article_slug = article.slug
+    comment_form = CommentForm(data=request.POST, instance=comment)
+    
+    if request.method == "POST":
+        if comment.author == request.user:
+            if comment_form.is_valid:
+                comment = comment_form.save(commit=False)
+                comment.article = article
+                comment.author = request.user
+                comment.save()
+                messages.add_message(
+                    request, messages.SUCCESS,
+                    f'Your edits have been saved for your comment on {article.title}'
+                )
+            else:
+                messages.add_message(
+                    request, messages.ERROR,
+                    "Something went wrong editing your comment. Please try again!"
+                ) 
+        else:
+            messages.add_message(
+                request, messages.ERROR,
+                "You can only edit your own comment."
+            )        
+    
+    return HttpResponseRedirect(reverse('article', args=[article_slug]))
 
 
 def delete_comment(request, comment_id):
