@@ -113,14 +113,21 @@
                     </p>
                     <div>
                         <a href="{% url 'product_detail' sku=prod.sku %}"
-                            class="white-text small-button w-50"><strong>VIEW
+                            class="white-text small-button"><strong>VIEW
                                 PRODUCT</strong></a>
                     </div>
+                    {% if request.user.is_superuser %}
                     <div class="mt-3">
                         <a href="{% url 'edit_product' sku=prod.sku %}"
-                            class="white-text small-button-edit-product w-50">
+                            class="white-text small-button-edit-product">
                             <strong>EDIT PRODUCT</strong></a>
                     </div>
+                    <div class="mt-3">
+                        <a href="{% url 'remove-product-from-site' sku=prod.sku %}"
+                            class="white-text small-button-remove-product">
+                            <strong>REMOVE PRODUCT</strong></a>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

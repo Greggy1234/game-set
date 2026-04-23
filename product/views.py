@@ -265,17 +265,16 @@ def remove_product_from_site(request, sku):
         return redirect(reverse('home'))
     
     product = get_object_or_404(Product, sku=sku)
-    if request.method == 'POST':
-        try:
-            product.show_on_site = False
-            messages.success(
-                request, 
-                f'Successfully removed {product.name} from the site!'
-                )
-        except Exception as e:
-            messages.error(
-                request, 
-                f'ERROR: {e}. Try again!'
-                )
-        
-        return redirect(reverse('shop'))
+    try:
+        product.show_on_site = False
+        messages.success(
+            request, 
+            f'Successfully removed {product.name} from the site!'
+            )
+    except Exception as e:
+        messages.error(
+            request, 
+            f'ERROR: {e}. Try again!'
+            )
+    
+    return redirect(reverse('shop'))
