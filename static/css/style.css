@@ -214,6 +214,11 @@ hr {
     font-weight: normal !important;
 }
 
+.form-control {
+    border-radius: 0px;
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15)!important;
+}
+
 /* Toasts */
 .toast-container {
     top: 100px;
@@ -668,5 +673,14 @@ footer {
     #account-dropdown-menu-nav {
         left: auto!important;
         right: 0!important;
+    }
+}
+
+
+
+/* For all sizes below 576px (Bootstrap's x-small class) */
+@media (max-width: 575px) {
+    .nav-logo {
+        font-size: 1.5rem;
     }
 }

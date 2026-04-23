@@ -48,3 +48,22 @@ def add_comment(request, slug):
             )
     
     return HttpResponseRedirect(reverse('article', args=[slug]))
+
+
+def delete_comment(request, comment_id):
+    comment = get_object_or_404(Comment, id=comment_id)
+    article_slug = comment.post.slug
+    
+    if comment.author == request.user:
+        comment.delete()
+        messages.add_message(
+            request, messages.SUCCESS,
+            "Your comment has now been deleted"
+        )
+    else:
+        messages.add_message(
+            request, messages.ERROR,
+            "You can only delete your own review!"
+        )
+    
+    return HttpResponseRedirect(reverse('article', args=[article_slug]))
