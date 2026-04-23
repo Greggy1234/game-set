@@ -99,7 +99,7 @@ def delete_comment(request, comment_id):
     else:
         messages.add_message(
             request, messages.ERROR,
-            "You can only delete your own review!"
+            "You can only delete your own comment!"
         )
     
     return HttpResponseRedirect(reverse('article', args=[article_slug]))

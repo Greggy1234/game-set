@@ -197,6 +197,32 @@ def remove_from_basket(request, sku):
     return HttpResponseRedirect(reverse('basket'))
 
 
+def add_review(request):
+    return 
+
+
+def edit_review(request, review_id):
+    return 
+
+
+def delete_review(request, review_id):
+    review = get_object_or_404(Review, id=review_id)
+    product_sku = review.product.sku
+    
+    if review.author == request.user:
+        review.delete()
+        messages.add_message(
+            request, messages.SUCCESS,
+            "Your review has now been deleted"
+        )
+    else:
+        messages.add_message(
+            request, messages.ERROR,
+            "You can only delete your own review!"
+        )
+    
+    return HttpResponseRedirect(reverse('product_detail', args=[product_sku]))
+
 @login_required
 def add_product(request, sku):
     """
