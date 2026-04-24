@@ -197,8 +197,26 @@ def remove_from_basket(request, sku):
     return HttpResponseRedirect(reverse('basket'))
 
 
-def add_review(request):
-    return 
+def add_review(request, sku):
+    product = get_object_or_404(Product, sku=sku)
+    if request.method == "POST":
+        review_form = ReviewForm(data=request.POST)
+        if review_form.is_valid():
+            review_form = review_form.save(commit=False)
+            review_form.user = request.user
+            review_form.product = product
+            review_form.save()
+            messages.add_message(
+                request, messages.SUCCESS,
+                f'Thank you for reviewing {product.name}'
+            )
+        else:
+            messages.add_message(
+                request, messages.ERROR,
+                "Something went wrong posting your review. Please try again!"
+            )
+    
+    return HttpResponseRedirect(reverse('product_detail', args=[sku])) 
 
 
 def edit_review(request, review_id):
