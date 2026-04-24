@@ -58,10 +58,10 @@ def add_comment(request, slug):
 def edit_comment(request, comment_id):
     comment = get_object_or_404(Comment, id=comment_id)
     article = comment.post
-    article_slug = article.slug
-    comment_form = CommentForm(data=request.POST, instance=comment)
+    article_slug = article.slug    
     
     if request.method == "POST":
+        comment_form = CommentForm(data=request.POST, instance=comment)
         if comment.author == request.user:
             if comment_form.is_valid:
                 comment = comment_form.save(commit=False)

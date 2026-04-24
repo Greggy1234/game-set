@@ -220,7 +220,34 @@ def add_review(request, sku):
 
 
 def edit_review(request, review_id):
-    return 
+    review = get_object_or_404(Review, id=review_id)
+    product = review.product
+    product_sku = product.sku
+    
+    if request.method - "POST":
+        review_form = ReviewForm(data=request.POST, instance=review)
+        if review.author == request.user:
+            if review_form.is_valid:
+                review_form.save(commit=False)
+                review_form.author = request.user
+                review_form.product = product
+                review_form.save()
+                messages.add_message(
+                    request, messages.SUCCESS,
+                    f'Your edits have been saved for your review on {product.name}'
+                )
+            else:
+                messages.add_message(
+                    request, messages.ERROR,
+                    "Something went wrong editing your review. Please try again!"
+                )
+        else:
+            messages.add_message(
+                request, messages.ERROR,
+                "You can only edit your own review."
+            )    
+    
+    return HttpResponseRedirect(reverse('product_detail', args=[product_sku])) 
 
 
 def delete_review(request, review_id):
