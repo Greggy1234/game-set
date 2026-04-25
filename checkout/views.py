@@ -142,6 +142,7 @@ def booking_checkout(request):
 
         current_bookings = booking_items(request)
         grand_total_bookings = current_bookings['total_booking_amount']
+        print(grand_total_bookings)
         stripe_total = round(grand_total_bookings * 100)
         stripe.api_key = stripe_secret_key
         intent = stripe.PaymentIntent.create(

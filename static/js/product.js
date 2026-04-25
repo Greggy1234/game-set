@@ -85,7 +85,7 @@ function quantityChange(item) {
     selectQuantity.addEventListener("change", function () {
         quantitySelect = selectQuantity.value;
         if (quantitySelect != parseInt(itemQuanCurrent)) {
-            keepQuanButtonContain.classList.toggle("d-block");
+            keepQuanButtonContain.classList.remove("d-block");
             keepQuanButtonContain.classList.add("d-none");
             changeQuanButtonContain.classList.remove("d-none");
             changeQuanButtonContain.classList.add("d-block");
