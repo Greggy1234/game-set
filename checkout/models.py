@@ -138,7 +138,15 @@ class BookingOrderLineItem(models.Model):
                               related_name="coach_lineitems")
     date = models.DateField(null=False, blank=False)
     time = models.TimeField(null=False, blank=False)
-    lineitem_total = models.DecimalField(max_digits=10, decimal_places=2, null=False, default=0) 
+    lineitem_total = models.DecimalField(max_digits=10, decimal_places=2, null=False, default=0)
+    
+    def human_readable_date(self):
+        human_readable_date = self.date.strftime("%A, %B %#d, %Y")
+        return human_readable_date
+    
+    def human_readable_time(self):
+        human_readable_time = self.time.strftime("%H:%M")
+        return human_readable_time
     
     def __str__(self):
         coach_booked = "No coach booked"

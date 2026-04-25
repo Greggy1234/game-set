@@ -201,7 +201,7 @@ def booking_checkout(request):
                     return redirect(reverse('view_bookings'))
                 
             request.session['save_info'] = 'save-info' in request.POST
-            return redirect(reverse('booking_checkout_success', args=[booking_order.order_number]))
+            return redirect(reverse('booking_checkout_success', args=[booking_order.booking_number]))
         else:
             messages.error(request, 'Something went wrong! Please check your information.')
     
@@ -258,8 +258,8 @@ def booking_checkout_success(request, booking_number):
     messages.success(request, f'Success! Your order number is {booking_number}. \
         A confirmation email will be sent to {booking_order.email}.')
 
-    if 'basket' in request.session:
-        del request.session["basket"]
+    if 'bookings' in request.session:
+        del request.session["bookings"]
     
     context = {
         "booking_order": booking_order,
