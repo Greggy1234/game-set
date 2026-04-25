@@ -250,3 +250,20 @@ def shop_checkout_success(request, order_num):
     }
     
     return render(request, "checkout/shop-checkout-success.html", context)
+
+
+def booking_checkout_success(request, booking_number):
+    save_info = request.session.get('save_info')
+    booking_order = get_object_or_404(BookingOrder, booking_number=booking_number)
+    messages.success(request, f'Success! Your order number is {booking_number}. \
+        A confirmation email will be sent to {booking_order.email}.')
+
+    if 'basket' in request.session:
+        del request.session["basket"]
+    
+    context = {
+        "booking_order": booking_order,
+        "save_info": save_info,
+    }
+    
+    return render(request, "checkout/book-checkout-success.html", context)

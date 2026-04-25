@@ -14,7 +14,7 @@ class OrderAdmin(admin.ModelAdmin):
     
     list_display = ("order_number", "date", "full_name", "order_total", "delivery_cost", "grand_total", )
     
-    ordering = ("-date")
+    ordering = ("-date",)
 
 
 class BookLineItemsInline(admin.TabularInline):
@@ -25,11 +25,11 @@ class BookLineItemsInline(admin.TabularInline):
 class BookingOrderAdmin(admin.ModelAdmin):
     inlines = (BookLineItemsInline,)
     
-    readonly_fields = ("order_number", "date", "grand_total", "original_bookings", "stripe_pid",)
+    readonly_fields = ("booking_number", "date", "grand_total", "original_bookings", "stripe_pid",)
     
-    list_display = ("order_number", "date", "full_name", "grand_total", )
+    list_display = ("booking_number", "date", "full_name", "grand_total", )
     
-    ordering = ("-date")
+    ordering = ("-date",)
     
 admin.site.register(ShopOrder, OrderAdmin)
 admin.site.register(BookingOrder, BookingOrderAdmin)
