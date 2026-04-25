@@ -10,7 +10,8 @@ from user_profile.models import Profile
 
 class ShopOrder(models.Model):
     order_number = models.CharField(max_length=32, null=False, editable=False)
-    user_profile = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, blank=True, related_name="shop_orders")
+    user_profile = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, blank=True, 
+                                     related_name="shop_orders")
     full_name = models.CharField(max_length=50, null=False, blank=False)
     email = models.EmailField(max_length=254, null=False, blank=False)
     phone_number = models.CharField(max_length=20, null=False, blank=False)
@@ -62,11 +63,13 @@ class ShopOrder(models.Model):
 
 
 class ShopOrderLineItem(models.Model):
-    order = models.ForeignKey(ShopOrder, null=False, blank=False, on_delete=models.CASCADE, related_name='lineitems')
+    order = models.ForeignKey(ShopOrder, null=False, blank=False, on_delete=models.CASCADE, 
+                              related_name='lineitems')
     product = models.ForeignKey(Product, null=False, blank=False, on_delete=models.CASCADE)
     product_size = models.CharField(max_length=2, null=True, blank=True)
     quantity = models.IntegerField(null=False, blank=False, default=0)
-    lineitem_total = models.DecimalField(max_digits=6, decimal_places=2, null=False, blank=False, editable=False)
+    lineitem_total = models.DecimalField(max_digits=6, decimal_places=2, null=False, 
+                                         blank=False, editable=False)
     
     def save(self, *args, **kwargs):
         """
@@ -81,7 +84,8 @@ class ShopOrderLineItem(models.Model):
 
 class BookingOrder(models.Model):
     booking_number = models.CharField(max_length=32, null=False, editable=False)
-    user_profile = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, blank=True, related_name="booking_orders")
+    user_profile = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, blank=True, 
+                                     related_name="booking_orders")
     full_name = models.CharField(max_length=50, null=False, blank=False)
     email = models.EmailField(max_length=254, null=False, blank=False)
     phone_number = models.CharField(max_length=20, null=False, blank=False)

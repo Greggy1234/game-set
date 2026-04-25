@@ -125,6 +125,7 @@ def shop_checkout_success(request, order_num):
     
     context = {
         "shop_order": shop_order,
+        "save_info": save_info,
     }
     
     return render(request, "checkout/shop-checkout-success.html", context)
