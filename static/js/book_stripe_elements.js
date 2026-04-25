@@ -40,21 +40,21 @@ card.addEventListener('change', function (event) {
 /** 
  * This function handles the payment form submission
 */
-var form = document.getElementById("shop-checkout-form")
+var form = document.getElementById("booking-checkout-form")
 form.addEventListener('submit', function (sub) {
     sub.preventDefault();
     card.update({ 'disabled': true });
-    $('#submit-shop-checkout').attr('disabled', true);
+    $('#submit-bookings-checkout').attr('disabled', true);
     $('#loading-overlay').fadeToggle(100);
 
-    var saveInfo = Boolean($('#save-delivery-info').attr('checked'));
+    var saveInfo = Boolean($('#save-billing-info').attr('checked'));
     var csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
     var postData = {
         'csrfmiddlewaretoken': csrfToken,
         'client_secret': clientSecret,
         'save_info': saveInfo,
     };
-    var url = '/checkout/cache-shop-checkout-data/';
+    var url = '/checkout/cache-booking-checkout-data/';
 
 
     $.post(url, postData).done(function () {
@@ -69,7 +69,7 @@ form.addEventListener('submit', function (sub) {
                         line1: $.trim(form.street_address1.value),
                         line2: $.trim(form.street_address2.value),
                         city: $.trim(form.town_or_city.value),
-                        country: $.trim(form.country.value),
+                        country: "GB",
                         state: $.trim(form.county.value),
                     }
                 }
@@ -81,7 +81,7 @@ form.addEventListener('submit', function (sub) {
                     line1: $.trim(form.street_address1.value),
                     line2: $.trim(form.street_address2.value),
                     city: $.trim(form.town_or_city.value),
-                    country: $.trim(form.country.value),
+                    country: "GB",
                     postal_code: $.trim(form.postcode.value),
                     state: $.trim(form.county.value),
                 }
@@ -97,7 +97,7 @@ form.addEventListener('submit', function (sub) {
                 $(errorDiv).html(html);
                 $('#loading-overlay').fadeToggle(100);
                 card.update({ 'disabled': false });
-                $('#submit-shop-checkout').attr('disabled', false);
+                $('#submit-bookings-checkout').attr('disabled', false);
             } else {
                 if (result.paymentIntent.status === 'succeeded') {
                     form.submit();

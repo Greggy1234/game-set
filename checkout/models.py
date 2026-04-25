@@ -138,7 +138,7 @@ class BookingOrderLineItem(models.Model):
                               related_name="coach_lineitems")
     date = models.DateField(null=False, blank=False)
     time = models.TimeField(null=False, blank=False)
-    lineitem_total = models.IntegerField(null=False, blank=False, editable=False)
+    lineitem_total = models.DecimalField(max_digits=10, decimal_places=2, null=False, default=0) 
     
     def __str__(self):
         coach_booked = "No coach booked"

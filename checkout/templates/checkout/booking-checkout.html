@@ -83,7 +83,7 @@
                     {{ booking_order_form.email | as_crispy_field }}
                 </fieldset>
                 <fieldset>
-                    <legend>Address Details</legend>
+                    <legend>Billing Details</legend>
                     {{ booking_order_form.phone_number | as_crispy_field }}
                     {{ booking_order_form.country | as_crispy_field }}
                     {{ booking_order_form.postcode | as_crispy_field }}
@@ -92,9 +92,9 @@
                     {{ booking_order_form.street_address2 | as_crispy_field }}
                     {{ booking_order_form.county | as_crispy_field }}
                     {% if user.is_authenticated %}
-                    <label class="form-check-label" for="save-delivery-info">Save this delivery information to my
+                    <label class="form-check-label" for="save-billing-info">Save this delivery information to my
                         profile</label>
-                    <input class="form-check-input" type="checkbox" id="save-delivery-info" name="save-info" checked>
+                    <input class="form-check-input" type="checkbox" id="save-billing-info" name="save-info" checked>
                     {% else %}
                     <div>
                         <h5>Login or register to save your details</h5>
