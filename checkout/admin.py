@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import ShopOrder, ShopOrderLineItem
+from .models import ShopOrder, ShopOrderLineItem, BookingOrder, BookingOrderLineItem
 
 # Register your models here.
 class ShopLineItemsInline(admin.TabularInline):
@@ -14,6 +14,22 @@ class OrderAdmin(admin.ModelAdmin):
     
     list_display = ("order_number", "date", "full_name", "order_total", "delivery_cost", "grand_total", )
     
-    orderin = ("-date")
+    ordering = ("-date")
+
+
+class BookLineItemsInline(admin.TabularInline):
+    model = BookingOrderLineItem
+    readonly_fields = ("lineitem_total",)
+
+
+class BookingOrderAdmin(admin.ModelAdmin):
+    inlines = (BookLineItemsInline,)
+    
+    readonly_fields = ("order_number", "date", "grand_total", "original_bookings", "stripe_pid",)
+    
+    list_display = ("order_number", "date", "full_name", "grand_total", )
+    
+    ordering = ("-date")
     
 admin.site.register(ShopOrder, OrderAdmin)
+admin.site.register(BookingOrder, BookingOrderAdmin)
