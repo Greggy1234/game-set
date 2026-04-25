@@ -2,10 +2,11 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404, HttpR
 from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.conf import settings
-from .forms import ShopOrderForm
-from .models import ShopOrderLineItem, ShopOrder
+from .forms import ShopOrderForm, BookingOrderForm
+from .models import ShopOrderLineItem, ShopOrder, BookingOrder, BookingOrderLineItem
 from product.models import Product
 from product.contexts import basket_items
+from book.contexts import booking_items
 import stripe
 import json
 
@@ -112,6 +113,54 @@ def shop_checkout(request):
         }
 
         return render(request, "checkout/shop-checkout.html", context)
+
+
+def booking_checkout(request):
+    stripe_public_key = settings.STRIPE_PUBLIC_KEY
+    stripe_secret_key = settings.STRIPE_SECRET_KEY
+    
+    if request.method == "POST":
+        bookings = request.session.get('bookings', {})
+        
+        form_data = {
+            'full_name': request.POST['full_name'],
+            'email': request.POST['email'],
+            'phone_number': request.POST['phone_number'],
+            'country': "GB",
+            'postcode': request.POST['postcode'],
+            'town_or_city': request.POST['town_or_city'],
+            'street_address1': request.POST['street_address1'],
+            'street_address2': request.POST['street_address2'],
+            'county': request.POST['county'],
+        } 
+    
+    else:
+        bookings = request.session.get('bookings', {})
+        if not bookings:
+            messages.error(request, "You haven't made any bookings yet!")
+            return redirect(reverse("book_overview"))
+
+        current_bookings = booking_items(request)
+        grand_total_bookings = current_bookings['total_booking_amount']
+        stripe_total = round(grand_total_bookings * 100)
+        stripe.api_key = stripe_secret_key
+        intent = stripe.PaymentIntent.create(
+            amount=stripe_total,
+            currency=settings.STRIPE_CURRENCY,
+        )
+
+        booking_order_form = BookingOrderForm()
+
+        if not stripe_public_key:
+            messages.warning(request, 'No public key was set for Stripe. Please set this first!')    
+
+        context = {
+            "booking_order_form": booking_order_form,
+            "stripe_public_key": stripe_public_key,
+            "client_secret": intent.client_secret,            
+        }
+
+        return render(request, "checkout/booking-checkout.html", context)
 
 
 def shop_checkout_success(request, order_num):
