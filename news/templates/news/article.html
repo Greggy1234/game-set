@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_js %}
+<script src="{% static 'js/news.js' %}"></script>
+{% endblock %}
+
 {% block extra_title %}{{ article.title }}{% endblock %}
 
 {% block content %}
@@ -35,15 +39,15 @@
         <div class="col-12">
             <h4>YOUR COMMENT</h4>
             <div id="edit-comment-no-form-container">
-                <p data-comment="{{ user_comment.comment }}">{{ user_comment.comment }}</p>
+                <p id="user-comment" data-comment="{{ user_comment.comment }}">{{ user_comment.comment }}</p>
                 <div>
                     <button id="edit-comment-button" class="small-button white-text mb-4">
                         <strong>EDIT COMMENT</strong></button>
                 </div>
             </div>
-            <div id="edit-comment-form-container">
+            <div id="edit-comment-form-container" class="d-none">
                 <form id="user_comment_edit-form" method="POST" 
-                action="{% url 'add_comment' comment_id=user_comment.id %}">
+                action="{% url 'edit_comment' comment_id=user_comment.id %}">
                 {% csrf_token %}
                 {{ comment_form.comment | as_crispy_field }}
                 <div>
