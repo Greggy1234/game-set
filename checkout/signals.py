@@ -24,7 +24,7 @@ def update_on_save_bookings(sender, instance, created, **kwargs):
     """
     Update order total on BOOK hub lineitem creation
     """
-    instance.order.update_bookings_total()
+    instance.booking.update_bookings_total()
 
 
 @receiver(post_delete, sender=BookingOrderLineItem)
@@ -32,4 +32,4 @@ def update_on_delete_bookings(sender, instance, **kwargs):
     """
     Update order total on BOOK hub lineitem deletion
     """
-    instance.order.update_update_bookings_totalshop_total()
+    instance.booking.update_bookings_total()

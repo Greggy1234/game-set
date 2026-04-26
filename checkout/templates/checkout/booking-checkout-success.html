@@ -60,15 +60,15 @@
             </table>
         </div>
         <div class="col-12 col-lg-6">
-            <h3>BILLING DETAILS</h3>
-            <p class="large-p"><strong>Name: </strong>{{ booking_order.full_name }}</p>
-            <p class="large-p"><strong>Street Address: </strong>{{ booking_order.street_address1 }},
+            <h3 class="white-text">BILLING DETAILS</h3>
+            <p class="large-p white-text"><strong>Name: </strong>{{ booking_order.full_name }}</p>
+            <p class="large-p white-text"><strong>Street Address: </strong>{{ booking_order.street_address1 }},
                 {% if shop_order.street_address2 %}{{ booking_order.street_address2 }}{% endif %}</p>
-            <p class="large-p"><strong>Town/City: </strong>{{ booking_order.town_or_city }}</p>
-            <p class="large-p"><strong>Postcode: </strong>{{ booking_order.postcode }}</p>
-            <p class="large-p"><strong>Country: </strong>{{ booking_order.country }}</p>
-            <p class="large-p"><strong>Grand Total: </strong>£{{ booking_order.grand_total }}</p>
-            <p class="large-p"><strong>Booking Number: </strong>{{ booking_order.booking_number }}</p>
+            <p class="large-p white-text"><strong>Town/City: </strong>{{ booking_order.town_or_city }}</p>
+            <p class="large-p white-text"><strong>Postcode: </strong>{{ booking_order.postcode }}</p>
+            <p class="large-p white-text"><strong>Country: </strong>{{ booking_order.country }}</p>
+            <p class="large-p white-text"><strong>Grand Total: </strong>£{{ booking_order.grand_total }}</p>
+            <p class="large-p white-text"><strong>Booking Number: </strong>{{ booking_order.booking_number }}</p>
         </div>
     </div>
     <div class="row">

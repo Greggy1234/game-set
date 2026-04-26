@@ -147,8 +147,6 @@ def add_booking(request):
 
 
 def view_bookings(request):
-    bookings = request.session.get("bookings", {})
-    print(bookings)
     return render(request, 'book/view-bookings.html')
 
 

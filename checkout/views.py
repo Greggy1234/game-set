@@ -193,7 +193,7 @@ def booking_checkout(request):
                                     lineitem_total=booking_cost,                                
                                 )
                                 booking_order_line_item.save()
-                except Court.DoesNotExists():
+                except Court.DoesNotExist:
                     messages.error(request, (
                         "A court was not found in our database!")
                     )
@@ -213,7 +213,6 @@ def booking_checkout(request):
 
         current_bookings = booking_items(request)
         grand_total_bookings = current_bookings['total_booking_amount']
-        print(grand_total_bookings)
         stripe_total = round(grand_total_bookings * 100)
         stripe.api_key = stripe_secret_key
         intent = stripe.PaymentIntent.create(
@@ -266,4 +265,4 @@ def booking_checkout_success(request, booking_number):
         "save_info": save_info,
     }
     
-    return render(request, "checkout/book-checkout-success.html", context)
+    return render(request, "checkout/booking-checkout-success.html", context)

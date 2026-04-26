@@ -121,12 +121,12 @@ class BookingOrder(models.Model):
         """
         Set order number if it hasn't been set yet
         """
-        if not self.order_number:
-            self.order_number = self._generate_booking_order_number()
+        if not self.booking_number:
+            self.booking_number = self._generate_booking_order_number()
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f'{self.order_number}: {self.grand_total}'
+        return f'{self.booking_number}: {self.grand_total}'
 
 
 class BookingOrderLineItem(models.Model):

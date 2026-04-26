@@ -74,16 +74,16 @@
             </table>
         </div>
         <div class="col-12 col-lg-6">
-            <h3>Finalise your bookings by filling out the form below</h3>
+            <h3 class="white-text">Finalise your bookings by filling out the form below</h3>
             <form action="{% url 'booking_checkout' %}" method="POST" id="booking-checkout-form">
                 {% csrf_token %}
                 <fieldset>
-                    <legend>Personal Details</legend>
+                    <legend class="white-text">Personal Details</legend>
                     {{ booking_order_form.full_name | as_crispy_field }}
                     {{ booking_order_form.email | as_crispy_field }}
                 </fieldset>
                 <fieldset>
-                    <legend>Billing Details</legend>
+                    <legend class="white-text">Billing Details</legend>
                     {{ booking_order_form.phone_number | as_crispy_field }}
                     {{ booking_order_form.country | as_crispy_field }}
                     {{ booking_order_form.postcode | as_crispy_field }}
@@ -92,7 +92,7 @@
                     {{ booking_order_form.street_address2 | as_crispy_field }}
                     {{ booking_order_form.county | as_crispy_field }}
                     {% if user.is_authenticated %}
-                    <label class="form-check-label" for="save-billing-info">Save this delivery information to my
+                    <label class="form-check-label white-text" for="save-billing-info">Save this billing information to my
                         profile</label>
                     <input class="form-check-input" type="checkbox" id="save-billing-info" name="save-info" checked>
                     {% else %}
@@ -108,7 +108,7 @@
                     {% endif %}
                 </fieldset>
                 <fieldset class="mt-4">
-                    <legend>Payment Details</legend>
+                    <legend class="white-text">Payment Details</legend>
                     <div class="mb-4" id="card-element"></div>
                     <div class="mb-4" id="card-errors"></div>
                     <input type="hidden" value="{{ client_secret }}" name="client_secret">
