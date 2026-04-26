@@ -34,10 +34,23 @@
         {% if user_comment %}
         <div class="col-12">
             <h4>YOUR COMMENT</h4>
-            <p>{{ user_comment.comment }}</p>
-            <div>
-                <button id="edit-comment-button" class="small-button white-text mb-4">
-                    <strong>EDIT COMMENT</strong></button>
+            <div id="edit-comment-no-form-container">
+                <p data-comment="{{ user_comment.comment }}">{{ user_comment.comment }}</p>
+                <div>
+                    <button id="edit-comment-button" class="small-button white-text mb-4">
+                        <strong>EDIT COMMENT</strong></button>
+                </div>
+            </div>
+            <div id="edit-comment-form-container">
+                <form id="user_comment_edit-form" method="POST" 
+                action="{% url 'add_comment' comment_id=user_comment.id %}">
+                {% csrf_token %}
+                {{ comment_form.comment | as_crispy_field }}
+                <div>
+                    <button id="submit-edit-comment-button" class="small-button white-text mb-4" type="submit">
+                        <strong>SUBMIT NEW COMMENT</strong></button>
+                </div>
+                </form>
             </div>
         </div>
         {% else %}
@@ -47,7 +60,7 @@
         <div>
             <form id="user_comment_article" method="POST" action="{% url 'add_comment' slug=article.slug %}">
                 {% csrf_token %}
-                <div class="col-12 col-md-6 order-md-1">
+                <div class="col-12 col-md-6">
                     {{ comment_form.comment | as_crispy_field }}
                 </div>
                 <div>
