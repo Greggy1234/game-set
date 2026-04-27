@@ -44,16 +44,21 @@
                     <button id="edit-comment-button" class="small-button white-text mb-4">
                         <strong>EDIT COMMENT</strong></button>
                 </div>
+                <form action="{% url 'delete_comment' comment_id=user_comment.id %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="white-text small-button-delete-comment text-center ">
+                        <strong>REMOVE COMMENT</strong></button>
+                </form>
             </div>
             <div id="edit-comment-form-container" class="d-none">
-                <form id="user_comment_edit-form" method="POST" 
-                action="{% url 'edit_comment' comment_id=user_comment.id %}">
-                {% csrf_token %}
-                {{ comment_form.comment | as_crispy_field }}
-                <div>
-                    <button id="submit-edit-comment-button" class="small-button white-text mb-4" type="submit">
-                        <strong>SUBMIT NEW COMMENT</strong></button>
-                </div>
+                <form id="user_comment_edit-form" method="POST"
+                    action="{% url 'edit_comment' comment_id=user_comment.id %}">
+                    {% csrf_token %}
+                    {{ comment_form.comment | as_crispy_field }}
+                    <div>
+                        <button id="submit-edit-comment-button" class="small-button white-text mb-4" type="submit">
+                            <strong>SUBMIT NEW COMMENT</strong></button>
+                    </div>
                 </form>
             </div>
         </div>

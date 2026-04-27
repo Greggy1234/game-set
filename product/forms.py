@@ -4,22 +4,22 @@ from .models import Review, Category, Tag, Product
 
 class ReviewForm(forms.ModelForm):
     CHOICES = (
-        (1.0, '1'), (1.25, '1.25'), (1.5, '1.5'), (1.75, '1.75'),
-        (2.0, '2'), (2.25, '2.25'), (2.5, '2.5'), (2.75, '2.75'),
-        (3.0, '3'), (3.25, '3.25'), (3.5, '3.5'), (3.75, '3.75'),
-        (4.0, '4'), (4.25, '4.25'), (4.5, '4.5'), (4.75, '4.75'),
-        (5.0, '5')
+        (1.00, '1.00'), (1.25, '1.25'), (1.50, '1.50'), (1.75, '1.75'),
+        (2.00, '2.00'), (2.25, '2.25'), (2.50, '2.50'), (2.75, '2.75'),
+        (3.00, '3.00'), (3.25, '3.25'), (3.50, '3.50'), (3.75, '3.75'),
+        (4.00, '4.00'), (4.25, '4.25'), (4.50, '4.50'), (4.75, '4.75'),
+        (5.00, '5.00')
     )
 
 
-    rating = forms.ChoiceField(choices = tuple([('', 'Rating (optional)')] + list(CHOICES)), required=False)
-    
+    rating = forms.ChoiceField(choices = tuple([("", 'Rating (optional)')] + list(CHOICES)), required=False,)
+        
     
     class Meta:
         model = Review
         fields = ["review", "rating",]
         widgets = {
-            "review": forms.Textarea(attrs={"rows":4})
+            "review": forms.Textarea(attrs={"rows":5})
         }
 
 class ProductFormEdit(forms.ModelForm):

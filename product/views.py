@@ -224,13 +224,13 @@ def edit_review(request, review_id):
     product = review.product
     product_sku = product.sku
     
-    if request.method - "POST":
+    if request.method == "POST":
         review_form = ReviewForm(data=request.POST, instance=review)
-        if review.author == request.user:
-            if review_form.is_valid:
+        if review.user == request.user:
+            if review_form.is_valid():
                 review_form.save(commit=False)
-                review_form.author = request.user
-                review_form.product = product
+                review_form.user = request.user
+                review_form.product = product                    
                 review_form.save()
                 messages.add_message(
                     request, messages.SUCCESS,

@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block extra_js %}
-<script src="{% static 'js/product.js' %}"></script>
+<script src="{% static 'js/product_detail.js' %}"></script>
 {% endblock %}
 
 {% block extra_title %}{{ product.name }}{% endblock %}
@@ -33,7 +33,7 @@
                     </p>
                 </div>
                 {% if product.rating %}
-                {{ product.rating }}/5.00
+                <p>{{ product.rating }}/5.00</p>
                 {% else %}
                 <p class="small-p">No rating</p>
                 {% endif %}
@@ -45,7 +45,8 @@
                     <div class="mb-2">
                         <p class="small-p"><strong>Size {% if product.tag.name == "tennis_shoes" %}
                                 - all sizes in UK {% endif %}</strong></p>
-                        <select id="choose-size" class="form-select" aria-label="Size options selector" name="product_sizes">
+                        <select id="choose-size" class="form-select" aria-label="Size options selector"
+                            name="product_sizes">
                             {% if product.tag.name == "tennis_shoes" %}
                             <option value="2">2</option>
                             <option value="2.5">2.5</option>
@@ -82,10 +83,16 @@
                     </div>
                     {% endif %}
                     <div class="d-flex flex-column product-detail-links">
-                        <button type="submit" class="small-button white-text w-50 mb-4 text-center" value="Add to basket">
-                            <strong>ADD TO BASKET</strong></button>
-                        <a href="{% url 'shop' %}" class="white-text small-button w-50 text-center"><strong>BACK TO ALL
-                                PRODUCTS</strong></a>
+                        <div>
+                            <button type="submit" class="small-button white-text mb-4 text-center"
+                                value="Add to basket">
+                                <strong>ADD TO BASKET</strong></button>
+                        </div>
+                        <div>
+                            <a href="{% url 'shop' %}" class="white-text small-button text-center"><strong>BACK TO
+                                    ALL
+                                    PRODUCTS</strong></a>
+                        </div>
                     </div>
                     <input type="hidden" name="sku" value="{{ product.sku }}">
                 </form>
@@ -106,18 +113,43 @@
         {% if user_review %}
         <div class="col-12">
             <h4>YOUR REVIEW FOR {{ product.name }}</h4>
-            <p>{{ user_review.review }}</p>
-            <p class="small-p">{{ user_review.rating }}</p>
-            <button id="edit-product-review-rating-button" class="small-button white-text w-50 mb-4">
-                <strong>EDIT REVIEW {% if user_review.rating %}OR RATING {% else %}
-                    OR ADD RATING{% endif %}</strong></button>
+            <div id="edit-review-no-form-container">
+                <p id="user-review-text" data-review="{{ user_review.review }}">{{ user_review.review }}</p>
+                <p class="small-p" data-rating="{{ user_review.rating }}" id="user-rating">{{ user_review.rating }}</p>
+                <div>
+                    <button id="edit-product-review-rating-button" class="small-button white-text mb-4">
+                        <strong>EDIT REVIEW {% if user_review.rating %}OR RATING {% else %}
+                            OR ADD RATING{% endif %}</strong></button>
+                </div>
+                <form action="{% url 'delete_review' review_id=user_comment.id %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="white-text small-button-delete-review text-center ">
+                        <strong>REMOVE COMMENT</strong></button>
+                </form>
+            </div>
+            <div id="edit-review-form-container" class="d-none">
+                <div>
+                    <form id="user_review_product_form" method="POST"
+                        action="{% url 'edit_review' review_id=user_review.id %}">
+                        {% csrf_token %}
+                        <div class="col-12 col-md-4 order-md-1">
+                            {{ review_form.rating | as_crispy_field }}
+                        </div>
+                        <div class="col-12 col-md-8">
+                            {{ review_form.review | as_crispy_field }}
+                        </div>
+                        <button id="edit-product-review-rating-button-submit" class="small-button white-text mb-4">
+                            <strong>SUBMIT NEW REVIEW</strong></button>
+                    </form>
+                </div>
+            </div>
         </div>
         {% else %}
         <div class="col-12 justify-content-center">
             <h4>ADD YOUR REVIEW FOR {{ product.name }}</h4>
         </div>
         <div>
-            <form id="user_review_product_form" method="POST" action="#">
+            <form id="user_review_product_form" method="POST" action="{% url 'add_review' sku=product.sku %}">
                 {% csrf_token %}
                 <div class="col-12 col-md-4 order-md-1">
                     {{ review_form.rating | as_crispy_field }}
@@ -125,8 +157,10 @@
                 <div class="col-12 col-md-8">
                     {{ review_form.review | as_crispy_field }}
                 </div>
-                <button type="submit" class="small-button white-text w-50 mb-4 text-center"><strong>ADD
-                        REVIEW</strong></button>
+                <div>
+                    <button type="submit" class="small-button white-text mb-4 text-center"><strong>ADD
+                            REVIEW</strong></button>
+                </div>
             </form>
         </div>
         {% endif %}
@@ -135,12 +169,16 @@
             <h4>LOGIN OR REGISTER TO SUBMIT YOUR REVIEW FOR {{ product.name }}</h4>
         </div>
         <div class="col-6 col-lg-3 offset-lg-3 justify-content-end d-flex">
-            <a id="login-product-page" class="small-button white-text mb-4 text-center" href="#">
-                <strong>LOGIN</strong></a>
+            <div>
+                <a id="login-product-page" class="small-button white-text mb-4 text-center" href="#">
+                    <strong>LOGIN</strong></a>
+            </div>
         </div>
         <div class="col-6 col-lg-3 justify-content-start d-flex">
-            <a id="register-product-page" class="small-button white-text mb-4 text-center" href="#">
-                <strong>REGISTER</strong></a>
+            <div>
+                <a id="register-product-page" class="small-button white-text mb-4 text-center" href="#">
+                    <strong>REGISTER</strong></a>
+            </div>
         </div>
         {% endif %}
     </div>
@@ -158,7 +196,7 @@
         {% else %}
         <div class="col-12 text-center">
             <h5 class="mt-4">NO REVIEWS YET - BE THE FIRST TO GIVE ONE!</h5>
-        </div>  
+        </div>
         {% endif %}
     </div>
 </div>

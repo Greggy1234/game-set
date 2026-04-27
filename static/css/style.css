@@ -410,7 +410,8 @@ a.nav-link.dropdown-toggle::after {
     color: orange !important;
 }
 
-.small-button-remove-product {
+.small-button-remove-product,
+.small-button-delete-review {
     border: 2px solid red;
     background-color: red;
     padding-left: 0.8rem;
@@ -423,7 +424,8 @@ a.nav-link.dropdown-toggle::after {
     font-size: 0.5rem;
 }
 
-.small-button-remove-product:hover {
+.small-button-remove-product:hover,
+.small-button-delete-review:hover {
     border: 2px solid red;
     background-color: white;
     padding-left: 0.8rem;
@@ -486,6 +488,33 @@ a.nav-link.dropdown-toggle::after {
 
 .article {
     line-height: 20px;
+}
+
+.small-button-delete-comment {
+    border: 2px solid red;
+    background-color: red;
+    padding-left: 1rem;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-right: 1rem;
+    text-decoration: none;
+    border-radius: 1px;
+    font-family: var(--text-font);
+    font-size: 0.7rem;
+}
+
+.small-button-delete-comment:hover {
+    border: 2px solid red;
+    background-color: white;
+    padding-left: 1rem;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-right: 1rem;
+    text-decoration: none;
+    border-radius: 1px;
+    font-family: var(--text-font);
+    font-size: 0.7rem;
+    color: red !important;
 }
 
 /* Book App*/
