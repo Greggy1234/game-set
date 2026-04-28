@@ -1,1 +1,1 @@
-web: gunicorn your_app.wsgi:application
+web: gunicorn game_set.wsgi:application
