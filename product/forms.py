@@ -12,7 +12,7 @@ class ReviewForm(forms.ModelForm):
     )
 
 
-    rating = forms.ChoiceField(choices = tuple([("", 'Rating (optional)')] + list(CHOICES)), required=False,)
+    rating = forms.ChoiceField(choices = tuple([(0.00, 'Rating (optional)')] + list(CHOICES)), required=False,)
         
     
     class Meta:

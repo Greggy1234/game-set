@@ -48,7 +48,8 @@ class Product(models.Model):
         """
         Update rating with average of all reviews
         """
-        average = self.review_product.aggregate(Avg('rating'))['rating__avg']
+        non_zero_ratings = self.review_product.objects.filter('rating' > 0)
+        average = non_zero_ratings.aggregate(Avg('rating'))['rating__avg']
         if not average:
             self.rating = None
         else:

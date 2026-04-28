@@ -40,8 +40,8 @@
             <h4>YOUR COMMENT</h4>
             <div id="edit-comment-no-form-container">
                 <p id="user-comment" data-comment="{{ user_comment.comment }}">{{ user_comment.comment }}</p>
-                <div>
-                    <button id="edit-comment-button" class="small-button white-text mb-4">
+                <div class="pb-0">
+                    <button id="edit-comment-button" class="small-button white-text">
                         <strong>EDIT COMMENT</strong></button>
                 </div>
                 <form action="{% url 'delete_comment' comment_id=user_comment.id %}" method="POST">
@@ -93,7 +93,7 @@
         </div>
         {% endif %}
     </div>
-    <div class="row">
+    <div class="row mt-4">
         {% if comment %}
         {% for com in comment %}
         <div class="col-12">
