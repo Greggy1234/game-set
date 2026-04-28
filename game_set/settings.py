@@ -27,6 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("SECRET_KEY")
+DEBUG = 'DEVELOPMENT' in os.environ
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -34,6 +35,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
+    "game-set-tennis-0544def9bf58.herokuapp.com",
 ]
 
 
@@ -133,7 +135,17 @@ WSGI_APPLICATION = "game_set.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-DATABASES = {"default": dj_database_url.parse(os.environ.get("DATABASE_URL"))}
+if 'DATABASE_URL' in os.environ:
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+    }
+else: 
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 if "test" in sys.argv:
     DATABASES["default"]["ENGINE"] = "django.db.backends.sqlite3"
@@ -215,7 +227,7 @@ else:
     EMAIL_USE_SSL = True
     EMAIL_HOST_USER = 'resend'
     EMAIL_HOST_PASSWORD = RESEND_API_KEY
-    DEFAULT_FROM_EMAIL = 'Book-Collective@resend.dev'
+    DEFAULT_FROM_EMAIL = 'Game-Sete@resend.dev'
     ACCOUNT_EMAIL_SUBJECT_PREFIX = ''
     EMAIL_SUBJECT_PREFIX = ''
 
