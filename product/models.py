@@ -48,13 +48,17 @@ class Product(models.Model):
         """
         Update rating with average of all reviews
         """
-        non_zero_ratings = self.review_product.objects.filter('rating' > 0)
-        average = non_zero_ratings.aggregate(Avg('rating'))['rating__avg']
-        if not average:
-            self.rating = None
-        else:
+        ratings = self.review_product.all()
+        non_zero_ratings = []
+        for rat in ratings:
+            if rat.rating > 0:
+                non_zero_ratings.append(rat.rating)
+        if non_zero_ratings:
+            average = sum(non_zero_ratings)/len(non_zero_ratings)
             average_round = round(average, 2)
             self.rating = average_round
+        else:
+            self.rating = None
         self.save()
 
 
@@ -76,7 +80,7 @@ class Review(models.Model):
     review = models.TextField()
     rating = models.DecimalField(max_digits=3, decimal_places=2,
                                  validators=[
-                                     MinValueValidator(1.00),
+                                     MinValueValidator(0.00),
                                      MaxValueValidator(5.00)
                                  ], blank=True, null=True)
     created_on = models.DateTimeField(auto_now_add=True)

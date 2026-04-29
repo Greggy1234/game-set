@@ -22,8 +22,9 @@ function editReview() {
     editFormContainer.classList.remove("d-none");
     reviewTextForm.innerText = userReviewTextOriginal;
     if (parseFloat(userRatingOriginal) > 0){
-        reviewRatingForm.value = parseFloat(userRatingOriginal);
+        reviewRatingForm.value = parseFloat(userRatingOriginal).toFixed(2);        
     } else {
         reviewRatingForm.value = null;
     }
+    console.log(parseFloat(userRatingOriginal).toFixed(2))
 }

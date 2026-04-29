@@ -124,7 +124,7 @@
                 <form action="{% url 'delete_review' review_id=user_review.id %}" method="POST">
                     {% csrf_token %}
                     <button type="submit" class="white-text small-button-delete-review text-center ">
-                        <strong>REMOVE COMMENT</strong></button>
+                        <strong>REMOVE REVIEW</strong></button>
                 </form>
             </div>
             <div id="edit-review-form-container" class="d-none">
@@ -188,7 +188,7 @@
         <div class="col-12">
             <h5>{{ rev.user }}:</h5>
             <p>{{ rev.review }}</p>
-            <p class="small-p">{% if rev.rating %}{{ rev.rating }}{% else %}No rating{% endif %}</p>
+            <p class="small-p">{% if rev.rating > 0 %}{{ rev.rating }}{% else %}No rating{% endif %}</p>
             {% if not forloop.last %}
             <hr>{% endif %}
         </div>
