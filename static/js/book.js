@@ -17,6 +17,16 @@ document.addEventListener("DOMContentLoaded", function () {
         dateFormat: "Y-m-d",
         inline: true,
         altInputClass: "alt-input-date-picker",
+        "disable": [
+            function (date) {
+                let courtID = document.getElementById("booking-court-header").getAttribute("data-id");
+                if (courtID == 7 || courtID == 8) {
+                    return (date.getDay() === 1 || date.getDay() === 2);
+                } else if (courtID == 5 || courtID == 6) {
+                    return (date.getDay() === 4 || date.getDay() === 5);
+                }
+            }
+        ],
     });
     let calendarClass = document.getElementsByClassName("flatpickr-calendar");
     let calendarWidth = calendarClass[0].offsetWidth;
