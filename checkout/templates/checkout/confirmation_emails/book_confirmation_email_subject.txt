@@ -1,0 +1,1 @@
+Game Set: Confirmation of you booking | Booking Number: {{ book_order.booking_number }}

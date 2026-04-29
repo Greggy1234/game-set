@@ -1,0 +1,18 @@
+Hi {{ book_order.full_name }}!
+
+This is a confirmation of your Game Set BOOK hub booking ({{ book_order.order_number }}).
+
+Booking Order Date: {{ book_order.date }}
+Grand Total: £{{ shop_order.grand_total }}
+
+Billing details:
+{{ book_order.street_address1 }}
+{{ book_order.town_or_city }}
+{{ book_order.postcode }}
+{{ book_order.country }}
+
+Contact us at {{ contact_email }} if you have any further questions or need any support.
+
+Thank you for shopping with us!
+
+Games Set
