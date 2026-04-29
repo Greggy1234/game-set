@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models import Avg
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django_extensions.db.fields import AutoSlugField
 

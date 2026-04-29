@@ -1,5 +1,8 @@
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.conf import settings
 from .models import ShopOrder, ShopOrderLineItem, BookingOrder, BookingOrderLineItem
 from user_profile.models import Profile
 from product.models import Product
@@ -16,6 +19,31 @@ class StripeWH_Handler:
 
     def __init__(self, request):
         self.request = request
+    
+    def _send_confirmation_email(self, item, type):
+        """Send the user a confirmation email"""
+        cust_email = item.email
+        if type == "basket":
+            subject = render_to_string(
+                'checkout/confirmation_emails/shop_confirmation_email_subject.txt',
+                {'shop_order': item})
+            body = render_to_string(
+                'checkout/confirmation_emails/shop_confirmation_email_body.txt',
+                {'shop_order': item, 'contact_email': settings.DEFAULT_FROM_EMAIL})
+        elif type == "booking":
+            subject = render_to_string(
+                'checkout/confirmation_emails/book_confirmation_email_subject.txt',
+                {'book_order': item})
+            body = render_to_string(
+                'checkout/confirmation_emails/book_confirmation_email_body.txt',
+                {'book_order': item, 'contact_email': settings.DEFAULT_FROM_EMAIL})
+                    
+        send_mail(
+            subject,
+            body,
+            settings.DEFAULT_FROM_EMAIL,
+            [cust_email]
+        )
         
     def handle_event(self, event):
         return HttpResponse(
@@ -79,6 +107,7 @@ class StripeWH_Handler:
                     attempt += 1
                     time.sleep(1)
             if shop_order_exists:
+                self._send_confirmation_email(shop_order, "basket")
                 return HttpResponse(
                     content=f'Webhook received: {event["type"]} | SUCCESS: Verified order already in database',
                     status=200)
@@ -124,6 +153,10 @@ class StripeWH_Handler:
                     return HttpResponse(
                         content=f'Webhook received: {event["type"]} | ERROR: {e}',
                         status=500)
+            self._send_confirmation_email(shop_order, "basket")
+            return HttpResponse(
+            content=f'Webhook received: {event["type"]}',
+            status=200)
         elif intent.metadata.bookings:
             booking_order_exists = False
             attempt = 1
@@ -149,6 +182,7 @@ class StripeWH_Handler:
                     attempt += 1
                     time.sleep(1)
             if booking_order_exists:
+                self._send_confirmation_email(booking_order, "booking")
                 return HttpResponse(
                     content=f'Webhook received: {event["type"]} | SUCCESS: Verified booking already in database',
                     status=200)
@@ -207,10 +241,10 @@ class StripeWH_Handler:
                     return HttpResponse(
                         content=f'Webhook received: {event["type"]} | ERROR: {e}',
                         status=500)        
-        
-        return HttpResponse(
-            content=f'Webhook received: {event["type"]}',
-            status=200)
+            self._send_confirmation_email(booking_order, "booking")
+            return HttpResponse(
+                content=f'Webhook received: {event["type"]}',
+                status=200)
     
     def handle_payment_intent_payment_failed(self, event):
         return HttpResponse(
