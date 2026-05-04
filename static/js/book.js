@@ -117,15 +117,13 @@ function showStep2() {
     daySelected = chosenDay;
     let dayOfWeekTimes = document.getElementById(chosenDay);
     dayOfWeekTimes.classList.remove("d-none");
-    let bookedTimeSlotsJson = document.getElementById("step-1-2-container").getAttribute("data-booked-times");    
+    let bookedTimeSlotsJson = document.getElementById("step-1-2-container").getAttribute("data-booked-times");
     let bookedTimeSlots = JSON.parse(bookedTimeSlotsJson);
-    console.log(bookedTimeSlots)
-    console.log(datePickerValue)
     if (bookedTimeSlots[datePickerValue] != undefined) {
         let timeButtons = document.getElementsByClassName("time-slot-button");
         for (let tb of timeButtons) {
-            if(bookedTimeSlots[datePickerValue].includes(tb.innerText)) {
-                tb.disabled = true                
+            if (bookedTimeSlots[datePickerValue].includes(tb.innerText)) {
+                tb.disabled = true
             }
         }
     }
@@ -246,12 +244,13 @@ function changeTime() {
  */
 function showStep3() {
     coachSelected = undefined
+    let step3NoCoach = document.getElementById("step-3-coach-no-time")
+    step3NoCoach.innerText = `Unfortunately, there are no coaches available to hire during that time. Here are the two coaches for this court, and when they are available:`
     let timeSlotDays = document.getElementsByClassName("time-slot-date-container");
     for (let tsd of timeSlotDays) {
         tsd.classList.add("d-none");
         tsd.classList.remove("d-block");
     }
-
     let goToStep3Button = document.getElementById("go-to-step-3");
     let changeTimeButton = document.getElementById("change-time-picker");
     let changeCoachButton = document.getElementById("change-coach-button");
@@ -281,24 +280,52 @@ function showStep3() {
     showSelecCoach.innerHTML = ``;
     showSelecCoach.classList.remove("d-none");
     showSelecCoach.classList.add("d-block");
+    let datePickerInput = document.getElementById("step-1-date-input-hidden");
+    let datePickerValue = datePickerInput.value;
     let coach1SlotsJson = step3Contain.getAttribute("data-coach-1-slots");
     let coach2SlotsJson = step3Contain.getAttribute("data-coach-2-slots");
+    let bookedCoachSlotsJson = step3Contain.getAttribute("data-coach-booked-slots");
+    let coach1Id = document.getElementById("book-coach-1-button").getAttribute("data-coach-number");
+    let coach2Id = document.getElementById("book-coach-2-button").getAttribute("data-coach-number");
+    let coach1IdString = coach1Id.toString();
+    let coach2IdString = coach2Id.toString();
     let coach1Slots = JSON.parse(coach1SlotsJson);
     let coach2Slots = JSON.parse(coach2SlotsJson);
+    let bookedCoachSlots = JSON.parse(bookedCoachSlotsJson);
     let coach1available = false;
     let coach2available = false;
     if (coach1Slots[daySelected] != undefined) {
         if (coach1Slots[daySelected].includes(timeSelected)) {
-            coach1available = true
-            coach1AvailableContain.classList.remove("d-none");
-            coach1AvailableContain.classList.add("d-block");
+            if (bookedCoachSlots[datePickerValue][coach1IdString] != undefined) {
+                if (bookedCoachSlots[datePickerValue][coach1IdString].includes(timeSelected) == false) {
+                    coach1available = true
+                    coach1AvailableContain.classList.remove("d-none");
+                    coach1AvailableContain.classList.add("d-block");
+                } else {
+                    step3NoCoach.innerText = `Unfortunately, all available coaches are booked for that time. Here are the two coaches for this court, and when they are available:`
+                }
+            } else {
+                coach1available = true
+                coach1AvailableContain.classList.remove("d-none");
+                coach1AvailableContain.classList.add("d-block");
+            }
         }
     }
     if (coach2Slots[daySelected] != undefined) {
         if (coach2Slots[daySelected].includes(timeSelected)) {
-            coach2available = true;
-            coach2AvailableContain.classList.remove("d-none");
-            coach2AvailableContain.classList.add("d-block");
+            if (bookedCoachSlots[datePickerValue][coach2IdString] != undefined) {
+                if (bookedCoachSlots[datePickerValue][coach2IdString].includes(timeSelected) == false) {
+                    coach2available = true;
+                    coach2AvailableContain.classList.remove("d-none");
+                    coach2AvailableContain.classList.add("d-block");
+                } else {
+                    step3NoCoach.innerText = `Unfortunately, all available coaches are booked for that time. Here are the two coaches for this court, and when they are available:`
+                }
+            } else {
+                coach2available = true;
+                coach2AvailableContain.classList.remove("d-none");
+                coach2AvailableContain.classList.add("d-block");
+            }
         }
     }
     if (coach1available == false && coach2available == false) {

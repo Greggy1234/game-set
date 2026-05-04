@@ -67,7 +67,7 @@
     </div>
 </div>
 <div class="container d-none mb-4" id="step-3-container" data-coach-1-slots="{{ coach_1_slots_json }}"
-    data-coach-2-slots="{{ coach_2_slots_json }}">
+    data-coach-2-slots="{{ coach_2_slots_json }}" data-coach-booked-slots="{{ booked_coach_time_slots_json }}">
     <div class="row">
         <div class="col-12">
             <h3 class="step-header-text white-text">STEP 3 - COACH</h3>
@@ -135,7 +135,7 @@
                 <p class="white-text">{{ coach_1.specialty }}</p>
                 <div class="mb-4">
                     <button data-coach="{{ coach_1 }}" data-coach-name="{{ coach_1.name }}"
-                    data-coach-number="{{coach_1.id}}" class="small-button white-text book-coach-button">
+                    data-coach-number="{{coach_1.id}}" class="small-button white-text book-coach-button" id="book-coach-1-button">
                     <strong>BOOK THIS COACH</strong></button>
                 </div>
             </div>
@@ -152,7 +152,7 @@
                 <p class="white-text">{{ coach_2.specialty }}</p>
                 <div class="mb-4">
                     <button data-coach="{{ coach_2 }}" data-coach-name="{{ coach_2.name }}" 
-                    data-coach-number="{{coach_2.id}}" class="small-button white-text book-coach-button">
+                    data-coach-number="{{coach_2.id}}" class="small-button white-text book-coach-button" id="book-coach-2-button">
                     <strong>BOOK THIS COACH</strong></button>
                 </div>
             </div>

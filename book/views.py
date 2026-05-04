@@ -28,6 +28,8 @@ def court_book(request, slug):
     coach_1 = coaches[0]
     coach_2 = coaches[1]
     booked_time = BookingOrderLineItem.objects.filter(court__id=court_id, date__gte=date.today())
+    court_location_id = court.location.id
+    booked_time_coaches = BookingOrderLineItem.objects.filter(court__location__id=court_location_id, date__gte=date.today())
 
     times = {}
     coach_1_times = defaultdict(list)
@@ -36,7 +38,7 @@ def court_book(request, slug):
     coach_1_slots = {}
     coach_2_slots = {}
     booked_court_time_slots = defaultdict(list)
-    booked_coach_time_slots = defaultdict(list)
+    booked_coach_time_slots = defaultdict(lambda: defaultdict(list))
     
 
     for ca in court.court_times.all():
@@ -82,14 +84,22 @@ def court_book(request, slug):
         time_as_time = bct.time
         string_date = date_as_date.strftime("%Y-%m-%d")
         booked_court_time_slots[string_date].append(time_as_time.strftime("%H:%M"))
+    
+    
+    for bct in booked_time_coaches:
         if bct.coach:
-            booked_coach_time_slots[string_date].append()
+            date_as_date = bct.date
+            time_as_time = bct.time
+            string_date = date_as_date.strftime("%Y-%m-%d")
+            coach_id = bct.coach.id
+            booked_coach_time_slots[string_date][coach_id].append(time_as_time.strftime("%H:%M"))
         
     
 
     coach_1_slots_json = json.dumps(coach_1_slots)
     coach_2_slots_json = json.dumps(coach_2_slots)
     booked_court_time_slots_json = json.dumps(booked_court_time_slots)
+    booked_coach_time_slots_json = json.dumps(booked_coach_time_slots)
     
     context = {
         "court": court,
@@ -101,6 +111,7 @@ def court_book(request, slug):
         "coach_1_slots_json": coach_1_slots_json,
         "coach_2_slots_json": coach_2_slots_json,
         "booked_court_time_slots_json": booked_court_time_slots_json,
+        "booked_coach_time_slots_json": booked_coach_time_slots_json,
     }
 
     return render(request, "book/book-court.html", context)
