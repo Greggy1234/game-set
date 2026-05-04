@@ -55,8 +55,8 @@ class StripeWH_Handler:
     def handle_payment_intent_succeeded(self, event):    
         intent = event.data.object
         logger.error(f"Full metadata: {intent.metadata}")
-        logger.error(f"Basket value: {intent.metadata.get('basket')}")
         pid = intent.id
+        logger.error(f"Intent PID: {pid}")
         if intent.metadata.basket:
             basket = intent.metadata.basket
         elif intent.metadata.bookings:
