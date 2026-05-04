@@ -135,7 +135,9 @@ def add_booking(request):
     date = request.POST.get("date")
     date_as_date = datetime.strptime(date, "%Y-%m-%d")
     date_human_readable = date_as_date.strftime("%A, %B %#d, %Y")
-    coach_id = request.POST.get("coach")
+    coach_id = None
+    if request.POST.get("coach"):
+        coach_id = request.POST.get("coach")
     cost = int(request.POST.get("cost"))
     bookings = request.session.get("bookings", {})
 

@@ -13,9 +13,6 @@ import json
 from datetime import datetime
 from decimal import Decimal
 
-import logging
-logger = logging.getLogger(__name__)
-
 
 class StripeWH_Handler:
     """Handle webhooks from Stripe"""
@@ -54,44 +51,27 @@ class StripeWH_Handler:
     
     def handle_payment_intent_succeeded(self, event):    
         intent = event.data.object
-        logger.error(f"Full metadata: {intent.metadata}")
         pid = intent.id
-        logger.error(f"Intent PID: {pid}")
-        if intent.metadata.basket:
-            basket = intent.metadata.basket
-            logger.error(f"Basket metatdaata: {intent.metadata.basket}")
-        elif intent.metadata.bookings:
-            bookings = intent.metadata.bookings
-        save_info = intent.metadata.save_info
-        logger.error(f"Save Info: {intent.metadata.save_info}")
+        basket = getattr(intent.metadata, 'basket', None)
+        bookings = getattr(intent.metadata, 'bookings', None)
+        save_info = getattr(intent.metadata, 'save_info', False)
+        username = getattr(intent.metadata, 'username', None)
         
         charge = stripe.Charge.retrieve(intent.latest_charge)
-        logger.error(f"Charge: {charge}")
         
 
         billing_details = charge.billing_details
         shipping_details = intent.shipping
         grand_total = round(charge.amount / 100, 2)
-        logger.error(f"Charge: {charge}")
         
         for field, value in shipping_details.address.to_dict().items():
             if value == "":
                 shipping_details.address[field] = None
-        logger.error("Adress field changed")
         
         profile = None
-        username = None
-        logger.error(f"Username: {username}")
-        if intent.metadata.username:
-            username = intent.metadata.username
-            logger.error("Error 1: Going into username metadata if block")
-        logger.error(f"Username 2: {username}")
         if username:
-            logger.error("Error 2: Going into username if block+profile mismatch")
             profile = Profile.objects.get(user__username=username)
-            logger.error("Error 3: Profile matched incorrectly")
             if save_info:
-                logger.error("Error 4: Going into save Info block")
                 profile.default_phone_number = shipping_details.phone
                 profile.default_country = shipping_details.address.country
                 profile.default_postcode = shipping_details.address.postal_code
@@ -100,14 +80,11 @@ class StripeWH_Handler:
                 profile.default_street_address2 = shipping_details.address.line2
                 profile.default_county = shipping_details.address.state
                 profile.save()
-        logger.error("Before basket data")
-        if intent.metadata.basket:
-            logger.error("Before attempts")
+        if basket:
             shop_order_exists = False
             attempt = 1
             while attempt <= 5:
                 try:
-                    logger.error("Beginning of shop order")
                     shop_order = ShopOrder.objects.get(
                         full_name__iexact=shipping_details.name,
                         email__iexact=billing_details.email,
@@ -122,9 +99,7 @@ class StripeWH_Handler:
                         original_basket=basket,
                         stripe_pid=pid,
                     )
-                    logger.error("End of shop order")
                     shop_order_exists = True
-                    logger.error(f"{shop_order_exists}")
                     break
                 except ShopOrder.DoesNotExist:
                     attempt += 1
@@ -180,7 +155,7 @@ class StripeWH_Handler:
             return HttpResponse(
             content=f'Webhook received: {event["type"]}',
             status=200)
-        elif intent.metadata.bookings:
+        elif bookings:
             booking_order_exists = False
             attempt = 1
             while attempt <= 5:

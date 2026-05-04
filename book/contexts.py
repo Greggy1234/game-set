@@ -21,7 +21,7 @@ def booking_items(request):
                 booking_cost = int(info["cost"])
                 total_booking_amount += int(info["cost"])
                 booking_coach = None
-                if coach_id:
+                if coach_id and coach_id != "None":
                     booking_coach = get_object_or_404(Coach, id=coach_id)
                 number_of_bookings += 1
                 booking_items.append({
