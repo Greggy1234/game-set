@@ -79,6 +79,7 @@
     </div>
     <div class="row" id="products">
         {% for prod in products %}
+        {% if prod.show_on_site %}
         <div class="col-12 col-sm-6 col-md-4 col-lg-3 pb-5">
             <div class="card border-0 d-flex flex-column h-100">
                 <a href="{% url 'product_detail' sku=prod.sku %}">
@@ -131,6 +132,7 @@
                 </div>
             </div>
         </div>
+        {% endif %}
         {% if forloop.counter|divisibleby:1 %}
         <div class="col-12 d-sm-none mb-5">
             <hr>

@@ -75,9 +75,11 @@ def all_products(request):
 def product_detail(request, sku):
     """
     Shows the product selected by the user
-    """
-    
+    """    
     product = get_object_or_404(Product, sku=sku)
+    if not product.show_on_site:
+        messages.error(request, 'That product is currently unavailable.')
+        return redirect(reverse('shop'))
     reviews = Review.objects.filter(product=product).order_by('-created_on')
     user_review = None
     if request.user.is_authenticated:
@@ -349,3 +351,13 @@ def remove_product_from_site(request, sku):
             )
     
     return redirect(reverse('shop'))
+
+@login_required
+def show_removed_products(request):
+    products = Product.objects.filter(show_on_site=False)
+    
+    context = {
+        "products": products,
+    }
+    
+    return render(request, 'product/hidden-product.html', context)
