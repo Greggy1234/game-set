@@ -13,6 +13,9 @@ import json
 from datetime import datetime
 from decimal import Decimal
 
+import logging
+logger = logging.getLogger(__name__)
+
 
 class StripeWH_Handler:
     """Handle webhooks from Stripe"""
@@ -22,10 +25,6 @@ class StripeWH_Handler:
     
     def _send_confirmation_email(self, item, type):
         """Send the user a confirmation email"""
-        import logging
-        logger = logging.getLogger(__name__)
-        logger.warning(f"DEBUG is: {settings.DEBUG}")
-        logger.warning(f"EMAIL_BACKEND is: {settings.EMAIL_BACKEND}")
         cust_email = item.email
         if type == "basket":
             subject = render_to_string(
@@ -108,8 +107,10 @@ class StripeWH_Handler:
                     shop_order_exists = True
                     break
                 except ShopOrder.DoesNotExist:
+                    logger.error(f"Attempt {attempt}: Order not found for pid {pid}")
                     attempt += 1
                     time.sleep(1)
+            logger.error(f"shop_order_exists: {shop_order_exists}, attempt: {attempt}")
             if shop_order_exists:
                 self._send_confirmation_email(shop_order, "basket")
                 return HttpResponse(
