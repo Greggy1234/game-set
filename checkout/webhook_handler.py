@@ -84,9 +84,14 @@ class StripeWH_Handler:
         logger.error(f"Username: {username}")
         if intent.metadata.username:
             username = intent.metadata.username
+            logger.error("Error 1: Going into username metadata if block")
+        logger.error(f"Username 2: {username}")
         if username:
+            logger.error("Error 2: Going into username if block+profile mismatch")
             profile = Profile.objects.get(user__username=username)
+            logger.error("Error 3: Profile matched incorrectly")
             if save_info:
+                logger.error("Error 4: Going into save Info block")
                 profile.default_phone_number = shipping_details.phone
                 profile.default_country = shipping_details.address.country
                 profile.default_postcode = shipping_details.address.postal_code
