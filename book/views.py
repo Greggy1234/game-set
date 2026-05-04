@@ -36,6 +36,7 @@ def court_book(request, slug):
     coach_1_slots = {}
     coach_2_slots = {}
     booked_court_time_slots = defaultdict(list)
+    booked_coach_time_slots = defaultdict(list)
     
 
     for ca in court.court_times.all():
@@ -81,6 +82,10 @@ def court_book(request, slug):
         time_as_time = bct.time
         string_date = date_as_date.strftime("%Y-%m-%d")
         booked_court_time_slots[string_date].append(time_as_time.strftime("%H:%M"))
+        if bct.coach:
+            booked_coach_time_slots[string_date].append()
+        
+    
 
     coach_1_slots_json = json.dumps(coach_1_slots)
     coach_2_slots_json = json.dumps(coach_2_slots)
@@ -119,12 +124,7 @@ def add_booking(request):
     date = request.POST.get("date")
     date_as_date = datetime.strptime(date, "%Y-%m-%d")
     date_human_readable = date_as_date.strftime("%A, %B %#d, %Y")
-    coach_name = request.POST.get("coach")
-    coach = None
-    coach_id = None
-    if coach_name != "None":
-        coach = get_object_or_404(Coach, name=coach_name)
-        coach_id = coach.id
+    coach_id = request.POST.get("coach")
     cost = int(request.POST.get("cost"))
     bookings = request.session.get("bookings", {})
 

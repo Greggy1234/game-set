@@ -1,10 +1,11 @@
 // These functions are for the Book App
-// Global variables which will hold the selected day and the time
-daySelected = undefined
-timeSelected = undefined
-coachSelected = undefined
-fullDateSelected = undefined
-fullTimeSelected = undefined
+// Global variables which will hold the selected day, time and coach
+let daySelected = undefined
+let timeSelected = undefined
+let coachSelected = undefined
+let fullDateSelected = undefined
+let fullTimeSelected = undefined
+let coachSelectedId = undefined
 
 
 // Wait until DOM is loaded
@@ -318,6 +319,7 @@ function bookCoach(button) {
     coachName = button.getAttribute("data-coach-name");
     coachNumber = button.getAttribute("data-coach-number");
     coachSelected = coachName;
+    coachSelectedId = coachNumber;
     let showSelecCoach = document.getElementById("coach-chosen-field");
     let finaliseBookingButton = document.getElementById("finalise-booking-button");
     let changeCoachButton = document.getElementById("change-coach-button");
@@ -368,7 +370,7 @@ function showBookingSummary() {
     if (coachSelected != undefined) {
         bookingSummaryCoach.innerHTML = `<p class="white-text large-p">${coachSelected}</p>`;
         bookingSummaryCost.innerHTML = `<p class="white-text large-p">£85</p>`;
-        coachFormValue.setAttribute("value", `${coachSelected}`);
+        coachFormValue.setAttribute("value", `${coachSelectedId}`);
         costFormValue.setAttribute("value", "85");
     }
 }
