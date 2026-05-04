@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% load i18n %}
+{% load allauth account %}
+
+{% block extra_title %}Confirm Email{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <h1>CONFIRM YOUR EMAIL ADDRESS</h1>
+        </div>
+        <div class="col-12">
+            <p>Click the button below to confirm you email address and activate your account for Game Set.</p>
+        </div>
+        <div class="col-12">
+            <form action="{% url 'account_confirm_email' confirmation.key %}" method="POST">
+                {% csrf_token %}
+                <div class="d-flex">
+                    <button class="small-button white-text me-2" TYPE="submit"><strong>ACTIVATE ACCOUNT</strong></button>
+                    <a class="small-button white-text" href="{% url 'home' %}"><strong>BACK TO HOME</strong></a>                    
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
