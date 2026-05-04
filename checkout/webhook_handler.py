@@ -52,8 +52,10 @@ class StripeWH_Handler:
         return HttpResponse(
             content=f'Unhandled webhook received: {event["type"]}', status=200)
     
-    def handle_payment_intent_succeeded(self, event):
+    def handle_payment_intent_succeeded(self, event):    
         intent = event.data.object
+        logger.error(f"Full metadata: {intent.metadata}")
+        logger.error(f"Basket value: {intent.metadata.get('basket')}")
         pid = intent.id
         if intent.metadata.basket:
             basket = intent.metadata.basket
@@ -107,10 +109,8 @@ class StripeWH_Handler:
                     shop_order_exists = True
                     break
                 except ShopOrder.DoesNotExist:
-                    logger.error(f"Attempt {attempt}: Order not found for pid {pid}")
                     attempt += 1
                     time.sleep(1)
-            logger.error(f"shop_order_exists: {shop_order_exists}, attempt: {attempt}")
             if shop_order_exists:
                 self._send_confirmation_email(shop_order, "basket")
                 return HttpResponse(
