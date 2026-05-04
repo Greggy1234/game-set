@@ -77,12 +77,14 @@ class StripeWH_Handler:
         for field, value in shipping_details.address.to_dict().items():
             if value == "":
                 shipping_details.address[field] = None
+        logger.error("Adress field changed")
         
         profile = None
         username = None
+        logger.error(f"Username: {username}")
         if intent.metadata.username:
             username = intent.metadata.username
-        if username != 'AnonymousUser':
+        if username:
             profile = Profile.objects.get(user__username=username)
             if save_info:
                 profile.default_phone_number = shipping_details.phone
@@ -93,8 +95,9 @@ class StripeWH_Handler:
                 profile.default_street_address2 = shipping_details.address.line2
                 profile.default_county = shipping_details.address.state
                 profile.save()
-        
+        logger.error("Before basket data")
         if intent.metadata.basket:
+            logger.error("Before attempts")
             shop_order_exists = False
             attempt = 1
             while attempt <= 5:
