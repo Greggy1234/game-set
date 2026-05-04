@@ -79,7 +79,9 @@ class StripeWH_Handler:
                 shipping_details.address[field] = None
         
         profile = None
-        username = intent.metadata.username
+        username = None
+        if intent.metadata.username:
+            username = intent.metadata.username
         if username != 'AnonymousUser':
             profile = Profile.objects.get(user__username=username)
             if save_info:
