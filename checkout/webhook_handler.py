@@ -22,6 +22,10 @@ class StripeWH_Handler:
     
     def _send_confirmation_email(self, item, type):
         """Send the user a confirmation email"""
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.warning(f"DEBUG is: {settings.DEBUG}")
+        logger.warning(f"EMAIL_BACKEND is: {settings.EMAIL_BACKEND}")
         cust_email = item.email
         if type == "basket":
             subject = render_to_string(

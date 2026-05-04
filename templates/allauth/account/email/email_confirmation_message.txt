@@ -2,6 +2,6 @@
 {% load account %}
 {% load i18n %}
 
-{% block content %}{% autoescape off %}{% user_display user as user_display %}{% blocktranslate with site_name=current_site.name site_domain=current_site.domain %}
-To complete registration for your Game Set account, please{% if code %} enter {{ code }} in the email confirmation code box {% else %} go to {{ activate_url }}.
-{% endif %}{% blocktranslate %}{% endautoescape %}{% endblock content %}
+{% block content %}
+To complete registration for your Game Set account and activate your account, please{% if code %} enter {{ code }} in the email confirmation code box {% else %} go to {{ activate_url }}.
+{% endif %}{% endblock content %}
