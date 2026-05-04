@@ -16,7 +16,7 @@ def all_products(request):
         :template:`product/shop.html`
     """
     
-    products = Product.objects.all()
+    products = Product.objects.filter(show_on_site=True)
     query = None
     tag = None
     sort = None
@@ -340,6 +340,7 @@ def remove_product_from_site(request, sku):
     product = get_object_or_404(Product, sku=sku)
     try:
         product.show_on_site = False
+        product.save()
         messages.success(
             request, 
             f'Successfully removed {product.name} from the site!'
@@ -354,6 +355,9 @@ def remove_product_from_site(request, sku):
 
 @login_required
 def show_removed_products(request):
+    if not request.user.is_superuser:
+        messages.error(request, 'You do not have access to that page.')
+        return redirect(reverse('home'))
     products = Product.objects.filter(show_on_site=False)
     
     context = {
@@ -361,3 +365,21 @@ def show_removed_products(request):
     }
     
     return render(request, 'product/hidden-product.html', context)
+
+@login_required
+def add_previously_removed_product(request, sku):
+    product = get_object_or_404(Product, sku=sku)
+    try:
+        product.show_on_site = True
+        product.save()
+        messages.success(
+            request, 
+            f'Successfully added {product.name} back to the SHOP hub!'
+            )
+    except Exception as e:
+        messages.error(
+            request, 
+            f'ERROR: {e}. Try again!'
+            )
+    
+    return HttpResponseRedirect(reverse('product_detail', args=[sku])) 
