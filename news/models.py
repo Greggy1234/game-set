@@ -24,14 +24,14 @@ class Article(models.Model):
         ordering = ["-created_on"]
     
     def save(self, *args, **kwargs):
-        if self.pk:
-            article = Article.object.filter_by(pk=self.pk)
+        if self.id:
+            article = Article.object.get(id=self.id)
             if not article.status and self.status:
                 self.published_on = date.today()
-            else:
-                if self.status:
-                    self.published_on = date.today()
-            super().save(*args, **kwargs)
+        else:
+            if self.status:
+                self.published_on = date.today()
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.title} | written by {self.author}"

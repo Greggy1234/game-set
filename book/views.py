@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect, HttpResponseRedirect, reverse
 from django.contrib import messages
 from .models import Location, Coach, Court
+from checkout.models import BookingOrderLineItem
 from collections import defaultdict
 from datetime import datetime, timedelta, date
 import json
@@ -21,10 +22,12 @@ def book_overview(request):
 
 def court_book(request, slug):
     court = get_object_or_404(Court, slug=slug)
+    court_id = court.id
     location = court.location
     coaches = location.coaches.all()
     coach_1 = coaches[0]
     coach_2 = coaches[1]
+    booked_time = BookingOrderLineItem.objects.filter(court__id=court_id, date__gte=date.today())
 
     times = {}
     coach_1_times = defaultdict(list)
@@ -32,6 +35,8 @@ def court_book(request, slug):
     final_slots = {}
     coach_1_slots = {}
     coach_2_slots = {}
+    booked_court_time_slots = defaultdict(list)
+    
 
     for ca in court.court_times.all():
         times[ca.day] = ca
@@ -70,10 +75,17 @@ def court_book(request, slug):
                     ca_2_slots.append(current_time.strftime("%H:%M"))
                     current_time += timedelta(minutes=60)
             coach_2_slots[day] = ca_2_slots
+    
+    for bct in booked_time:
+        date_as_date = bct.date
+        time_as_time = bct.time
+        string_date = date_as_date.strftime("%Y-%m-%d")
+        booked_court_time_slots[string_date].append(time_as_time.strftime("%H:%M"))
 
     coach_1_slots_json = json.dumps(coach_1_slots)
     coach_2_slots_json = json.dumps(coach_2_slots)
-
+    booked_court_time_slots_json = json.dumps(booked_court_time_slots)
+    
     context = {
         "court": court,
         "final_slots": final_slots,
@@ -83,6 +95,7 @@ def court_book(request, slug):
         "coach_2_slots": coach_2_slots,
         "coach_1_slots_json": coach_1_slots_json,
         "coach_2_slots_json": coach_2_slots_json,
+        "booked_court_time_slots_json": booked_court_time_slots_json,
     }
 
     return render(request, "book/book-court.html", context)

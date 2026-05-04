@@ -34,7 +34,7 @@
         </div>
     </div>
 </div>
-<div class="container my-4" id="step-1-2-container">
+<div class="container my-4" id="step-1-2-container" data-booked-times="{{ booked_court_time_slots_json }}">
     <div class="row">
         <div class="col-12 col-lg-6" id="step-1-container">
             <h3 class="step-header-text white-text">STEP 1 - DATE</h3>
@@ -51,7 +51,7 @@
             {% for day, slots in final_slots.items %}
             <div id="{{ day }}" class="d-none time-slot-date-container">
                 <h4 class="white-text">{{ day }}</h4>
-                <p class="white-text">Due to popularity, only 1 hour may be booked at a time.</p>
+                <p class="white-text">Due to popularity, only 1 hour may be booked per booking.</p>
                 <div class="time-slot-grid">
                     {% for slot in slots %}
                     <button class="time-slot-button-not-selected time-slot-button">{{ slot }}</button>

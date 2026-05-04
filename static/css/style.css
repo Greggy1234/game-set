@@ -189,7 +189,7 @@ hr {
 
 .form-control {
     border-radius: 0px;
-    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15)!important;
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
 }
 
 /* Toasts */
@@ -248,8 +248,8 @@ a.nav-link.dropdown-toggle::after {
 }
 
 .dropdown-menu {
-    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15)!important;
-    border-radius: 0px!important;
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
+    border-radius: 0px !important;
 }
 
 
@@ -564,6 +564,11 @@ a.nav-link.dropdown-toggle::after {
     font-weight: bold;
 }
 
+.time-slot-button-not-selected:disabled {
+    background-color: light-dark(rgba(239, 239, 239, 0.3), rgba(19, 1, 1, 0.3));
+    color: light-dark(rgba(16, 16, 16, 0.3), rgba(255, 255, 255, 0.3));
+}
+
 .time-slot-button-not-selected:active {
     border: 2px solid white;
     background-color: var(--secondary-colour);
@@ -725,12 +730,12 @@ footer {
     }
 
     .dropdown-menu {
-        position: absolute!important;
+        position: absolute !important;
     }
 
     #account-dropdown-menu-nav {
-        left: auto!important;
-        right: 0!important;
+        left: auto !important;
+        right: 0 !important;
     }
 }
 

@@ -32,8 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let calendarWidth = calendarClass[0].offsetWidth;
     let altInputClass = document.getElementsByClassName("alt-input-date-picker")[0];
     altInputClass.style.width = calendarWidth + 'px';
-    let datePickerInput = document.getElementById("step-1-date-input-hidden");
-    datePickerInput.addEventListener("input", function () {
+    stepOneDatePickerInputHidden.addEventListener("input", function () {
         showStep2Button();
     })
     let timeButtons = document.getElementsByClassName("time-slot-button");
@@ -117,6 +116,18 @@ function showStep2() {
     daySelected = chosenDay;
     let dayOfWeekTimes = document.getElementById(chosenDay);
     dayOfWeekTimes.classList.remove("d-none");
+    let bookedTimeSlotsJson = document.getElementById("step-1-2-container").getAttribute("data-booked-times");    
+    let bookedTimeSlots = JSON.parse(bookedTimeSlotsJson);
+    console.log(bookedTimeSlots)
+    console.log(datePickerValue)
+    if (bookedTimeSlots[datePickerValue] != undefined) {
+        let timeButtons = document.getElementsByClassName("time-slot-button");
+        for (let tb of timeButtons) {
+            if(bookedTimeSlots[datePickerValue].includes(tb.innerText)) {
+                tb.disabled = true                
+            }
+        }
+    }
 }
 
 /**
