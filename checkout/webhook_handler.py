@@ -59,15 +59,20 @@ class StripeWH_Handler:
         logger.error(f"Intent PID: {pid}")
         if intent.metadata.basket:
             basket = intent.metadata.basket
+            logger.error(f"Basket metatdaata: {intent.metadata.basket}")
         elif intent.metadata.bookings:
             bookings = intent.metadata.bookings
         save_info = intent.metadata.save_info
+        logger.error(f"Save Info: {intent.metadata.save_info}")
         
         charge = stripe.Charge.retrieve(intent.latest_charge)
+        logger.error(f"Charge: {charge}")
+        
 
         billing_details = charge.billing_details
         shipping_details = intent.shipping
         grand_total = round(charge.amount / 100, 2)
+        logger.error(f"Charge: {charge}")
         
         for field, value in shipping_details.address.to_dict().items():
             if value == "":
@@ -92,6 +97,7 @@ class StripeWH_Handler:
             attempt = 1
             while attempt <= 5:
                 try:
+                    logger.error("Beginning of shop order")
                     shop_order = ShopOrder.objects.get(
                         full_name__iexact=shipping_details.name,
                         email__iexact=billing_details.email,
@@ -106,7 +112,9 @@ class StripeWH_Handler:
                         original_basket=basket,
                         stripe_pid=pid,
                     )
+                    logger.error("End of shop order")
                     shop_order_exists = True
+                    logger.error(f"{shop_order_exists}")
                     break
                 except ShopOrder.DoesNotExist:
                     attempt += 1
