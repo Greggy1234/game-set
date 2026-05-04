@@ -212,7 +212,7 @@ class StripeWH_Handler:
                                 booking_cost = Decimal(info["cost"])
                                 coach_id = info["coach"]
                                 booking_coach = None
-                                if coach_id:
+                                if coach_id and coach_id != "None":
                                     booking_coach = get_object_or_404(Coach, id=coach_id)
                                 if booking_coach:
                                     booking_order_line_item = BookingOrderLineItem (
