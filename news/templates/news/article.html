@@ -40,7 +40,7 @@
             <h4>YOUR COMMENT</h4>
             <div id="edit-comment-no-form-container">
                 <p id="user-comment" data-comment="{{ user_comment.comment }}">{{ user_comment.comment }}</p>
-                <div class="pb-0">
+                <div class="pb-0 mb-2">
                     <button id="edit-comment-button" class="small-button white-text">
                         <strong>EDIT COMMENT</strong></button>
                 </div>
@@ -84,11 +84,11 @@
             <h4>LOGIN OR REGISTER TO SUBMIT YOUR COMMENT</h4>
         </div>
         <div class="col-6 col-lg-3 offset-lg-3 justify-content-end d-flex">
-            <a id="login-news-page" class="small-button white-text mb-4 text-center" href="#">
+            <a id="login-news-page" class="small-button white-text mb-4 text-center" href="{% url 'account_login' %}">
                 <strong>LOGIN</strong></a>
         </div>
         <div class="col-6 col-lg-3 justify-content-start d-flex">
-            <a id="register-news-page" class="small-button white-text mb-4 text-center" href="#">
+            <a id="register-news-page" class="small-button white-text mb-4 text-center" href="{% url 'account_signup' %}">
                 <strong>REGISTER</strong></a>
         </div>
         {% endif %}
