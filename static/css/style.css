@@ -9,7 +9,9 @@
 }
 
 /* General */
-body {
+body,
+#feedback-form-container,
+#grandslam-highlight-container {
     background-color: #F2F3F4;
 }
 
@@ -94,7 +96,7 @@ hr {
 }
 
 .big-button-border-background-reverse {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(4, 106, 58, 0.7));
+    background-image: linear-gradient(rgba(4, 106, 58, 0.7), rgba(0, 0, 0, 0.7));
 }
 
 .big-button-border-image {
@@ -282,10 +284,6 @@ a.nav-link.dropdown-toggle::after {
     text-align: left;
 }
 
-#feedback-form-container {
-    background-color: #F2F3F4;
-}
-
 /* Tournament App */
 .logo-tour-container {
     height: 200px;
@@ -296,6 +294,11 @@ a.nav-link.dropdown-toggle::after {
     object-fit: contain;
     max-width: 100%;
     max-height: 100%;
+}
+
+.grandslam-highlight-video {
+    height: 281px;
+    width: 500px;
 }
 
 .calendar-size {
@@ -517,7 +520,7 @@ a.nav-link.dropdown-toggle::after {
     color: red !important;
 }
 
-/* Book App*/
+/* Book App */
 .coach-image-container {
     height: 250px;
 }
@@ -628,7 +631,7 @@ a.nav-link.dropdown-toggle::after {
     color: red !important;
 }
 
-/*Checkout App*/
+/* Checkout App */
 legend {
     font-family: var(--title-font);
     text-transform: uppercase;
@@ -710,8 +713,7 @@ footer {
 /* For all sizes below 992px (Bootstrap's md and below class) */
 @media (max-width: 991px) {
 
-    /*  Nav */
-
+    /* Nav */
     #navbarNavDropdown {
         width: 100vw;
         position: absolute;
@@ -737,13 +739,47 @@ footer {
         left: auto !important;
         right: 0 !important;
     }
+
+    /* Tournament App */
+    #atp-calendar-big-button {
+        margin-bottom: 10px;
+    }
 }
 
 
 
 /* For all sizes below 576px (Bootstrap's x-small class) */
 @media (max-width: 575px) {
+
+    /* Nav */
     .nav-logo {
         font-size: 1.5rem;
+    }
+
+    /* Tournament App */
+    .grandslam-highlight-video {
+        width: 300px;
+        height: 169px;
+    }
+
+    .logo-tour,
+    .logo-tour-container {
+        max-width: 300px;
+    }
+}
+
+
+/* For all sizes below 374px */
+@media (max-width: 374px) {
+
+    /* Tournament App */
+    .grandslam-highlight-video {
+        width: 250px;
+        height: 163px;
+    }
+
+    .logo-tour,
+    .logo-tour-container {
+        max-width: 250px;
     }
 }

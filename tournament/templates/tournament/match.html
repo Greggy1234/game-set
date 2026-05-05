@@ -16,8 +16,7 @@
         <div class="col-12 col-lg-8 offset-lg-2 justify-content-center">
             <p class="white-text">The MATCH hub contains all the information you need to keep up to date with the
                 professional
-                tours. View the ATP or WTA calendar, with the full draw for each tournament, and see the up-to-date
-                rankings!
+                tours. View the ATP or WTA calendar, with the full draw for each tournament, and make sure you're not missing out on the action!!
             </p>
         </div>
     </div>
@@ -26,7 +25,7 @@
     <div class="row justify-content-center">
         <div class="col-12 col-lg-6 text-center white-text">
             <a class="big-button-links" href="{% url 'tour_calendar' tour='ATP' %}">
-                <div class="big-button-border big-button-border-background">
+                <div class="big-button-border big-button-border-background" id="atp-calendar-big-button">
                     <div class="logo-tour-container d-flex justify-content-center mx-auto">
                         <img class="logo-tour " src="{% static 'images/atp-logo-white.png' %}" alt="ATP Logo">
                     </div>
@@ -35,8 +34,8 @@
             </a>
         </div>
         <div class="col-12 col-lg-6 text-center white-text">
-            <a class="big-button-links" href="{% url 'tour_calendar' tour='WTA' %}">
-                <div class="big-button-border big-button-border-background-reverse">
+            <a class="big-button-links" href="{% url 'tour_calendar' tour='WTA' %}" >
+                <div class="big-button-border big-button-border-background-reverse" id="wta-calendar-big-button">
                     <div class="logo-tour-container d-flex justify-content-center mx-auto">
                         <img class="logo-tour" src="{% static 'images/wta-logo-white.png' %}" alt="WTA Logo">
                     </div>
@@ -47,16 +46,16 @@
     </div>
 </div>
 <hr class="mb-0">
-<div class="container-fluid white-background w-100 pt-4 pb-4">
+<div class="container-fluid w-100 pt-4 pb-4" id="grandslam-highlight-container">
     <div class="row text-center">
         <div class="col-12">
             <h3> RECENT GRANDSLAM SHOWCASE - <strong>THE {{ recent_grandslam_atp.name }}</strong></h3>
-            <p>The {{ recent_grandslam_atp.name }} finished on the {{ recent_grandslam_atp.date }} and XXX</p>
         </div>
         <div class="col-12 col-lg-6">
             <h4>Men's Champion</h4>
             <p class="large-p"><strong>{{ recent_grandslam_atp_winner.winner }}</strong> b.
                 {{ recent_grandslam_atp_winner.loser }}
+                <br>
                 {{ recent_grandslam_atp_winner.winner_set_1 }}-{{ recent_grandslam_atp_winner.loser_set_1 }}
                 {{ recent_grandslam_atp_winner.winner_set_2 }}-{{ recent_grandslam_atp_winner.loser_set_2 }}
                 {{ recent_grandslam_atp_winner.winner_set_3 }}-{{ recent_grandslam_atp_winner.loser_set_3 }}
@@ -68,15 +67,19 @@
                 {% endif %}
             </p>
             <h5>Watch the Men's highlights</h5>
-            <iframe width="500" height="281" src="https://www.youtube.com/embed/Z99RntcbEtY?si=RmzNWTeQRHP6S5gI"
+            <iframe class="grandslam-highlight-video" src="https://www.youtube.com/embed/Z99RntcbEtY?si=RmzNWTeQRHP6S5gI"
                 title="YouTube video player" frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <div class="d-flex justify-content-center">
+                <hr class="w-75">
+            </div>
         </div>
         <div class="col-12 col-lg-6">
             <h4>Women's Champion</h4>
             <p class="large-p"><strong>{{ recent_grandslam_wta_winner.winner }}</strong> b.
                 {{ recent_grandslam_wta_winner.loser }}
+                <br>
                 {{ recent_grandslam_wta_winner.winner_set_1 }}-{{ recent_grandslam_wta_winner.loser_set_1 }}
                 {{ recent_grandslam_wta_winner.winner_set_2 }}-{{ recent_grandslam_wta_winner.loser_set_2 }}
                 {% if recent_grandslam_wta_winner.winner_set_3 != None %}
@@ -84,35 +87,10 @@
                 {% endif %}
             </p>
             <h5>Watch the Women's highlights</h5>
-            <iframe width="500" height="281" src="https://www.youtube.com/embed/69CCqjPNc6o?si=KFDJCzBSz0O1DnF9"
+            <iframe class="grandslam-highlight-video" src="https://www.youtube.com/embed/69CCqjPNc6o?si=KFDJCzBSz0O1DnF9"
                 title="YouTube video player" frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        </div>
-    </div>
-</div>
-<hr class="mt-0">
-<div class="container pt-4">
-    <div class="row text-center">
-        <div class="col-12 white-text">
-            <h3 class="white-text">CURRENT TOP 10</h3>
-        </div>
-        <div class="col-12 col-lg-6">
-            <h4 class="white-text">ATP</h4>
-            <div class="h-100">
-                <p class="white-text">Rankings go here</p>
-            </div>
-        </div>
-        <div class="col-12 col-lg-6">
-            <h4 class="white-text">WTA</h4>
-            <div class="h-100">
-                <p class="white-text">Rankings go here</p>
-            </div>
-        </div>
-    </div>
-    <div class="row text-center">
-        <div class="col-12 white-text">
-            <h3 class="white-text">FUN STATS</h3>
         </div>
     </div>
 </div>
