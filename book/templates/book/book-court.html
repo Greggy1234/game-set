@@ -126,7 +126,7 @@
         <div class="col-12 col-lg-6 d-none" id="coach-1-available">
             <h4 class="white-text">Coach Available - £75 extra</h4>
             <p class="white-text">If you don't want to add this coach, click the finalise booking button</p>
-            <div class="d-flex flex-column h-100">
+            <div class="d-flex flex-column">
                 <div class="pb-2">
                     <img src="{% static 'images/coaches/' %}{{ coach_1.slug }}.webp" alt="{{ coach_1.name }}"
                         class="coach-image-container">
@@ -143,7 +143,7 @@
         <div class="col-12 col-lg-6 d-none" id="coach-2-available">
             <h4 class="white-text">Coach Available - £75 extra</h4>
             <p class="white-text">If you don't want to add this coach, click the finalise booking button</p>
-            <div class="d-flex flex-column h-100">
+            <div class="d-flex flex-column">
                 <div class="pb-2">
                     <img src="{% static 'images/coaches/' %}{{ coach_2.slug }}.webp" alt="{{ coach_2.name }}"
                         class="coach-image-container">
@@ -157,12 +157,11 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 py-4">
+        <div class="col-12 pb-4">
             <div>
                 <h4 id="coach-chosen-field" class=" white-text d-none mt-4"></h4>
-                <button id="change-coach-button" class="small-button white-text d-none"><strong>CHANGE
+                <button id="change-coach-button" class="small-button white-text d-none mb-2"><strong>CHANGE
                         COACH</strong></button>
-                <br>
                 <button id="finalise-booking-button" class="small-button white-text d-none"><strong>FINALISE
                         BOOKING</strong></button>
             </div>
@@ -176,27 +175,27 @@
             <p class="white-text">If you would like to change any part of your booking, please select the relevant change button above</p>
             <table id="booking-summary-table" class="table">
                 <tr>
-                    <td><p class="white-text large-p"><strong>Location</strong></p></td>
-                    <td><p class="white-text large-p">{{ court.location.name }}</p></td>
+                    <td><p class="mb-0 white-text large-p"><strong>Location</strong></p></td>
+                    <td><p class="mb-0 white-text large-p">{{ court.location.name }}</p></td>
                 </tr>
                 <tr>
-                    <td><p class="white-text large-p"><strong>Court</strong></p></td>
-                    <td><p class="white-text large-p">{{ court.name }}</p></td>
+                    <td><p class="mb-0 white-text large-p"><strong>Court</strong></p></td>
+                    <td><p class="mb-0 white-text large-p">{{ court.name }}</p></td>
                 </tr>
                 <tr>
-                    <td><p class="white-text large-p"><strong>Date</strong></p></td>
+                    <td><p class="mb-0 white-text large-p"><strong>Date</strong></p></td>
                     <td id="booking-summary-date"></td>
                 </tr>
                 <tr>
-                    <td><p class="white-text large-p"><strong>Time</strong></p></td>
+                    <td><p class="mb-0 white-text large-p"><strong>Time</strong></p></td>
                     <td id="booking-summary-time"></td>
                 </tr>
                 <tr>
-                    <td><p class="white-text large-p"><strong>Coach</strong></p></td>
+                    <td><p class="mb-0 white-text large-p"><strong>Coach</strong></p></td>
                     <td id="booking-summary-coach"></td>
                 </tr>
                 <tr>
-                    <td><p class="white-text large-p"><strong>Cost</strong></p></td>
+                    <td><p class="mb-0 white-text large-p"><strong>Cost</strong></p></td>
                     <td id="booking-summary-cost"></td>
                 </tr>
             </table>

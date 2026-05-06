@@ -278,8 +278,8 @@ function showStep3() {
     coach2AvailableContain.classList.add("d-none");
     coach2AvailableContain.classList.remove("d-block");
     showSelecCoach.innerHTML = ``;
-    showSelecCoach.classList.remove("d-none");
-    showSelecCoach.classList.add("d-block");
+    showSelecCoach.classList.add("d-none");
+    showSelecCoach.classList.remove("d-block");
     let datePickerInput = document.getElementById("step-1-date-input-hidden");
     let datePickerValue = datePickerInput.value;
     let coach1SlotsJson = step3Contain.getAttribute("data-coach-1-slots");
@@ -296,7 +296,7 @@ function showStep3() {
     let coach2available = false;
     if (coach1Slots[daySelected] != undefined) {
         if (coach1Slots[daySelected].includes(timeSelected)) {
-            if (bookedCoachSlots[datePickerValue][coach1IdString] != undefined) {
+            if (bookedCoachSlots[datePickerValue] != undefined) {
                 if (bookedCoachSlots[datePickerValue][coach1IdString].includes(timeSelected) == false) {
                     coach1available = true
                     coach1AvailableContain.classList.remove("d-none");
@@ -313,7 +313,7 @@ function showStep3() {
     }
     if (coach2Slots[daySelected] != undefined) {
         if (coach2Slots[daySelected].includes(timeSelected)) {
-            if (bookedCoachSlots[datePickerValue][coach2IdString] != undefined) {
+            if (bookedCoachSlots[datePickerValue] != undefined) {
                 if (bookedCoachSlots[datePickerValue][coach2IdString].includes(timeSelected) == false) {
                     coach2available = true;
                     coach2AvailableContain.classList.remove("d-none");
@@ -388,15 +388,15 @@ function showBookingSummary() {
     let costFormValue = document.getElementById("form-submit-cost");
     let datePickerInput = document.getElementById("step-1-date-input-hidden");
     let datePickerValue = datePickerInput.value;
-    bookingSummaryDate.innerHTML = `<p class="white-text large-p">${fullDateSelected}</p>`;
-    bookingSummaryTime.innerHTML = `<p class="white-text large-p">${fullTimeSelected}</p>`;
-    bookingSummaryCoach.innerHTML = `<p class="white-text large-p">No coach selected</p>`;
-    bookingSummaryCost.innerHTML = `<p class="white-text large-p">£10</p>`;
+    bookingSummaryDate.innerHTML = `<p class="mb-0 white-text large-p">${fullDateSelected}</p>`;
+    bookingSummaryTime.innerHTML = `<p class="mb-0 white-text large-p">${fullTimeSelected}</p>`;
+    bookingSummaryCoach.innerHTML = `<p class="mb-0 white-text large-p">No coach selected</p>`;
+    bookingSummaryCost.innerHTML = `<p class="mb-0 white-text large-p">£10</p>`;
     dateFormValue.setAttribute("value", `${datePickerValue}`);
     timeFormValue.setAttribute("value", `${timeSelected}`)
     if (coachSelected != undefined) {
-        bookingSummaryCoach.innerHTML = `<p class="white-text large-p">${coachSelected}</p>`;
-        bookingSummaryCost.innerHTML = `<p class="white-text large-p">£85</p>`;
+        bookingSummaryCoach.innerHTML = `<p class="mb-0 white-text large-p">${coachSelected}</p>`;
+        bookingSummaryCost.innerHTML = `<p class="mb-0 white-text large-p">£85</p>`;
         coachFormValue.setAttribute("value", `${coachSelectedId}`);
         costFormValue.setAttribute("value", "85");
     }
