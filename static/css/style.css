@@ -521,8 +521,19 @@ a.nav-link.dropdown-toggle::after {
 }
 
 /* Book App */
+.coach-image {
+    height: 100%;
+    width:100%;
+    object-fit: contain;
+}
+
 .coach-image-container {
-    height: 250px;
+    max-width: 400px;
+}
+
+.map-book-iframe {
+    width: 400px;
+    height: 300px;
 }
 
 .step-header-text {
@@ -766,10 +777,33 @@ footer {
     .logo-tour-container {
         max-width: 300px;
     }
+
+    /* Book App */
+    #booking-summary-table .large-p {
+        font-size: 1rem;
+    }
+
+    .map-book-iframe {
+        width: 275px;
+        height: 206px;
+    }
+
+    .coach-image-container {
+    max-width: 275px;
+}
+}
+
+/* For all sizes below 400px */
+@media (max-width: 399px) {
+
+    /* Book App */
+    #booking-summary-table .large-p {
+        font-size: 0.9rem;
+    }
 }
 
 
-/* For all sizes below 374px */
+/* For all sizes below 375px */
 @media (max-width: 374px) {
 
     /* Tournament App */

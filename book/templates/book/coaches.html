@@ -5,7 +5,7 @@
 
 {% block content %}
 <div class="overlay"></div>
-<div class="container pt-4">
+<div class="container pt-4 mb-4">
     <div class="row text-center">
         <div class="col-12">
             <h1 class="white-text"><strong>GAME</strong> <i>SET</i> COACH</h1>
@@ -15,14 +15,14 @@
         </div>
     </div>
 </div>
-<div class="container">
+<div class="container mb-4">
     <div class="row">
         {% for coach in coaches %}
         <div class="col-12 col-lg-6">
             <div class="d-flex flex-column h-100">
-                <div class="pb-2">
+                <div class="pb-2 coach-image-container">
                     <img src="{% static 'images/coaches/' %}{{ coach.slug }}.webp" alt="{{ coach.name }}"
-                        class="coach-image-container">
+                        class="coach-image">
                 </div>
                 <h3 class="white-text">{{ coach.name }} ({{ coach.nickname }})</h3>
                 <p class="white-text">{{ coach.specialty }}</p>
@@ -40,18 +40,19 @@
                 </div>
             </div>
         </div>
+        {% if forloop.counter|divisibleby:1 %}
+        {% if not forloop.last %}
+        <div class="col-12 d-lg-none my-1">
+            <hr>
+        </div>
+        {% endif %}
+        {% endif %}
         {% if forloop.counter|divisibleby:2 %}
-        <div class="col-12 d-none d-lg-block">
-            <div class="d-flex justify-content-center">
-                <hr class="w-75 py-4">
-            </div>
+        {% if not forloop.last %}
+        <div class="col-12 d-none d-lg-block my-1">
+            <hr>
         </div>
-        {% else %}
-        <div class="col-12 d-lg-none">
-            <div class="d-flex justify-content-center">
-                <hr class="w-75 py-4">
-            </div>
-        </div>
+        {% endif %}
         {% endif %}
         {% endfor %}
     </div>
