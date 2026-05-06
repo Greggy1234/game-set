@@ -15,6 +15,10 @@ body,
     background-color: #F2F3F4;
 }
 
+.nav-margin {
+    margin-top: 104px;
+}
+
 h1,
 h2,
 h3,
@@ -523,7 +527,7 @@ a.nav-link.dropdown-toggle::after {
 /* Book App */
 .coach-image {
     height: 100%;
-    width:100%;
+    width: 100%;
     object-fit: contain;
 }
 
@@ -751,6 +755,10 @@ footer {
         right: 0 !important;
     }
 
+    .nav-margin {
+        margin-top: 64px;
+    }
+
     /* Tournament App */
     #atp-calendar-big-button {
         margin-bottom: 10px;
@@ -765,6 +773,10 @@ footer {
     /* Nav */
     .nav-logo {
         font-size: 1.5rem;
+    }
+
+    .nav-margin {
+        margin-top: 61px;
     }
 
     /* Tournament App */
@@ -789,8 +801,8 @@ footer {
     }
 
     .coach-image-container {
-    max-width: 275px;
-}
+        max-width: 275px;
+    }
 }
 
 /* For all sizes below 400px */
