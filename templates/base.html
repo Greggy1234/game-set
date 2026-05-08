@@ -174,7 +174,7 @@
                     </div>
                 </div>
                 {% if 'book' in request.path %}
-                <div class="col-3 nav-link">
+                <div class="col-3 nav-link my-auto">
                     <a href="{% url 'view_bookings' %}" class="text-decoration-none">
                         <div class="d-flex flex-column align-items-center">
                             <i class="fa-solid fa-calendar"></i>
@@ -190,10 +190,9 @@
                 </div>
                 {% endif %}
                 {% if 'shop' in request.path %}
-                <div class="col-3 nav-link">
+                <div class="col-3 nav-link my-auto">
                     <a href="{% url 'basket' %}" class="text-decoration-none">
                         <div class="d-flex flex-column align-items-center">
-
                             <i class="fa-solid fa-basket-shopping"></i>
                             <p class="large-p mb-0">
                                 {% if grand_total %}

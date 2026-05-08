@@ -21,69 +21,106 @@
     <div class="row">
         <div class="col-12">
             {% if booking_items %}
-            <table class="table bookings-table">
-                <thead>
-                    <tr>
-                        <th scope="col" class="table-header">LOCATION</th>
-                        <th scope="col" class="table-header">COURT</th>
-                        <th scope="col" class="table-header">DATE & TIME</th>
-                        <th scope="col" class="table-header">COACH</th>
-                        <th scope="col" class="table-header">SUB-TOTAL</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for b in booking_items %}
-                    <tr>
-                        <td>
-                            <div>
-                                <h3>{{ b.booking_court.location.name }}</h3>
-                            </div>
-                            <div class="delete-basket-item-button-container my-2">
-                                <form action="{% url 'delete_booking' court_id=b.booking_court.id %}" method="POST">
-                                    {% csrf_token %}
-                                    <div>
-                                        <button type="submit"
-                                            class="white-text small-button-delete-booking text-center ">
-                                            <strong>REMOVE BOOKING</strong></button>
-                                    </div>
-                                    <input type="hidden" name="date" value="{{ b.booking_date }}">
-                                    <input type="hidden" name="time" value="{{ b.booking_time }}">
-                                </form>
-                            </div>
-                        </td>
-                        <td>
-                            <h3>{{ b.booking_court.name }}</h3>
-                        </td>
-                        <td>
-                            <p class="large-p">{{ b.date_human_readable }}</p>
-                            <p class="large-p">{{ b.booking_time }}</p>
-                        </td>
-                        <td>
-                            <p class="large-p">
-                                {% if b.booking_coach == None %}
-                                No coach selected
-                                {% else %}
-                                {{ b.booking_coach.name }}
-                                {% endif %}
-                            </p>
-                        </td>
-                        <td>
-                            <p class="large-p">£{{ b.booking_cost|floatformat:2 }}</p>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                    <tr>
-                        <td colspan="3"></td>
-                        <td>
-                            <h4>BOOKING TOTAL:</h4>
-                        </td>
-                        <td>
-                            <h4>£{{ total_booking_amount|floatformat:2 }}</h4>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <div>
+            <div class="d-block d-md-none">
+                {% for b in booking_items %}
+                <div class="col-12 mb-2">
+                    <h3 class="white-text">{{ b.booking_court.location.name }}</h3>
+                    <h3 class="white-text">{{ b.booking_court.name }}</h3>
+                    <p class="large-p white-text">{{ b.date_human_readable }}</p>
+                    <p class="large-p white-text">{{ b.booking_time }} | £{{ b.booking_cost|floatformat:2 }}</p>
+                    <p class="large-p white-text">
+                        {% if b.booking_coach == None %}
+                        No coach selected
+                        {% else %}
+                        Coach: {{ b.booking_coach.name }}
+                        {% endif %}
+                    </p>
+                    <p class="large-p white-text">£{{ b.booking_cost|floatformat:2 }}</p>
+                </div>
+                <div class="delete-basket-item-button-container mt-2 mb-4">
+                    <form action="{% url 'delete_booking' court_id=b.booking_court.id %}" method="POST">
+                        {% csrf_token %}
+                        <div>
+                            <button type="submit" class="white-text small-button-delete-booking text-center ">
+                                <strong>REMOVE BOOKING</strong></button>
+                        </div>
+                        <input type="hidden" name="date" value="{{ b.booking_date }}">
+                        <input type="hidden" name="time" value="{{ b.booking_time }}">
+                    </form>
+                </div>
+                {% if not forloop.last %}
+                <div class="my-4">
+                    <hr>
+                </div>
+                {% endif %}
+                {% endfor %}
+                <h4 class="white-text">BOOKING TOTAL: £{{ total_booking_amount|floatformat:2 }}</h4>
+            </div>
+            <div class="d-none d-md-block">
+                <table class="table bookings-table">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="table-header-bookings">LOCATION</th>
+                            <th scope="col" class="table-header-bookings">COURT</th>
+                            <th scope="col" class="table-header-bookings">DATE & TIME</th>
+                            <th scope="col" class="table-header-bookings">COACH</th>
+                            <th scope="col" class="table-header-bookings">SUB-TOTAL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for b in booking_items %}
+                        <tr>
+                            <td>
+                                <div>
+                                    <h3 class="white-text">{{ b.booking_court.location.name }}</h3>
+                                </div>
+                                <div class="delete-basket-item-button-container my-2">
+                                    <form action="{% url 'delete_booking' court_id=b.booking_court.id %}" method="POST">
+                                        {% csrf_token %}
+                                        <div>
+                                            <button type="submit"
+                                                class="white-text small-button-delete-booking text-center ">
+                                                <strong>REMOVE BOOKING</strong></button>
+                                        </div>
+                                        <input type="hidden" name="date" value="{{ b.booking_date }}">
+                                        <input type="hidden" name="time" value="{{ b.booking_time }}">
+                                    </form>
+                                </div>
+                            </td>
+                            <td>
+                                <h3 class="white-text">{{ b.booking_court.name }}</h3>
+                            </td>
+                            <td>
+                                <p class="large-p white-text">{{ b.date_human_readable }}</p>
+                                <p class="large-p white-text">{{ b.booking_time }}</p>
+                            </td>
+                            <td>
+                                <p class="large-p white-text">
+                                    {% if b.booking_coach == None %}
+                                    No coach selected
+                                    {% else %}
+                                    {{ b.booking_coach.name }}
+                                    {% endif %}
+                                </p>
+                            </td>
+                            <td>
+                                <p class="large-p white-text">£{{ b.booking_cost|floatformat:2 }}</p>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        <tr>
+                            <td colspan="3"></td>
+                            <td>
+                                <h4 class="white-text">BOOKING TOTAL:</h4>
+                            </td>
+                            <td>
+                                <h4 class="white-text">£{{ total_booking_amount|floatformat:2 }}</h4>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="mb-4">
                 <a href="{% url 'booking_checkout' %}" class="small-button white-text">
                     <strong>PROCEED TO CHECKOUT</strong>
                 </a>
@@ -92,7 +129,8 @@
             <div class="empty-bookings-notice-container mb-5">
                 <div class="col-12 justify-content-center text-center my-4">
                     <h3 class="white-text">NO BOOKINGS</h3>
-                    <p class="white-text">You've not added any bookings yet! Explore our BOOK hub to find a court you want!
+                    <p class="white-text">You've not added any bookings yet! Explore our BOOK hub to find a court you
+                        want!
                     </p>
                 </div>
                 <div class="col-12 justify-content-center text-center pt-4">

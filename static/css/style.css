@@ -619,6 +619,20 @@ a.nav-link.dropdown-toggle::after {
     background-color: var(--main-colour);
 }
 
+.bookings-table,
+.bookings-table th,
+.bookings-table tr,
+.bookings-table td {
+    background-color: var(--main-colour);
+}
+
+.table-header-bookings {
+    font-family: var(--title-font);
+    color: white!important;
+    font-size: 1.2rem;
+    font-weight: normal !important;
+}
+
 .small-button-delete-booking {
     border: 2px solid red;
     background-color: red;
