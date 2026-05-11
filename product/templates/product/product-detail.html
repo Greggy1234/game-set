@@ -10,7 +10,7 @@
 {% block content %}
 <div class="container pt-4 mb-4">
     <div class="row">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6 bg-white">
             {% if product.image_name %}
             <img class="card-img-top" alt="{{ product.name }}"
                 src="{% static 'images/products/' %}{{ product.image_name }}">
@@ -116,7 +116,7 @@
             <div id="edit-review-no-form-container">
                 <p id="user-review-text" data-review="{{ user_review.review }}">{{ user_review.review }}</p>
                 <p class="small-p" data-rating="{{ user_review.rating }}" id="user-rating">{{ user_review.rating }}</p>
-                <div class="pb-0">
+                <div class="pb-0 mb-2">
                     <button id="edit-product-review-rating-button" class="small-button white-text">
                         <strong>EDIT REVIEW {% if user_review.rating %}OR RATING {% else %}
                             OR ADD RATING{% endif %}</strong></button>
@@ -128,20 +128,18 @@
                 </form>
             </div>
             <div id="edit-review-form-container" class="d-none">
-                <div>
-                    <form id="user_review_product_form" method="POST"
-                        action="{% url 'edit_review' review_id=user_review.id %}">
-                        {% csrf_token %}
-                        <div class="col-12 col-md-4 order-md-1">
-                            {{ review_form.rating | as_crispy_field }}
-                        </div>
-                        <div class="col-12 col-md-8">
-                            {{ review_form.review | as_crispy_field }}
-                        </div>
-                        <button id="edit-product-review-rating-button-submit" class="small-button white-text mb-4">
-                            <strong>SUBMIT NEW REVIEW</strong></button>
-                    </form>
-                </div>
+                <form id="user_review_product_form" method="POST"
+                    action="{% url 'edit_review' review_id=user_review.id %}">
+                    {% csrf_token %}
+                    <div class="col-12 col-md-4 order-md-1">
+                        {{ review_form.rating | as_crispy_field }}
+                    </div>
+                    <div class="col-12 col-md-8">
+                        {{ review_form.review | as_crispy_field }}
+                    </div>
+                    <button id="edit-product-review-rating-button-submit" class="small-button white-text mb-4">
+                        <strong>SUBMIT NEW REVIEW</strong></button>
+                </form>
             </div>
         </div>
         {% else %}
@@ -151,7 +149,7 @@
         <div>
             <form id="user_review_product_form" method="POST" action="{% url 'add_review' sku=product.sku %}">
                 {% csrf_token %}
-                <div class="col-12 col-md-4 order-md-1">
+                <div class="col-12 col-md-4">
                     {{ review_form.rating | as_crispy_field }}
                 </div>
                 <div class="col-12 col-md-8">
@@ -170,13 +168,15 @@
         </div>
         <div class="col-6 col-lg-3 offset-lg-3 justify-content-end d-flex">
             <div>
-                <a id="login-product-page" class="small-button white-text mb-4 text-center" href="{% url 'account_login' %}">
+                <a id="login-product-page" class="small-button white-text mb-4 text-center"
+                    href="{% url 'account_login' %}">
                     <strong>LOGIN</strong></a>
             </div>
         </div>
         <div class="col-6 col-lg-3 justify-content-start d-flex">
             <div>
-                <a id="register-product-page" class="small-button white-text mb-4 text-center" href="{% url 'account_signup' %}">
+                <a id="register-product-page" class="small-button white-text mb-4 text-center"
+                    href="{% url 'account_signup' %}">
                     <strong>REGISTER</strong></a>
             </div>
         </div>

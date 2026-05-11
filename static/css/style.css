@@ -193,7 +193,8 @@ hr {
     font-weight: normal !important;
 }
 
-.form-control {
+.form-control,
+.form-select {
     border-radius: 0px;
     box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
 }
