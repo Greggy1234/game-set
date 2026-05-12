@@ -5,7 +5,7 @@
     --main-colour: #3C638E;
     --secondary-colour: #046A3A;
     --main-highlight: #ccff00;
-    --secondary-highlight: #e6a57f;
+    --button-highlight: #e6a57f;
 }
 
 /* General */
@@ -48,6 +48,7 @@ label,
 hr {
     color: var(--main-highlight);
     border-width: 4px;
+    opacity: 1;
 }
 
 .overlay {
@@ -91,7 +92,7 @@ hr {
 }
 
 .big-button-border {
-    border: 2px solid var(--secondary-highlight);
+    border: 2px solid var(--button-highlight);
     border-radius: 25px;
 }
 
@@ -118,7 +119,7 @@ hr {
 
 .small-button {
     border: 2px solid var(--secondary-colour);
-    background-color: var(--secondary-highlight);
+    background-color: var(--button-highlight);
     padding-left: 1rem;
     padding-top: 7px;
     padding-bottom: 7px;
@@ -129,7 +130,7 @@ hr {
 }
 
 .small-button:hover {
-    border: 2px solid var(--secondary-highlight);
+    border: 2px solid var(--button-highlight);
     background-color: white;
     padding-left: 1rem;
     padding-top: 7px;
@@ -211,7 +212,7 @@ hr {
 }
 
 .toast-header-info {
-    background-color: var(--secondary-highlight);
+    background-color: var(--button-highlight);
 }
 
 .toast-header-success {
@@ -224,7 +225,7 @@ hr {
 
 .toast-close-button {
     color: var(--main-colour);
-    border: 2px solid var(--secondary-highlight)
+    border: 2px solid var(--button-highlight)
 }
 
 .basket-image-toast,
@@ -320,7 +321,7 @@ a.nav-link.dropdown-toggle::after {
 }
 
 .match {
-    border: 1px solid var(--secondary-highlight);
+    border: 1px solid var(--button-highlight);
     border-radius: 10px;
     margin: 5px;
 }
@@ -333,10 +334,6 @@ a.nav-link.dropdown-toggle::after {
 
 .card-title {
     color: var(--main-colour);
-}
-
-.product-button {
-    border: 1px solid var(--main-highlight);
 }
 
 #tag-selector-button {
@@ -353,7 +350,7 @@ a.nav-link.dropdown-toggle::after {
     top: 153px;
     left: 0px;
     border: 2px solid var(--secondary-colour);
-    background-color: var(--secondary-highlight);
+    background-color: var(--button-highlight);
     padding-left: 1rem;
     padding-top: 7px;
     padding-bottom: 7px;
@@ -571,7 +568,7 @@ a.nav-link.dropdown-toggle::after {
 
 .time-slot-button-not-selected:hover {
     border: 2px solid white;
-    background-color: var(--secondary-highlight);
+    background-color: var(--button-highlight);
     padding-left: 1rem;
     padding-top: 7px;
     padding-bottom: 7px;
@@ -791,7 +788,7 @@ footer {
     }
 
     .nav-margin {
-        margin-top: 61px;
+        margin-top: 55px;
     }
 
     /* Tournament App */
