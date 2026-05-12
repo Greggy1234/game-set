@@ -6,9 +6,9 @@ document.addEventListener("DOMContentLoaded", function () {
     for (let s of statChangeButtons) {
         s.addEventListener("click", function () {
             showStatsForm(this);
-        })
+        });
     }
-})
+});
 
 /**
  * This function shows the stats form so that users can change their tennis info

@@ -40,7 +40,7 @@ card.addEventListener('change', function (event) {
 /** 
  * This function handles the payment form submission
 */
-var form = document.getElementById("shop-checkout-form")
+var form = document.getElementById("shop-checkout-form");
 form.addEventListener('submit', function (sub) {
     sub.preventDefault();
     card.update({ 'disabled': true });
@@ -106,5 +106,5 @@ form.addEventListener('submit', function (sub) {
         });
     }).fail(function () {
         location.reload();
-    })
+    });
 });

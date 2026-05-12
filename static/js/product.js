@@ -7,19 +7,19 @@ document.addEventListener("DOMContentLoaded", function () {
         updateTagSelec();
         tagSelec.addEventListener("click", function () {
             updateUrlWTag();
-        })
+        });
         window.onscroll = function () {
             buttonShowHide();
-        }
+        };
     } else if (window.location.pathname === "/shop/basket" || window.location.pathname === "/shop/basket/") {
         const clickableP = document.getElementsByClassName("clickable-p");
         for (let p of clickableP) {
             p.addEventListener("click", function () {
                 quantityChange(this);
-            })
+            });
         }
     }
-})
+});
 
 /**
  * This function shows the scroll to top button when a user has scroll through a certain amount of the page, the
@@ -56,12 +56,12 @@ function quantityChange(item) {
     let itemSku = item.getAttribute("data-sku");
     let itemSize = item.getAttribute("data-size");
     let itemQuanCurrent = item.getAttribute("data-quan");
-    let selectQuantity = undefined;
-    let quanContain = undefined;
-    let changeQuanContain = undefined;
-    let keepQuanButtonContain = undefined;
-    let changeQuanButtonContain = undefined;
-    let keepQuanButton = undefined;
+    let selectQuantity;
+    let quanContain;
+    let changeQuanContain;
+    let keepQuanButtonContain;
+    let changeQuanButtonContain;
+    let keepQuanButton;
     if (itemSize == "None") {
         quanContain = document.getElementById(`quantity-${itemSku}-container`);
         changeQuanContain = document.getElementById(`choose-quantity-${itemSku}-container`);
@@ -83,7 +83,7 @@ function quantityChange(item) {
     changeQuanContain.classList.add("d-flex");
 
     selectQuantity.addEventListener("change", function () {
-        quantitySelect = selectQuantity.value;
+        let quantitySelect = selectQuantity.value;
         if (quantitySelect != parseInt(itemQuanCurrent)) {
             keepQuanButtonContain.classList.remove("d-block");
             keepQuanButtonContain.classList.add("d-none");
@@ -95,14 +95,14 @@ function quantityChange(item) {
             keepQuanButtonContain.classList.remove("d-none");
             keepQuanButtonContain.classList.add("d-block");
         }
-    })
+    });
 
     keepQuanButton.addEventListener("click", function () {
         changeQuanContain.classList.remove("d-flex");
         changeQuanContain.classList.add("d-none");
         quanContain.classList.remove("d-none");
         quanContain.classList.add("d-flex");
-    })
+    });
 }
 
 /**
@@ -110,7 +110,7 @@ function quantityChange(item) {
  */
 function updateUrlWTag() {
     let checkboxes = document.querySelectorAll('input[type=checkbox');
-    selecCheckboxes = [];
+    let selecCheckboxes = [];
     for (let check of checkboxes) {
         if (check.checked) {
             selecCheckboxes.push(check.value);
@@ -121,9 +121,9 @@ function updateUrlWTag() {
     let currentParams = new URLSearchParams(window.location.search);
     let currentURLNoQ = currentURL.split('?')[0];
     if (selecCheckboxes.length > 0) {
-        currentParams.set('tag', strSelecCheckboxes)
+        currentParams.set('tag', strSelecCheckboxes);
     } else {
-        currentParams.delete('tag')
+        currentParams.delete('tag');
     }
     let newURL = currentURLNoQ.concat("?", currentParams);
     window.location = newURL;

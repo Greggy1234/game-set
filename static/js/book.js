@@ -1,16 +1,16 @@
 // These functions are for the Book App
 // Global variables which will hold the selected day, time and coach
-let daySelected = undefined
-let timeSelected = undefined
-let coachSelected = undefined
-let fullDateSelected = undefined
-let fullTimeSelected = undefined
-let coachSelectedId = undefined
+let daySelected;
+let timeSelected;
+let coachSelected;
+let fullDateSelected;
+let fullTimeSelected;
+let coachSelectedId;
 
 
 // Wait until DOM is loaded
 document.addEventListener("DOMContentLoaded", function () {
-    stepOneDatePickerInputHidden = document.getElementById("step-1-date-input-hidden");
+    let stepOneDatePickerInputHidden = document.getElementById("step-1-date-input-hidden");
     flatpickr(stepOneDatePickerInputHidden, {
         minDate: "today",
         altInput: true,
@@ -35,35 +35,35 @@ document.addEventListener("DOMContentLoaded", function () {
     altInputClass.style.width = calendarWidth + 'px';
     stepOneDatePickerInputHidden.addEventListener("input", function () {
         showStep2Button();
-    })
+    });
     let timeButtons = document.getElementsByClassName("time-slot-button");
     for (let tb of timeButtons) {
         tb.addEventListener("click", function () {
             selectedTime(this);
-        })
+        });
     }
     let changeDateButton = document.getElementById("change-date-picker");
     changeDateButton.addEventListener("click", function () {
         changeDate();
-    })
+    });
     let changeTimeButton = document.getElementById("change-time-picker");
     changeTimeButton.addEventListener("click", function () {
-        changeTime()
-    })
+        changeTime();
+    });
     let bookCoachButtons = document.getElementsByClassName("book-coach-button");
     for (let cb of bookCoachButtons) {
         cb.addEventListener("click", function () {
             bookCoach(this);
-        })
+        });
     }
     let changeCoachButton = document.getElementById("change-coach-button");
     changeCoachButton.addEventListener("click", function () {
         showStep3();
-    })
+    });
     let finaliseBookingButton = document.getElementById("finalise-booking-button");
     finaliseBookingButton.addEventListener("click", function () {
         showBookingSummary();
-    })
+    });
 });
 
 /**
@@ -75,7 +75,7 @@ function showStep2Button() {
     goToStep2Button.classList.add("d-block");
     goToStep2Button.addEventListener("click", function () {
         showStep2();
-    })
+    });
     let showSelecDate = document.getElementById("date-chosen-field");
     let datePickerInput = document.getElementById("step-1-date-input-hidden");
     let datePickerValue = datePickerInput.value;
@@ -85,7 +85,7 @@ function showStep2Button() {
         year: "numeric",
         month: "long",
         day: "numeric",
-    })
+    });
     fullDateSelected = datePickerValueDateUse;
     showSelecDate.classList.remove("d-none");
     showSelecDate.classList.add("d-block");
@@ -99,7 +99,7 @@ function showStep2() {
     let changeDateButton = document.getElementById("change-date-picker");
     let goToStep2Button = document.getElementById("go-to-step-2");
     let step2Contain = document.getElementById("step-2-container");
-    let calendarPicker = document.getElementById("step-1-date-input-container")
+    let calendarPicker = document.getElementById("step-1-date-input-container");
     changeDateButton.classList.remove("d-none");
     changeDateButton.classList.add("d-block");
     goToStep2Button.classList.add("d-none");
@@ -111,7 +111,7 @@ function showStep2() {
     let datePickerInput = document.getElementById("step-1-date-input-hidden");
     let datePickerValue = datePickerInput.value;
     let dateValueDate = new Date(datePickerValue);
-    let days = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"]
+    let days = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
     let dayOfWeekIndex = dateValueDate.getDay();
     let chosenDay = days[dayOfWeekIndex];
     daySelected = chosenDay;
@@ -123,7 +123,7 @@ function showStep2() {
         let timeButtons = document.getElementsByClassName("time-slot-button");
         for (let tb of timeButtons) {
             if (bookedTimeSlots[datePickerValue].includes(tb.innerText)) {
-                tb.disabled = true
+                tb.disabled = true;
             }
         }
     }
@@ -151,7 +151,7 @@ function changeDate() {
     showSelecTime.classList.add("d-none");
     let changeDateButton = document.getElementById("change-date-picker");
     let changeTimeButton = document.getElementById("change-time-picker");
-    let calendarPicker = document.getElementById("step-1-date-input-container")
+    let calendarPicker = document.getElementById("step-1-date-input-container");
     let showSelecDate = document.getElementById("date-chosen-field");
     let goToStep3Button = document.getElementById("go-to-step-3");
     let step2Contain = document.getElementById("step-2-container");
@@ -170,7 +170,7 @@ function changeDate() {
     calendarPicker.classList.add("d-block");
     showSelecDate.classList.add("d-none");
     showSelecDate.classList.remove("d-block");
-    showSelecDate.innerHTML = ``
+    showSelecDate.innerHTML = ``;
 }
 
 
@@ -195,7 +195,7 @@ function selectedTime(button) {
     }
     let showSelecTime = document.getElementById("time-chosen-field");
     showSelecTime.innerHTML = `YOUR SELECTED TIME: ${buttonValue} - ${nextHour}:00`;
-    fullTimeSelected = `${buttonValue} - ${nextHour}:00`
+    fullTimeSelected = `${buttonValue} - ${nextHour}:00`;
     showSelecTime.classList.remove("d-none");
     showSelecTime.classList.add("d-block");
     let goToStep3Button = document.getElementById("go-to-step-3");
@@ -203,7 +203,7 @@ function selectedTime(button) {
     goToStep3Button.classList.remove("d-none");
     goToStep3Button.addEventListener("click", function () {
         showStep3();
-    })
+    });
 }
 
 /**
@@ -243,9 +243,9 @@ function changeTime() {
  * If there is no coach available, it shows the finalise booking button.
  */
 function showStep3() {
-    coachSelected = undefined
-    let step3NoCoach = document.getElementById("step-3-coach-no-time")
-    step3NoCoach.innerText = `Unfortunately, there are no coaches available to hire during that time. Here are the two coaches for this court, and when they are available:`
+    coachSelected = undefined;
+    let step3NoCoach = document.getElementById("step-3-coach-no-time");
+    step3NoCoach.innerText = `Unfortunately, there are no coaches available to hire during that time. Here are the two coaches for this court, and when they are available:`;
     let timeSlotDays = document.getElementsByClassName("time-slot-date-container");
     for (let tsd of timeSlotDays) {
         tsd.classList.add("d-none");
@@ -264,9 +264,9 @@ function showStep3() {
     changeCoachButton.classList.remove("d-block");
     changeCoachButton.classList.add("d-none");
     let step3Contain = document.getElementById("step-3-container");
-    let noCoachContain = document.getElementById("no-coaches-available-container")
-    let coach1AvailableContain = document.getElementById("coach-1-available")
-    let coach2AvailableContain = document.getElementById("coach-2-available")
+    let noCoachContain = document.getElementById("no-coaches-available-container");
+    let coach1AvailableContain = document.getElementById("coach-1-available");
+    let coach2AvailableContain = document.getElementById("coach-2-available");
     let finaliseBookingButton = document.getElementById("finalise-booking-button");
     let showSelecCoach = document.getElementById("coach-chosen-field");
     step3Contain.classList.remove("d-none");
@@ -298,14 +298,14 @@ function showStep3() {
         if (coach1Slots[daySelected].includes(timeSelected)) {
             if (bookedCoachSlots[datePickerValue] != undefined) {
                 if (bookedCoachSlots[datePickerValue][coach1IdString].includes(timeSelected) == false) {
-                    coach1available = true
+                    coach1available = true;
                     coach1AvailableContain.classList.remove("d-none");
                     coach1AvailableContain.classList.add("d-block");
                 } else {
-                    step3NoCoach.innerText = `Unfortunately, all available coaches are booked for that time. Here are the two coaches for this court, and when they are available:`
+                    step3NoCoach.innerText = `Unfortunately, all available coaches are booked for that time. Here are the two coaches for this court, and when they are available:`;
                 }
             } else {
-                coach1available = true
+                coach1available = true;
                 coach1AvailableContain.classList.remove("d-none");
                 coach1AvailableContain.classList.add("d-block");
             }
@@ -319,7 +319,7 @@ function showStep3() {
                     coach2AvailableContain.classList.remove("d-none");
                     coach2AvailableContain.classList.add("d-block");
                 } else {
-                    step3NoCoach.innerText = `Unfortunately, all available coaches are booked for that time. Here are the two coaches for this court, and when they are available:`
+                    step3NoCoach.innerText = `Unfortunately, all available coaches are booked for that time. Here are the two coaches for this court, and when they are available:`;
                 }
             } else {
                 coach2available = true;
@@ -343,8 +343,8 @@ function showStep3() {
  * This function books the selected coach and then shows the change coach button or finalise booking button.
  */
 function bookCoach(button) {
-    coachName = button.getAttribute("data-coach-name");
-    coachNumber = button.getAttribute("data-coach-number");
+    let coachName = button.getAttribute("data-coach-name");
+    let coachNumber = button.getAttribute("data-coach-number");
     coachSelected = coachName;
     coachSelectedId = coachNumber;
     let showSelecCoach = document.getElementById("coach-chosen-field");
@@ -373,7 +373,7 @@ function bookCoach(button) {
  */
 function showBookingSummary() {
     let bookingSummaryContain = document.getElementById("booking-summary-container");
-    let finaliseBookingButton = document.getElementById("finalise-booking-button")
+    let finaliseBookingButton = document.getElementById("finalise-booking-button");
     bookingSummaryContain.classList.remove("d-none");
     bookingSummaryContain.classList.add("d-block");
     finaliseBookingButton.classList.add("d-none");
@@ -393,7 +393,7 @@ function showBookingSummary() {
     bookingSummaryCoach.innerHTML = `<p class="mb-0 white-text large-p">No coach selected</p>`;
     bookingSummaryCost.innerHTML = `<p class="mb-0 white-text large-p">£10</p>`;
     dateFormValue.setAttribute("value", `${datePickerValue}`);
-    timeFormValue.setAttribute("value", `${timeSelected}`)
+    timeFormValue.setAttribute("value", `${timeSelected}`);
     if (coachSelected != undefined) {
         bookingSummaryCoach.innerHTML = `<p class="mb-0 white-text large-p">${coachSelected}</p>`;
         bookingSummaryCost.innerHTML = `<p class="mb-0 white-text large-p">£85</p>`;

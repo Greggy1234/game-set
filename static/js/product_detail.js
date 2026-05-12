@@ -5,8 +5,8 @@ document.addEventListener("DOMContentLoaded", function () {
     let editReviewButton = document.getElementById("edit-product-review-rating-button");
     editReviewButton.addEventListener("click", function () {
         editReview();
-    })
-})
+    });
+});
 
 /**
  * This function lets users edit their comments ont he article.html page
@@ -26,5 +26,5 @@ function editReview() {
     } else {
         reviewRatingForm.value = null;
     }
-    console.log(parseFloat(userRatingOriginal).toFixed(2))
+    console.log(parseFloat(userRatingOriginal).toFixed(2));
 }
