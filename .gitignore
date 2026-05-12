@@ -4,3 +4,4 @@ __pycache__/
 upload_docs
 management
 fixtures
+.vscode
