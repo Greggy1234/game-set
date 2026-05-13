@@ -256,7 +256,7 @@ def delete_review(request, review_id):
     review = get_object_or_404(Review, id=review_id)
     product_sku = review.product.sku
     
-    if review.author == request.user:
+    if review.user == request.user:
         review.delete()
         messages.add_message(
             request, messages.SUCCESS,
