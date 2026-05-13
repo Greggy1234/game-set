@@ -109,3 +109,18 @@ def previous_shop_order(request, username, number):
     }
     
     return render(request, 'user_profile/view-specific-shop-order.html', context)
+
+
+def previous_booking_order(request, username, number):
+    profile = get_object_or_404(Profile, user__username=username)
+    profile_name = profile.user.username
+    booking_order = get_object_or_404(BookingOrder, booking_number=number)
+    booking_order_items = booking_order.booking_lineitems.all()
+    
+    context = {
+        "booking_order_items": booking_order_items,
+        "booking_order": booking_order,
+        "profile_name": profile_name
+    }
+    
+    return render(request, 'user_profile/view-specific-booking.html', context)

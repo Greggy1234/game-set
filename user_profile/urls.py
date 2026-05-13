@@ -7,4 +7,5 @@ urlpatterns = [
     path("<str:username>/update-surface/", views.update_surface, name='update_surface'),
     path("<str:username>/update-shot/", views.update_shot, name='update_shot'),
     path("shop-order/<str:username>/<str:number>/", views.previous_shop_order, name='previous_shop_order'),
+    path("book-order/<str:username>/<str:number>/", views.previous_booking_order, name='previous_booking_order'),
 ]

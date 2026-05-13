@@ -132,7 +132,7 @@
             <p class="mb-0">Date Booked: {{ bo.date|date:"N j, Y" }}</p>
             <p class="mb-0">Price: £{{ bo.grand_total }}</p>
             <p class="small-p">{{ bo.booking_number }}</p>
-            <a href="" class="small-button-view-order">VIEW BOOKING</a>
+            <a href="{% url 'previous_booking_order' username=request.user.username number=bo.booking_number %}" class="small-button-view-order">VIEW BOOKING</a>
             {% if not forloop.last %}
             <hr>
             {% endif %}

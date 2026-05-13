@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %}Your Bookings{% endblock %}
+
+{% block content %}
+<div class="overlay"></div>
+<div class="text-center w-100 delivery-notice py-2 mb-4 white-text">
+    <h3 class="mb-0 white-text">
+        Courts are only available to book if you are based in the UK!
+    </h3>
+</div>
+<div class="container pt-4">
+    <div class="row text-center">
+        <div class="col-12">
+            <h1 class="white-text">{{ profile_name }}'S ORDER</h1>
+            <h2 class="white-text">ALL ITEMS FROM YOUR BOOKING ARE LISTED BELOW</h2>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-block d-md-none">
+                {% for b in booking_order_items %}
+                <div class="col-12 mb-2">
+                    <h3 class="white-text">{{ b.court.location.name }}</h3>
+                    <h3 class="white-text">{{ b.court.name }}</h3>
+                    <p class="large-p white-text">{{ b.human_readable_date }}</p>
+                    <p class="large-p white-text">{{ b.human_readable_time }} | £{{ b.lineitem_total|floatformat:2 }}
+                    </p>
+                    <p class="large-p white-text">
+                        {% if b.coach == None %}
+                        No coach selected
+                        {% else %}
+                        Coach: {{ b.coach.name }}
+                        {% endif %}
+                </div>
+                {% if not forloop.last %}
+                <div class="my-4">
+                    <hr>
+                </div>
+                {% endif %}
+                {% endfor %}
+                <h4 class="white-text">BOOKING TOTAL: £{{ booking_order.grand_total|floatformat:2 }}</h4>
+            </div>
+            <div class="d-none d-md-block">
+                <table class="table bookings-table">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="table-header-bookings">LOCATION</th>
+                            <th scope="col" class="table-header-bookings">COURT</th>
+                            <th scope="col" class="table-header-bookings">DATE & TIME</th>
+                            <th scope="col" class="table-header-bookings">COACH</th>
+                            <th scope="col" class="table-header-bookings">SUB-TOTAL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for b in booking_order_items %}
+                        <tr>
+                            <td>
+                                <div>
+                                    <h3 class="white-text">{{ b.court.location.name }}</h3>
+                                </div>
+                            </td>
+                            <td>
+                                <h3 class="white-text">{{ b.court.name }}</h3>
+                            </td>
+                            <td>
+                                <p class="large-p white-text">{{ b.human_readable_date }}</p>
+                                <p class="large-p white-text">{{ b.human_readable_time }}</p>
+                            </td>
+                            <td>
+                                <p class="large-p white-text">
+                                    {% if b.coach == None %}
+                                    No coach selected
+                                    {% else %}
+                                    Coach: {{ b.coach.name }}
+                                    {% endif %}
+                                </p>
+                            </td>
+                            <td>
+                                <p class="large-p white-text">£{{ b.booking_cost|floatformat:2 }}</p>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        <tr>
+                            <td colspan="3"></td>
+                            <td>
+                                <h4 class="white-text">BOOKING TOTAL:</h4>
+                            </td>
+                            <td>
+                                <h4 class="white-text">£{{ booking_order.grand_total|floatformat:2 }}</h4>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="mb-4">
+                <a href="{% url 'user_profile' username=request.user.username %}" class="small-button white-text">
+                    <strong>BACK TO PROFILE</strong>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
