@@ -67,11 +67,11 @@
             <p class="large-p"><strong>Postcode: </strong>{{ shop_order.postcode }}</p>
             <p class="large-p"><strong>Country: </strong>{{ shop_order.country }}</p>
             <p class="large-p"><strong>Grand Total: </strong>£{{ shop_order.grand_total }}</p>
-            <p class="large-p"><strong>Order Number: </strong>{{ shop_order.order_number }}</p>
+            <p><strong>Order Number: </strong>{{ shop_order.order_number }}</p>
         </div>
     </div>
     <div class="row">
-        <div class="col-12">
+        <div class="col-12 mb-4">
             <div>
                 <a href="{% url 'shop' %}" class="white-text small-button"><strong>BACK TO SHOP HUB</strong></a>
             </div>
