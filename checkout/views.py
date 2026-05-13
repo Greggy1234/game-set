@@ -6,6 +6,8 @@ from .forms import ShopOrderForm, BookingOrderForm
 from .models import ShopOrderLineItem, ShopOrder, BookingOrder, BookingOrderLineItem
 from product.models import Product
 from book.models import Coach, Court
+from user_profile.models import Profile
+from user_profile.forms import ProfileInfo
 from product.contexts import basket_items
 from book.contexts import booking_items
 from datetime import datetime
@@ -120,7 +122,24 @@ def shop_checkout(request):
             currency=settings.STRIPE_CURRENCY,
         )
 
-        shop_order_form = ShopOrderForm()
+        if request.user.is_authenticated:
+            try:
+                profile = Profile.objects.get(user=request.user)
+                shop_order_form = ShopOrderForm(initial={
+                    'full_name': profile.user.get_full_name(),
+                    'email': profile.user.email,
+                    'phone_number': profile.default_phone_number,
+                    'country': profile.default_country,
+                    'postcode': profile.default_postcode,
+                    'town_or_city': profile.default_town_or_city,
+                    'street_address1': profile.default_street_address1,
+                    'street_address2': profile.default_street_address2,
+                    'county': profile.default_county,
+                })
+            except Profile.DoesNotExist:
+                shop_order_form = ShopOrderForm()
+        else:
+            shop_order_form = ShopOrderForm()
 
         if not stripe_public_key:
             messages.warning(request, 'No public key was set for Stripe. Please set this first!')    
@@ -219,8 +238,25 @@ def booking_checkout(request):
             amount=stripe_total,
             currency=settings.STRIPE_CURRENCY,
         )
-
-        booking_order_form = BookingOrderForm()
+        
+        if request.user.is_authenticated:
+            try:
+                profile = Profile.objects.get(user=request.user)
+                booking_order_form = BookingOrderForm(initial={
+                    'full_name': profile.user.get_full_name(),
+                    'email': profile.user.email,
+                    'phone_number': profile.default_phone_number,
+                    'country': profile.default_country,
+                    'postcode': profile.default_postcode,
+                    'town_or_city': profile.default_town_or_city,
+                    'street_address1': profile.default_street_address1,
+                    'street_address2': profile.default_street_address2,
+                    'county': profile.default_county,
+                })
+            except Profile.DoesNotExist:
+                booking_order_form = BookingOrderForm()
+        else:
+            booking_order_form = BookingOrderForm()
 
         if not stripe_public_key:
             messages.warning(request, 'No public key was set for Stripe. Please set this first!')    
@@ -237,6 +273,27 @@ def booking_checkout(request):
 def shop_checkout_success(request, order_num):
     save_info = request.session.get('save_info')
     shop_order = get_object_or_404(ShopOrder, order_number=order_num)
+    
+    if request.user.is_authenticated:
+        profile = Profile.objects.get(user=request.user)
+        shop_order.user_profile = profile
+        shop_order.save()
+
+        if save_info:
+            profile_data = {
+                'default_phone_number': shop_order.phone_number,
+                'default_country': shop_order.country,
+                'default_postcode': shop_order.postcode,
+                'default_town_or_city': shop_order.town_or_city,
+                'default_street_address1': shop_order.street_address1,
+                'default_street_address2': shop_order.street_address2,
+                'default_county': shop_order.county,
+            }
+            user_profile_form = ProfileInfo(profile_data, instance=profile)
+            if user_profile_form.is_valid():
+                user_profile_form.save()
+    
+    
     messages.success(request, f'Success! Your order number is {order_num}. \
         A confirmation email will be sent to {shop_order.email}.')
 
@@ -245,7 +302,6 @@ def shop_checkout_success(request, order_num):
     
     context = {
         "shop_order": shop_order,
-        "save_info": save_info,
     }
     
     return render(request, "checkout/shop-checkout-success.html", context)
@@ -254,6 +310,27 @@ def shop_checkout_success(request, order_num):
 def booking_checkout_success(request, booking_number):
     save_info = request.session.get('save_info')
     booking_order = get_object_or_404(BookingOrder, booking_number=booking_number)
+    
+    if request.user.is_authenticated:
+        profile = Profile.objects.get(user=request.user)
+        booking_order.user_profile = profile
+        booking_order.save()
+
+        if save_info:
+            profile_data = {
+                'default_phone_number': booking_order.phone_number,
+                'default_country': booking_order.country,
+                'default_postcode': booking_order.postcode,
+                'default_town_or_city': booking_order.town_or_city,
+                'default_street_address1': booking_order.street_address1,
+                'default_street_address2': booking_order.street_address2,
+                'default_county': booking_order.county,
+            }
+            user_profile_form = ProfileInfo(profile_data, instance=profile)
+            if user_profile_form.is_valid():
+                user_profile_form.save()
+    
+    
     messages.success(request, f'Success! Your order number is {booking_number}. \
         A confirmation email will be sent to {booking_order.email}.')
 

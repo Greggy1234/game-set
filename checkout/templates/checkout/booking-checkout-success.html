@@ -68,11 +68,11 @@
             <p class="large-p white-text"><strong>Postcode: </strong>{{ booking_order.postcode }}</p>
             <p class="large-p white-text"><strong>Country: </strong>{{ booking_order.country }}</p>
             <p class="large-p white-text"><strong>Grand Total: </strong>£{{ booking_order.grand_total }}</p>
-            <p class="large-p white-text"><strong>Booking Number: </strong>{{ booking_order.booking_number }}</p>
+            <p class="white-text"><strong>Booking Number: </strong>{{ booking_order.booking_number }}</p>
         </div>
     </div>
     <div class="row">
-        <div class="col-12">
+        <div class="col-12 mb-4">
             <div>
                 <a href="{% url 'book_overview' %}" class="white-text small-button"><strong>BACK TO BOOK HUB</strong></a>
             </div>

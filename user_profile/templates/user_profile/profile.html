@@ -116,9 +116,25 @@
         </div>
         <div class="col-12 col-lg-6">
             <h4>SHOP HUB ORDERS</h4>
+            {% for so in shop_order %}
+            <p class="mb-0">Date Ordered: {{ so.date|date:"N j, Y" }}</p>
+            <p class="mb-0">Price: £{{ so.grand_total }}</p>
+            <p class="small-p">{{ so.order_number }}</p>
+            {% if not forloop.last %}
+            <hr>
+            {% endif %}
+            {% endfor %}
         </div>
         <div class="col-12 col-lg-6">
             <h4>BOOK HUB ORDERS</h4>
+            {% for bo in booking_order %}
+            <p class="mb-0">Date Booked: {{ bo.date|date:"N j, Y" }}</p>
+            <p class="mb-0">Price: £{{ bo.grand_total }}</p>
+            <p class="small-p">{{ bo.booking_number }}</p>
+            {% if not forloop.last %}
+            <hr>
+            {% endif %}
+            {% endfor %}
         </div>
     </div>
 </div>

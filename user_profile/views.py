@@ -3,7 +3,6 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from .models import Profile
 from .forms import ProfileInfo, ProfileStatsYear, ProfileStatsSurface, ProfileStatsShot
-from checkout.models import ShopOrder
 
 # Create your views here.
 def user_profile(request, username):
@@ -24,13 +23,17 @@ def user_profile(request, username):
         
     else:
         details_form = ProfileInfo(instance=profile)
-    shop_order = profile.shop_orders.all()
+    
+    shop_order = profile.shop_orders.all().order_by('-date')
+    booking_order = profile.booking_orders.all().order_by('-date')
+    
     
     context = {
         'details_form': details_form,
         'username': username,
         'profile': profile,
-        "shop_order": shop_order
+        "shop_order": shop_order,
+        "booking_order": booking_order
     }
     
     return render(request, 'user_profile/profile.html', context)
