@@ -627,7 +627,7 @@ a.nav-link.dropdown-toggle::after {
 
 .table-header-bookings {
     font-family: var(--title-font);
-    color: white!important;
+    color: white !important;
     font-size: 1.2rem;
     font-weight: normal !important;
 }
@@ -778,6 +778,23 @@ footer {
     }
 }
 
+
+/* For all sizes below 768px (Bootstrap's small class) */
+@media (max-width: 767px) {
+    /* Shop App */
+
+    #tag-selector-button {
+        top: 80px;
+    }
+
+    #tag-selector-container {
+        top: 108px;
+    }
+
+    .shop-categories {
+        font-size: 1rem;
+    }
+}
 
 
 /* For all sizes below 576px (Bootstrap's x-small class) */

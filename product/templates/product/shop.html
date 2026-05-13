@@ -29,7 +29,7 @@
         <div class="col-12 col-xl-6 justify-content-center justify-content-xl-start d-flex">
             <div class="d-flex flex-row">
                 {% for cat in categories %}
-                <h4 class="me-1">
+                <h4 class="me-1 shop-categories">
                     <span class="{% if cat.name == current_category %}bold-text{% endif %}">
                         <a class="text-decoration-none" href="{% url 'shop' %}?category={{ cat.name }}">
                             {{ cat.friendly_name }}</a>
