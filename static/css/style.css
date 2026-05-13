@@ -731,6 +731,27 @@ legend {
     height: 100%;
 }
 
+/* Profile App */
+
+.small-button-view-order {
+    border: 2px solid var(--secondary-colour);
+    background-color: var(--button-highlight);
+    padding-left: 1rem;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-right: 1rem;
+    text-decoration: none;
+    border-radius: 1px;
+    font-family: var(--text-font);
+    font-size: 0.7rem;
+    color: white;
+}
+
+.small-button-view-order:hover {
+    background-color: white;
+    color: var(--main-colour) !important;
+}
+
 /* Footer */
 footer {
     background-color: white;

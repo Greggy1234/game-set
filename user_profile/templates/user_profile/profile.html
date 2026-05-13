@@ -109,7 +109,7 @@
     </div>
 </div>
 </div>
-<div class="container pt-4">
+<div class="container pt-4 mb-4">
     <div class="row text-center">
         <div class="col-12">
             <h3>YOUR PREVIOUS ORDERS</h3>
@@ -120,6 +120,7 @@
             <p class="mb-0">Date Ordered: {{ so.date|date:"N j, Y" }}</p>
             <p class="mb-0">Price: £{{ so.grand_total }}</p>
             <p class="small-p">{{ so.order_number }}</p>
+            <a href="{% url 'previous_shop_order' username=request.user.username number=so.order_number %}" class="small-button-view-order">VIEW ORDER</a>
             {% if not forloop.last %}
             <hr>
             {% endif %}
@@ -131,6 +132,7 @@
             <p class="mb-0">Date Booked: {{ bo.date|date:"N j, Y" }}</p>
             <p class="mb-0">Price: £{{ bo.grand_total }}</p>
             <p class="small-p">{{ bo.booking_number }}</p>
+            <a href="" class="small-button-view-order">VIEW BOOKING</a>
             {% if not forloop.last %}
             <hr>
             {% endif %}

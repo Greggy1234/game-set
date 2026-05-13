@@ -93,6 +93,16 @@
                     </div>
                 </div>
                 <p class="large-p">£{{ prod.product.price | calc_subtotal:prod.quantity }}</p>
+                <div class="delete-basket-item-button-container mb-4">
+                    <form action="{% url 'remove_from_basket' sku=prod.product.sku %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="white-text small-button-delete-basket text-center ">
+                            <strong>REMOVE ITEM</strong></button>
+                        {% if prod.size %}
+                        <input type="hidden" name="size" value="{{ prod.size }}">
+                        {% endif %}
+                    </form>
+                </div>
                 {% if not forloop.last %}
                 <div class="my-4">
                     <hr>

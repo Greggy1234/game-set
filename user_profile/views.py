@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from .models import Profile
 from .forms import ProfileInfo, ProfileStatsYear, ProfileStatsSurface, ProfileStatsShot
+from checkout.models import ShopOrder, BookingOrder
 
 # Create your views here.
 def user_profile(request, username):
@@ -93,3 +94,18 @@ def update_shot(request, username):
             messages.error(request, 'Favourite shot update has failed. Please try again')
     
     return HttpResponseRedirect(reverse('user_profile', args=[username]))
+
+
+def previous_shop_order(request, username, number):
+    profile = get_object_or_404(Profile, user__username=username)
+    profile_name = profile.user.username
+    shop_order = get_object_or_404(ShopOrder, order_number=number)
+    shop_order_items = shop_order.lineitems.all()
+    
+    context = {
+        "shop_order": shop_order,
+        "shop_order_items": shop_order_items,
+        "profile_name": profile_name
+    }
+    
+    return render(request, 'user_profile/view-specific-shop-order.html', context)
