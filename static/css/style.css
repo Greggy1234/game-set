@@ -187,6 +187,7 @@ hr {
     outline: revert;
 }
 
+
 .table-header {
     font-family: var(--title-font);
     color: var(--main-colour) !important;

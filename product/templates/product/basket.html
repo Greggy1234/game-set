@@ -33,135 +33,213 @@
     <div class="row">
         <div class="col-12">
             {% if basket_items %}
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col" class="table-header"></th>
-                        <th scope="col" class="table-header">ITEM</th>
-                        <th scope="col" class="table-header">PRICE</th>
-                        <th scope="col" class="table-header">QUANTITY</th>
-                        <th scope="col" class="table-header">SUB-TOTAL</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for prod in basket_items %}
-                    <tr>
-                        <td>                            
-                            <div class="basket-image-container">
-                                {% if prod.product.image_name %}
-                                <img class="basket-image" alt="{{ prod.product.name }}"
-                                    src="{% static 'images/products/' %}{{ prod.product.image_name }}">
-                                {% else %}
-                                <img class="basket-image" alt="{{ prod.product.name }}"
-                                    src="{% static 'images/no-image.png' %}">
-                                {% endif %}
-                            </div>
-                            <div class="delete-basket-item-button-container my-2">
-                                <form action="{% url 'remove_from_basket' sku=prod.product.sku %}" method="POST">
-                                    {% csrf_token %}
-                                    <button type="submit" class="white-text small-button-delete-basket text-center ">
-                                        <strong>REMOVE ITEM</strong></button>
-                                    {% if prod.size %}
-                                    <input type="hidden" name="size" value="{{ prod.size }}">
-                                    {% endif %}
-                                </form>
-                            </div>
-                        </td>
-                        <td>
+            <div class="d-block d-md-none">
+                {% for prod in basket_items %}
+                <div class="basket-image-container">
+                    {% if prod.product.image_name %}
+                    <img class="basket-image" alt="{{ prod.product.name }} bg-white"
+                        src="{% static 'images/products/' %}{{ prod.product.image_name }}">
+                    {% else %}
+                    <img class="basket-image" alt="{{ prod.product.name }} bg-white"
+                        src="{% static 'images/no-image.png' %}">
+                    {% endif %}
+                </div>
+                <h3>{{ prod.product.name }}{% if prod.size %} | {{ prod.size|upper }}{% endif %}</h3>
+                <p>{{ prod.product.category.friendly_name }} | {{ prod.product.tag.friendly_name }}</p>
+                <div class="d-flex flex-column">
+                    <div class="d-flex flex-column"
+                        id="quantity-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}-container">
+                        <p class="large-p"
+                            id="quantity-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}">
+                            Quantity: {{ prod.quantity }}</p>
+                            
+                        <p class="small-p clickable-p"
+                        id="change-quantity-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}"
+                        data-sku="{{ prod.product.sku }}" data-size="{% if prod.size %}{{ prod.size }}{% else %}None{% endif %}"
+                        data-quan="{{ prod.quantity }}">
+                            CHANGE QUANTITY
+                        </p>
+                    </div>
+                    <div class="d-none"
+                        id="choose-quantity-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}-container">
+                        <form action="{% url 'update_quantity' sku=prod.product.sku %}" method="POST"
+                        id="choose-quantity-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}">
+                            {% csrf_token %}
                             <div class="d-flex flex-column">
-                                <h3>{{ prod.product.name }}</h3>
-                                {% if prod.size %}
-                                <h5>SIZE: {{ prod.size|upper }}</h5>
-                                {% endif %}
-                                <p>{{ prod.product.category.friendly_name }} | {{ prod.product.tag.friendly_name }}</p>
-                                <p class="small-p">{{ prod.product.sku }}</p>
-                            </div>
-                        </td>
-                        <td>
-                            <p class="large-p">£{{ prod.product.price }}</p>
-                        </td>
-                        <td>
-                            <div class="d-flex flex-column">
-                                <div class="d-flex flex-column"
-                                    id="quantity-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}-container">
-                                    <p class="large-p"
-                                        id="quantity-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}">
-                                        {{ prod.quantity }}</p>
-                                        
-                                    <p class="small-p clickable-p"
-                                    id="change-quantity-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}"
-                                    data-sku="{{ prod.product.sku }}" data-size="{% if prod.size %}{{ prod.size }}{% else %}None{% endif %}"
-                                    data-quan="{{ prod.quantity }}">
-                                        CHANGE QUANTITY
-                                    </p>
+                                <select
+                                    class="form-select-sm mb-4" aria-label="Quantity options selector"
+                                    name="quantity_selection"
+                                    id="quantity-selector-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}">
+                                    {% for val in quantity_values %}
+                                    <option value="{{ val }}" {% if val == prod.quantity %}selected{% endif %}>
+                                        {{ val }}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                                <div id="keep-quantity-button-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}-container">
+                                    <button class="quantity-update-button"
+                                    id="keep-quantity-button-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}"
+                                    type="button">
+                                    KEEP QUANTITY</button>
                                 </div>
-                                <div class="d-none"
-                                    id="choose-quantity-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}-container">
-                                    <form action="{% url 'update_quantity' sku=prod.product.sku %}" method="POST"
-                                    id="choose-quantity-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}">
+                                <div id="change-quantity-button-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}-container"
+                                class="d-none">
+                                    <button id="change-quantity-button-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}"
+                                    class="quantity-update-button" type="submit">UPDATE QUANTITY</button>
+                                </div>
+                            </div>
+                            <input type="hidden" name="size" value="{{ prod.size }}">
+                        </form>
+                    </div>
+                </div>
+                <p class="large-p">£{{ prod.product.price | calc_subtotal:prod.quantity }}</p>
+                {% if not forloop.last %}
+                <div class="my-4">
+                    <hr>
+                </div>
+                {% endif %}
+                {% endfor %}
+                <h4>BASKET TOTAL: £{{ total }}</h4>
+                <h4>DELIVERY COST: 
+                    {% if delivery %}
+                    £{{ delivery|floatformat:2 }}
+                    {% else %}
+                    FREE DELIVERY
+                    {% endif %}
+                </h4>
+                <h3 class="mb-3">GRAND TOTAL: £{{ grand_total|floatformat:2 }}</h3>
+            </div>
+            <div class="d-none d-md-block">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="table-header"></th>
+                            <th scope="col" class="table-header">ITEM</th>
+                            <th scope="col" class="table-header">PRICE</th>
+                            <th scope="col" class="table-header">QUANTITY</th>
+                            <th scope="col" class="table-header">SUB-TOTAL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for prod in basket_items %}
+                        <tr>
+                            <td>                            
+                                <div class="basket-image-container">
+                                    {% if prod.product.image_name %}
+                                    <img class="basket-image" alt="{{ prod.product.name }} bg-white"
+                                        src="{% static 'images/products/' %}{{ prod.product.image_name }}">
+                                    {% else %}
+                                    <img class="basket-image" alt="{{ prod.product.name }} bg-white"
+                                        src="{% static 'images/no-image.png' %}">
+                                    {% endif %}
+                                </div>
+                                <div class="delete-basket-item-button-container my-2">
+                                    <form action="{% url 'remove_from_basket' sku=prod.product.sku %}" method="POST">
                                         {% csrf_token %}
-                                        <div class="d-flex flex-column">
-                                            <select
-                                                class="form-select-sm mb-4" aria-label="Quantity options selector"
-                                                name="quantity_selection"
-                                                id="quantity-selector-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}">
-                                                {% for val in quantity_values %}
-                                                <option value="{{ val }}" {% if val == prod.quantity %}selected{% endif %}>
-                                                    {{ val }}
-                                                </option>
-                                                {% endfor %}
-                                            </select>
-                                            <div id="keep-quantity-button-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}-container">
-                                                <button class="quantity-update-button"
-                                                id="keep-quantity-button-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}"
-                                                type="button">
-                                                KEEP QUANTITY</button>
-                                            </div>
-                                            <div id="change-quantity-button-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}-container"
-                                            class="d-none">
-                                                <button id="change-quantity-button-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}"
-                                                class="quantity-update-button" type="submit">UPDATE QUANTITY</button>
-                                            </div>
-                                        </div>
+                                        <button type="submit" class="white-text small-button-delete-basket text-center ">
+                                            <strong>REMOVE ITEM</strong></button>
+                                        {% if prod.size %}
                                         <input type="hidden" name="size" value="{{ prod.size }}">
+                                        {% endif %}
                                     </form>
                                 </div>
-                            </div>
-                        </td>
-                        <td>
-                            <p class="large-p">£{{ prod.product.price | calc_subtotal:prod.quantity }}</p>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                    <tr>
-                        <td colspan="3"></td>
-                        <td>
-                            <h4>BASKET TOTAL:</h4>
-                            <h4>DELIVERY COST:
-                            </h4>
-                        </td>
-                        <td>
-                            <h4>£{{ total }}</h4>
-                            <h4>{% if delivery %}
-                                £{{ delivery|floatformat:2 }}
-                                {% else %}
-                                FREE DELIVERY
-                                {% endif %}
-                            </h4>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="3"></td>
-                        <td>
-                            <h3>GRAND TOTAL:</h3>
-                        </td>
-                        <td>
-                            <h3>£{{ grand_total|floatformat:2 }}</h3>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <div>
+                            </td>
+                            <td>
+                                <div class="d-flex flex-column">
+                                    <h3>{{ prod.product.name }}</h3>
+                                    {% if prod.size %}
+                                    <h5>SIZE: {{ prod.size|upper }}</h5>
+                                    {% endif %}
+                                    <p>{{ prod.product.category.friendly_name }} | {{ prod.product.tag.friendly_name }}</p>
+                                    <p class="small-p">{{ prod.product.sku }}</p>
+                                </div>
+                            </td>
+                            <td>
+                                <p class="large-p">£{{ prod.product.price }}</p>
+                            </td>
+                            <td>
+                                <div class="d-flex flex-column">
+                                    <div class="d-flex flex-column"
+                                        id="quantity-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}-container">
+                                        <p class="large-p"
+                                            id="quantity-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}">
+                                            {{ prod.quantity }}</p>
+                                            
+                                        <p class="small-p clickable-p"
+                                        id="change-quantity-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}"
+                                        data-sku="{{ prod.product.sku }}" data-size="{% if prod.size %}{{ prod.size }}{% else %}None{% endif %}"
+                                        data-quan="{{ prod.quantity }}">
+                                            CHANGE QUANTITY
+                                        </p>
+                                    </div>
+                                    <div class="d-none"
+                                        id="choose-quantity-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}-container">
+                                        <form action="{% url 'update_quantity' sku=prod.product.sku %}" method="POST"
+                                        id="choose-quantity-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}">
+                                            {% csrf_token %}
+                                            <div class="d-flex flex-column">
+                                                <select
+                                                    class="form-select-sm mb-4" aria-label="Quantity options selector"
+                                                    name="quantity_selection"
+                                                    id="quantity-selector-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}">
+                                                    {% for val in quantity_values %}
+                                                    <option value="{{ val }}" {% if val == prod.quantity %}selected{% endif %}>
+                                                        {{ val }}
+                                                    </option>
+                                                    {% endfor %}
+                                                </select>
+                                                <div id="keep-quantity-button-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}-container">
+                                                    <button class="quantity-update-button"
+                                                    id="keep-quantity-button-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}"
+                                                    type="button">
+                                                    KEEP QUANTITY</button>
+                                                </div>
+                                                <div id="change-quantity-button-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}-container"
+                                                class="d-none">
+                                                    <button id="change-quantity-button-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}"
+                                                    class="quantity-update-button" type="submit">UPDATE QUANTITY</button>
+                                                </div>
+                                            </div>
+                                            <input type="hidden" name="size" value="{{ prod.size }}">
+                                        </form>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <p class="large-p">£{{ prod.product.price | calc_subtotal:prod.quantity }}</p>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        <tr>
+                            <td colspan="3"></td>
+                            <td>
+                                <h4>BASKET TOTAL:</h4>
+                                <h4>DELIVERY COST:
+                                </h4>
+                            </td>
+                            <td>
+                                <h4>£{{ total }}</h4>
+                                <h4>{% if delivery %}
+                                    £{{ delivery|floatformat:2 }}
+                                    {% else %}
+                                    FREE DELIVERY
+                                    {% endif %}
+                                </h4>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td>
+                                <h3>GRAND TOTAL:</h3>
+                            </td>
+                            <td>
+                                <h3>£{{ grand_total|floatformat:2 }}</h3>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="mb-4">
                 <a href="{% url 'shop_checkout' %}" class="small-button white-text">
                     <strong>PROCEED TO CHECKOUT</strong>
                 </a>
