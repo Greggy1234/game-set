@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %}Error{% endblock %}
+
+{% block content %}
+<div class="overlay"></div>
+<div class="container pt-4">
+    <div class="row text-center">
+        <div class="col-12">
+            <h1 class="white-text"><strong>GAME</strong> <i>SET</i> ERROR</h1>
+        </div>
+        <div class="col-12">
+            <h2 class="white-text">SOMETHING WENT WRONG</h2>
+        </div>
+        <div class="col-12 col-lg-8 offset-lg-2 justify-content-center">
+            <p class="white-text">Unfortunately, that page doesn't exist! Please use the Nav Bar at the top of tha page
+                to navigate to one of our hubs, or click below to go back tot he home page</p>
+        </div>
+        <div class="mb-4">
+            <a href="{% url 'home' %}" class="white-text small-button"><strong>VIEW
+                    PRODUCT</strong></a>
+        </div>
+    </div>
+</div>
+{% endblock %}
