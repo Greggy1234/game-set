@@ -23,10 +23,10 @@
         <div class="col-12">
             <h3>YOUR STATS</h3>
         </div>
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-md-4 mb-4">
             <h4>YEARS PLAYING TENNIS</h4>
             <div id="years-playing-info">
-                <p class="large-p">
+                <p class="large-p mb-2">
                     {% if profile.years_playing %}
                     {{ profile.get_years_playing_display }}
                     {% else %}
@@ -45,10 +45,10 @@
                 </form>
             </div>
         </div>
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-md-4 mb-4">
             <h4>FAVOURITE SURFACE</h4>
             <div id="fave-surface-info">
-                <p class="large-p">
+                <p class="large-p mb-2">
                     {% if profile.fave_surface %}
                     {{ profile.get_fave_surface_display }}
                     {% else %}
@@ -67,10 +67,10 @@
                 </form>
             </div>
         </div>
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-md-4 mb-4">
             <h4>FAVOURITE SHOT</h4>
             <div id="fave-shot-info">
-                <p class="large-p">
+                <p class="large-p mb-2">
                     {% if profile.fave_shot %}
                     {{ profile.get_fave_shot_display }}
                     {% else %}
@@ -91,7 +91,7 @@
         </div>
     </div>
 </div>
-<div class="container pt-4">
+<div class="container mt-2">
     <div class="row text-center">
         <div class="col-12">
             <h3>DEFAULT DELIVERY INFORMATION</h3>
@@ -109,12 +109,12 @@
     </div>
 </div>
 </div>
-<div class="container pt-4 mb-4">
+<div class="container pt-4">
     <div class="row text-center">
         <div class="col-12">
             <h3>YOUR PREVIOUS ORDERS</h3>
         </div>
-        <div class="col-12 col-lg-6">
+        <div class="col-12 col-lg-6 mb-4">
             <h4>SHOP HUB ORDERS</h4>
             {% for so in shop_order %}
             <p class="mb-0">Date Ordered: {{ so.date|date:"N j, Y" }}</p>
@@ -126,7 +126,7 @@
             {% endif %}
             {% endfor %}
         </div>
-        <div class="col-12 col-lg-6">
+        <div class="col-12 col-lg-6 mb-4">
             <h4>BOOK HUB ORDERS</h4>
             {% for bo in booking_order %}
             <p class="mb-0">Date Booked: {{ bo.date|date:"N j, Y" }}</p>

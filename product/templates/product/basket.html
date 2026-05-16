@@ -44,7 +44,7 @@
                         src="{% static 'images/no-image.png' %}">
                     {% endif %}
                 </div>
-                <h3>{{ prod.product.name }}{% if prod.size %} | {{ prod.size|upper }}{% endif %}</h3>
+                <h3 class="mt-2">{{ prod.product.name }}{% if prod.size %} | {{ prod.size|upper }}{% endif %}</h3>
                 <p>{{ prod.product.category.friendly_name }} | {{ prod.product.tag.friendly_name }}</p>
                 <div class="d-flex flex-column">
                     <div class="d-flex flex-column"
