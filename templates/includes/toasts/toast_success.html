@@ -16,6 +16,14 @@
         </div>
         <div class="toast-body">
             <p>{{ message }}</p>
+
+            {% if total_booking_amount and 'book' in request.path %}
+            <div class="mb-3">
+                <a class="small-button white-text" href="{% url 'view_bookings' %}">
+                    <strong>VIEW BOOKINGS</strong>
+                </a>
+            </div>
+            {% endif %}
         </div>
         {% if grand_total and 'shop' in request.path %}
         <p class="ps-2"><strong>Items in bag: {{ product_count }}</strong></p>
