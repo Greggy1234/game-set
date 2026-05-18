@@ -56,26 +56,33 @@ function quantityChange(item) {
     let itemSku = item.getAttribute("data-sku");
     let itemSize = item.getAttribute("data-size");
     let itemQuanCurrent = item.getAttribute("data-quan");
+    let device = item.getAttribute("data-device");
     let selectQuantity;
     let quanContain;
     let changeQuanContain;
     let keepQuanButtonContain;
     let changeQuanButtonContain;
     let keepQuanButton;
-    if (itemSize == "None") {
-        quanContain = document.getElementById(`quantity-${itemSku}-container`);
-        changeQuanContain = document.getElementById(`choose-quantity-${itemSku}-container`);
-        selectQuantity = document.getElementById(`quantity-selector-${itemSku}`);
-        keepQuanButtonContain = document.getElementById(`keep-quantity-button-${itemSku}-container`);
-        changeQuanButtonContain = document.getElementById(`change-quantity-button-${itemSku}-container`);
-        keepQuanButton = document.getElementById(`keep-quantity-button-${itemSku}`);
+    let mobsize;
+    if (device == "mobsize"){
+        mobsize = "-mobsize"
     } else {
-        quanContain = document.getElementById(`quantity-${itemSku}-${itemSize}-container`);
-        changeQuanContain = document.getElementById(`choose-quantity-${itemSku}-${itemSize}-container`);
-        selectQuantity = document.getElementById(`quantity-selector-${itemSku}-${itemSize}`);
-        keepQuanButtonContain = document.getElementById(`keep-quantity-button-${itemSku}-${itemSize}-container`);
-        changeQuanButtonContain = document.getElementById(`change-quantity-button-${itemSku}-${itemSize}-container`);
-        keepQuanButton = document.getElementById(`keep-quantity-button-${itemSku}-${itemSize}`);
+        mobsize =""
+    }
+    if (itemSize == "None") {
+        quanContain = document.getElementById(`quantity-${itemSku}-container${mobsize}`);
+        changeQuanContain = document.getElementById(`choose-quantity-${itemSku}-container${mobsize}`);
+        selectQuantity = document.getElementById(`quantity-selector-${itemSku}${mobsize}`);
+        keepQuanButtonContain = document.getElementById(`keep-quantity-button-${itemSku}-container${mobsize}`);
+        changeQuanButtonContain = document.getElementById(`change-quantity-button-${itemSku}-container${mobsize}`);
+        keepQuanButton = document.getElementById(`keep-quantity-button-${itemSku}${mobsize}`);
+    } else {
+        quanContain = document.getElementById(`quantity-${itemSku}-${itemSize}-container${mobsize}`);
+        changeQuanContain = document.getElementById(`choose-quantity-${itemSku}-${itemSize}-container${mobsize}`);
+        selectQuantity = document.getElementById(`quantity-selector-${itemSku}-${itemSize}${mobsize}`);
+        keepQuanButtonContain = document.getElementById(`keep-quantity-button-${itemSku}-${itemSize}-container${mobsize}`);
+        changeQuanButtonContain = document.getElementById(`change-quantity-button-${itemSku}-${itemSize}-container${mobsize}`);
+        keepQuanButton = document.getElementById(`keep-quantity-button-${itemSku}-${itemSize}${mobsize}`);
     }
     quanContain.classList.remove("d-flex");
     quanContain.classList.add("d-none");

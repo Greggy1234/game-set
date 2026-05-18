@@ -48,43 +48,43 @@
                 <p>{{ prod.product.category.friendly_name }} | {{ prod.product.tag.friendly_name }}</p>
                 <div class="d-flex flex-column">
                     <div class="d-flex flex-column"
-                        id="quantity-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}-container">
+                        id="quantity-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}-container-mobsize">
                         <p class="large-p"
-                            id="quantity-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}">
+                            id="quantity-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}-mobsize">
                             Quantity: {{ prod.quantity }}</p>
                             
                         <p class="small-p clickable-p"
-                        id="change-quantity-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}"
+                        id="change-quantity-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}-mobsize"
                         data-sku="{{ prod.product.sku }}" data-size="{% if prod.size %}{{ prod.size }}{% else %}None{% endif %}"
-                        data-quan="{{ prod.quantity }}">
+                        data-quan="{{ prod.quantity }}" data-device="mobsize">
                             CHANGE QUANTITY
                         </p>
                     </div>
                     <div class="d-none"
-                        id="choose-quantity-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}-container">
+                        id="choose-quantity-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}-container-mobsize">
                         <form action="{% url 'update_quantity' sku=prod.product.sku %}" method="POST"
-                        id="choose-quantity-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}">
+                        id="choose-quantity-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}-mobsize">
                             {% csrf_token %}
                             <div class="d-flex flex-column">
                                 <select
                                     class="form-select-sm mb-4" aria-label="Quantity options selector"
                                     name="quantity_selection"
-                                    id="quantity-selector-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}">
+                                    id="quantity-selector-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}-mobsize">
                                     {% for val in quantity_values %}
                                     <option value="{{ val }}" {% if val == prod.quantity %}selected{% endif %}>
                                         {{ val }}
                                     </option>
                                     {% endfor %}
                                 </select>
-                                <div id="keep-quantity-button-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}-container">
+                                <div id="keep-quantity-button-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}-container-mobsize">
                                     <button class="quantity-update-button"
-                                    id="keep-quantity-button-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}"
+                                    id="keep-quantity-button-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}-mobsize"
                                     type="button">
                                     KEEP QUANTITY</button>
                                 </div>
-                                <div id="change-quantity-button-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}-container"
+                                <div id="change-quantity-button-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}-container-mobsize"
                                 class="d-none">
-                                    <button id="change-quantity-button-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}"
+                                    <button id="change-quantity-button-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}-mobsize"
                                     class="quantity-update-button" type="submit">UPDATE QUANTITY</button>
                                 </div>
                             </div>
@@ -178,7 +178,7 @@
                                         <p class="small-p clickable-p"
                                         id="change-quantity-{{ prod.product.sku }}{% if prod.size %}-{{ prod.size }}{% endif %}"
                                         data-sku="{{ prod.product.sku }}" data-size="{% if prod.size %}{{ prod.size }}{% else %}None{% endif %}"
-                                        data-quan="{{ prod.quantity }}">
+                                        data-quan="{{ prod.quantity }}" data-device="desktop">
                                             CHANGE QUANTITY
                                         </p>
                                     </div>
