@@ -65,9 +65,9 @@ function quantityChange(item) {
     let keepQuanButton;
     let mobsize;
     if (device == "mobsize"){
-        mobsize = "-mobsize"
+        mobsize = "-mobsize";
     } else {
-        mobsize =""
+        mobsize ="";
     }
     if (itemSize == "None") {
         quanContain = document.getElementById(`quantity-${itemSku}-container${mobsize}`);

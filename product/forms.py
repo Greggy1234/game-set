@@ -30,16 +30,7 @@ class ProductFormEdit(forms.ModelForm):
     image = forms.ImageField(label="Image", required=False)
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        #categories = Category.objects.all()
-        #cat_friendly_names = [(c.id, c.get_friendly_name()) for c in categories]
-        
-        #tags = Tag.objects.all()
-        #tag_friendly_names = [(t.id, t.get_friendly_name()) for t in tags]
-
-        #self.fields['category'].choices = cat_friendly_names
-        #self.fields['tag'].choices = tag_friendly_names
-        
+        super().__init__(*args, **kwargs)        
         for field_name in ['category', 'tag', 'sku']:
             self.fields[field_name].disabled = True
             self.fields[field_name].required = False
@@ -62,4 +53,3 @@ class ProductFormAdd(forms.ModelForm):
 
         self.fields['category'].choices = cat_friendly_names
         self.fields['tag'].choices = tag_friendly_names
-        self.fields['sku'].disabled = True
