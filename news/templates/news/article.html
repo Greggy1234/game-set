@@ -69,7 +69,7 @@
         <div>
             <form id="user_comment_article" method="POST" action="{% url 'add_comment' slug=article.slug %}">
                 {% csrf_token %}
-                <div class="col-12 col-md-6">
+                <div class="col-12 col-lg-6">
                     {{ comment_form.comment | as_crispy_field }}
                 </div>
                 <div>
