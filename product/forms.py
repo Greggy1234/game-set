@@ -25,9 +25,7 @@ class ReviewForm(forms.ModelForm):
 class ProductFormEdit(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['name', 'description', 'category', 'tag', 'sku', 'price', 'rating', 'image_name']
-        
-    image = forms.ImageField(label="Image", required=False)
+        fields = ['name', 'description', 'category', 'tag', 'sku', 'price', 'rating', 'image_name']        
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)        
@@ -40,8 +38,6 @@ class ProductFormAdd(forms.ModelForm):
     class Meta:
         model = Product
         fields = ['name', 'description', 'category', 'tag', 'sku', 'price', 'rating', 'image_name']
-        
-    image = forms.ImageField(label="Image", required=False)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -52,4 +48,9 @@ class ProductFormAdd(forms.ModelForm):
         tag_friendly_names = [(t.id, t.get_friendly_name()) for t in tags]
 
         self.fields['category'].choices = cat_friendly_names
-        self.fields['tag'].choices = tag_friendly_names
+        self.fields['tag'].choices = tag_friendly_names        
+        for field_name in ['category', 'tag']:
+            self.fields[field_name].required = True
+        
+        self.fields['sku'].disabled = True
+        

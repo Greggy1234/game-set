@@ -265,6 +265,10 @@ a.nav-link.dropdown-toggle::after {
     border-radius: 0px !important;
 }
 
+.nav-border-top {
+    border-top: 1px dotted var(--main-colour);
+}
+
 
 /* Allauth templates */
 .allauth-link {

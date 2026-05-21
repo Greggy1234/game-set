@@ -109,6 +109,13 @@
                                     <li><a class="dropdown-item" href="{% url 'shop' %}?category=gear">Gear</a></li>
                                     <li><a class="dropdown-item"
                                             href="{% url 'shop' %}?category=accessories">Accessories</a></li>
+                                    {% if request.user.is_superuser %}
+                                    <div class="nav-border-top">
+                                        <li><a class="dropdown-item" href="{% url 'add_product' %}">Add Product</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'show_removed_products' %}">Hidden
+                                                Products</a></li>
+                                    </div>
+                                    {% endif %}
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">

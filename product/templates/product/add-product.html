@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_js %}
+<script src="{% static 'js/add_product.js' %}"></script>
+{% endblock %}
+
 {% block extra_title %}Add Product{% endblock %}
 
 {% block content %}
@@ -8,18 +12,23 @@
     <div class="row text-center">
         <div class="col-12">
             <h1><strong>GAME</strong> <i>SET</i> MANAGE</h1>
-        </div>
-        <div class="col-12">
             <h2>Add Product</h2>
+            <p>Make sure to include to whole image name in the 'Image name' field that has been uploaded to the backend, for example 'product.webp'. Remember the keep the file extension name!</p>
         </div>
     </div>
 </div>
 <div class="container">
     <div class="row">
-        <div class="col-12 col-md-8 col-lg-6 justify-content-center offset-md-2 offset-lg-3">
-            <form action="{% url 'add_product' sku=product.sku %}" method="POST">
+        <div class="col-12 col-md-8 col-lg-6 justify-content-center offset-md-2 offset-lg-3" id="add-product-form-container"
+        data-skus="{{ max_number_sku_json }}">
+            <form action="{% url 'add_product' %}" method="POST">
                 {% csrf_token %}
                 {{ form | crispy }}
+                <div class="mb-4 mt-2">
+                    <button type="submit" class=" white-text small-button text-center ">
+                        <strong>ADD PRODUCT</strong></button>
+                </div>
+                <input type="hidden" name="sku_use" id="sku_use" value="">
             </form>
         </div>
     </div>

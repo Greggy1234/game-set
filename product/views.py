@@ -4,8 +4,11 @@ from django.db.models import Q
 from django.db.models.functions import Lower
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
+from collections import Counter
 from .models import Category, Tag, Product, Review
 from .forms import ReviewForm, ProductFormEdit, ProductFormAdd
+import re
+import json
 
 # Create your views here.
 def all_products(request):
@@ -271,27 +274,40 @@ def delete_review(request, review_id):
     return HttpResponseRedirect(reverse('product_detail', args=[product_sku]))
 
 @login_required
-def add_product(request, sku):
+def add_product(request):
     """
     Add a product to the SHOP hub
     """
     if not request.user.is_superuser:
         messages.error(request, 'You do not have access to that page.')
         return redirect(reverse('home'))
+
+    all_skus = Product.objects.values_list('sku', flat=True)
+    sku_words = []
+    for sku in all_skus:
+        regex_sku = re.sub(r'\d+', "", sku)
+        sku_words.append(regex_sku)
     
-    product = get_object_or_404(Product, sku=sku)
+    max_number_sku =dict(Counter(sku_words))
+    max_number_sku_json = json.dumps(max_number_sku)
+    
     if request.method == 'POST':
         form = ProductFormAdd(request.POST)
         if form.is_valid():
-            product = form.save()
+            product = form.save(commit=False)
+            sku =  request.POST.get("sku_use")
+            product.sku = sku
+            product.save()
             messages.success(request, 'Product has been added to store!')
             return redirect(reverse('product_detail', args=[product.sku]))
         else:
             messages.error(request, 'Product has not been added to store! Please ensure the form is valid.')
     else:
         form = ProductFormAdd()
+        
     context = {
         'form': form,
+        'max_number_sku_json': max_number_sku_json,
     }
 
     return render(request, 'product/add-product.html', context)
