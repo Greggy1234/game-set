@@ -108,11 +108,10 @@
         </form>
     </div>
 </div>
-</div>
 <div class="container pt-4">
     <div class="row text-center">
         <div class="col-12">
-            <h3>YOUR PREVIOUS ORDERS</h3>
+            <h3>YOUR PREVIOUS TRANSACTIONS</h3>
         </div>
         <div class="col-12 col-lg-6 mb-4">
             <h4>SHOP HUB ORDERS</h4>
@@ -127,7 +126,7 @@
             {% endfor %}
         </div>
         <div class="col-12 col-lg-6 mb-4">
-            <h4>BOOK HUB ORDERS</h4>
+            <h4>BOOK HUB BOOKINGS</h4>
             {% for bo in booking_order %}
             <p class="mb-0">Date Booked: {{ bo.date|date:"N j, Y" }}</p>
             <p class="mb-0">Price: £{{ bo.grand_total }}</p>

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block extra_title %}Your Bookings{% endblock %}
+{% block extra_title %}Past Bookings{% endblock %}
 
 {% block content %}
 <div class="overlay"></div>
@@ -35,6 +35,7 @@
                         {% else %}
                         Coach: {{ b.coach.name }}
                         {% endif %}
+                    </p>
                 </div>
                 {% if not forloop.last %}
                 <div class="my-4">
@@ -80,7 +81,7 @@
                                 </p>
                             </td>
                             <td>
-                                <p class="large-p white-text">£{{ b.booking_cost|floatformat:2 }}</p>
+                                <p class="large-p white-text">£{{ b.lineitem_total|floatformat:2 }}</p>
                             </td>
                         </tr>
                         {% endfor %}
@@ -96,7 +97,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="mb-4">
+            <div class="my-4">
                 <a href="{% url 'user_profile' username=request.user.username %}" class="small-button white-text">
                     <strong>BACK TO PROFILE</strong>
                 </a>

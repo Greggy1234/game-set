@@ -4,7 +4,7 @@ const categoryShorthand = {
     "1": "m", 
     "2": "w", 
     "3": "g",
-    "4": "a"}
+    "4": "a"};
 const tagShorthand = {
     "1": "hood", 
     "2": "jack", 
@@ -31,7 +31,7 @@ const tagShorthand = {
     "23": "grip",
     "24": "hopper",
     "25": "shoe",
-}
+};
 
 
 // Wait until DOM is loaded
@@ -41,11 +41,11 @@ document.addEventListener("DOMContentLoaded", function () {
     let tagSelec = document.getElementById("id_tag");
     categorySelec.addEventListener("change", function () {
         updateSkuField();
-    })
+    });
     tagSelec.addEventListener("change", function () {
         updateSkuField();
-    })
-})
+    });
+});
 
 /**
  * This function populates the sku field so consistency for skus are kept throughout the site, ensuring no products break the flow
@@ -59,9 +59,8 @@ function updateSkuField() {
     let tagSelecValue = document.getElementById("id_tag").value;
     let skuWord = categoryShorthand[categorySelecValue].concat(tagShorthand[tagSelecValue]);
     let allRecentSkus = JSON.parse(document.getElementById("add-product-form-container").getAttribute("data-skus"));
-    console.log(allRecentSkus)
     if (allRecentSkus[skuWord] != undefined) {
-        num = allRecentSkus[skuWord] + 1;
+        let num = allRecentSkus[skuWord] + 1;
         updateSkuText = skuWord.concat(num);
     } else {
         updateSkuText = `${skuWord}1`;
