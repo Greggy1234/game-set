@@ -17,7 +17,6 @@ class ShopOrderForm(forms.ModelForm):
             'full_name': 'Full Name',
             'email': 'Email Address',
             'phone_number': 'Phone Number',
-            'country': 'Country',
             'postcode': 'Postal Code',
             'town_or_city': 'Town or City',
             'street_address1': 'Street Address 1',
@@ -31,7 +30,7 @@ class ShopOrderForm(forms.ModelForm):
                     placeholder = f'{placeholders[field]} *'
                 else:
                     placeholder = placeholders[field]
-            self.fields[field].widget.attrs["placeholder"] = placeholder
+                self.fields[field].widget.attrs["placeholder"] = placeholder
             self.fields[field].label = False
 
 
@@ -65,8 +64,8 @@ class BookingOrderForm(forms.ModelForm):
                     placeholder = f'{placeholders[field]} *'
                 else:
                     placeholder = placeholders[field]
+                self.fields[field].widget.attrs["placeholder"] = placeholder
             else:
                 self.fields[field].disabled = True
                 self.fields[field].initial = "GB"
-            self.fields[field].widget.attrs["placeholder"] = placeholder
             self.fields[field].label = False

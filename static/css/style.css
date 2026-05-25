@@ -40,7 +40,8 @@ textarea,
 textarea::placeholder,
 label,
 .dropdown-menu li,
-.dropdown-menu li a {
+.dropdown-menu li a,
+.shop-hub-text {
     font-family: var(--text-font);
     color: var(--main-colour) !important;
 }
@@ -339,6 +340,11 @@ a.nav-link.dropdown-toggle::after {
 /* Shop App */
 #products .card {
     background-color: #F2F3F4;
+}
+
+.shop-hub-text {
+    font-size: 1rem;
+    font-weight: 400;
 }
 
 .card-title {

@@ -17,10 +17,10 @@
             <h2>Stock-up on clothes, gear and accessories!</h2>
         </div>
         <div class="col-12 col-lg-8 offset-lg-2 justify-content-center">
-            <p>The SHOP hub contains has everything you need to succeed at your game.
+            <h3 class="shop-hub-text">The SHOP hub contains has everything you need to succeed at your game.
                 View our sportswear, upgrade your gear, complete your look with accessories, and be the best player on
                 the court!
-            </p>
+            </h3>
         </div>
     </div>
 </div>
@@ -159,7 +159,7 @@
     </div>
 </div>
 <div class="collapsable-tag-selector-button" data-bs-toggle="collapse" data-bs-target="#tag-selector-container"
-    aria-expanded="false" aria-controls="tag-selector" id="tag-selector-button-container">
+    id="tag-selector-button-container">
     <button class="small-button small-p d-flex align-items-center" id="tag-selector-button">
         <i class="fa-solid fa-angles-right"></i>
         <span class="d-none d-md-block ps-2">FILTER BY TYPE</span></button>
@@ -182,13 +182,13 @@
 
 {% block postloadjs %}
 {{ block.super }}
-<script type="text/javascript">
+<script>
     $('#top-of-page').click(function (e) {
         window.scrollTo(0, 0)
     })
 </script>
 
-<script type="text/javascript">
+<script>
     $('#choose-sorting').change(function () {
         var selector = $(this);
         var currentUrl = new URL(window.location);
