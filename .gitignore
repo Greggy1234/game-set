@@ -5,10 +5,8 @@ upload_docs
 management
 fixtures
 .vscode
-env.py
 .env
 *.py[cod]
-__pycache__/
 db.sqlite3
 staticfiles/
 .coverage

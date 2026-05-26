@@ -1,1 +1,1 @@
-Game Set: Confirmation of you SHOP Hub Order | Order Number: {{ shop_order.order_number }}
+Game Set: Confirmation of your SHOP Hub Order | Order Number: {{ shop_order.order_number }}
