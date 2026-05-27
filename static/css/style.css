@@ -401,7 +401,9 @@ a.nav-link.dropdown-toggle::after {
     cursor: pointer;
 }
 
-
+.fa-star {
+    color: gold;
+}
 
 .small-button-edit-product {
     border: 2px solid orange;

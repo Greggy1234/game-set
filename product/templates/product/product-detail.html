@@ -33,7 +33,7 @@
                     </p>
                 </div>
                 {% if product.rating %}
-                <p>{{ product.rating }}/5.00</p>
+                <p><i class="fa-solid fa-star"></i> {{ product.rating }}/5.00</p>
                 {% else %}
                 <p class="small-p">No rating</p>
                 {% endif %}
@@ -115,7 +115,7 @@
             <h4>YOUR REVIEW FOR {{ product.name }}</h4>
             <div id="edit-review-no-form-container">
                 <p id="user-review-text" data-review="{{ user_review.review }}">{{ user_review.review }}</p>
-                <p class="small-p" data-rating="{{ user_review.rating }}" id="user-rating">
+                <p class="small-p" data-rating="{{ user_review.rating }}" id="user-rating"><i class="fa-solid fa-star"></i> 
                     {% if user_review.rating > 0 %}{{ user_review.rating }}{% else %}No rating{% endif %}
                 </p>
                 <div class="pb-0 mb-2">
@@ -190,7 +190,8 @@
         <div class="col-12">
             <h5>{{ rev.user }}:</h5>
             <p>{{ rev.review }}</p>
-            <p class="small-p">{% if rev.rating > 0 %}{{ rev.rating }}{% else %}No rating{% endif %}</p>
+            <p class="small-p"><i class="fa-solid fa-star"></i> {% if rev.rating > 0 %}
+                {{ rev.rating }}{% else %}No rating{% endif %}</p>
             {% if not forloop.last %}
             <hr>{% endif %}
         </div>
