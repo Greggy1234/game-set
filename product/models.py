@@ -5,6 +5,9 @@ from django_extensions.db.fields import AutoSlugField
 
 # Create your models here.
 class Category(models.Model):
+    '''
+    Stores the different category options available for use on the SHOP hub
+    '''
     
     class Meta:
         verbose_name_plural = 'Categories'
@@ -20,6 +23,9 @@ class Category(models.Model):
 
 
 class Tag(models.Model):
+    '''
+    Stores the different Tag options available for use on the SHOP hub
+    '''
     name = models.CharField(max_length=100, null=True, blank=True)
     friendly_name = models.CharField(max_length=100, null=True, blank=True)
     
@@ -31,6 +37,9 @@ class Tag(models.Model):
 
 
 class Product(models.Model):
+    '''
+    Stores all relevant information needed for products to be displayed properly on the SHOP hub
+    '''
     category = models.ForeignKey('Category', null=True, blank=True, on_delete=models.SET_NULL)
     sku = models.CharField(max_length=254, null=True, blank=True)
     name = models.CharField(max_length=254)

@@ -15,6 +15,18 @@ def all_products(request):
     """
     Brings all the products into a single page. Allows for sorting, refining and searching
     
+    **Context**
+    ``products``
+        All instances of :model:`product.Product`
+    ``tags``
+        All instances of :model:`product.Tag`
+    ``current_sorting``
+        The sort instructions that will affect how the products are displayed 
+    ``categories``
+        All instances of :model:`product.Category`
+    ``current_category``
+        The category that was selected by the user for filtering purposes
+    
     **Template**
         :template:`product/shop.html`
     """
@@ -66,7 +78,6 @@ def all_products(request):
     
     context = {
         'products': products,
-        'user_query': query,
         'tags': tags,
         'current_sorting': current_sorting,
         'categories': categories,
@@ -78,6 +89,21 @@ def all_products(request):
 def product_detail(request, sku):
     """
     Shows the product selected by the user
+    
+    **Context**
+    ``product``
+        The single correct instance of :model:`product.Product`
+    ``reviews``
+        All instances of :model:`product.Review`
+    ``user_review``
+        The logged in user's review if available
+    ``review_count``
+        The number of total reviews
+    ``review_form``
+        An instance of :form:`product.ReviewForm`
+    
+    **Template**
+        :template:`product/product-detail.html`
     """    
     product = get_object_or_404(Product, sku=sku)
     if not product.show_on_site:
@@ -105,6 +131,13 @@ def product_detail(request, sku):
 def basket(request):
     """
     Renders the current session basket
+    
+    **Context**
+    ``quantity_values``
+        The different quantities a user is able to choose from
+    
+    **Template**
+        :template:`product/basket.html`
     """
     quantity_values = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     
@@ -117,6 +150,14 @@ def basket(request):
 def add_to_basket(request):
     """
     Add a product to the shopping basket
+    
+    **Context**
+    ``product``
+        The single correct instance of :model:`product.Product`
+    ``basket``
+        All items stores in the basket
+    ``url``
+        The url from where the user added the product
     """
     sku = request.POST.get("sku")
     product = get_object_or_404(Product, sku=sku)
@@ -156,7 +197,13 @@ def add_to_basket(request):
 
 def update_quantity(request, sku):
     """
-    Add a product to the shopping basket
+    Updates the quantity for a product in the basket
+    
+    **Context**
+    ``product``
+        The single correct instance of :model:`product.Product`
+    ``basket``
+        All items stores in the basket
     """
     product = get_object_or_404(Product, sku=sku)
     quantity = int(request.POST.get('quantity_selection'))
@@ -179,6 +226,12 @@ def update_quantity(request, sku):
 def remove_from_basket(request, sku):
     """
     Remove a product from the shopping basket
+    
+    **Context**
+    ``product``
+        The single correct instance of :model:`product.Product`
+    ``basket``
+        All items stores in the basket
     """
     product = get_object_or_404(Product, sku=sku)
     size = None
@@ -203,6 +256,15 @@ def remove_from_basket(request, sku):
 
 
 def add_review(request, sku):
+    """ 
+    Adds a user review
+    
+    **Context**
+    ``product``
+        The single correct instance of :model:`product.Product`
+    ``review_form``
+        An instance of :form:`product.ReviewForm`
+    """
     product = get_object_or_404(Product, sku=sku)
     if request.method == "POST":
         review_form = ReviewForm(data=request.POST)
@@ -225,6 +287,17 @@ def add_review(request, sku):
 
 
 def edit_review(request, review_id):
+    """ 
+    Edits a user comments
+    
+    **Context**
+    ``product``
+        The single correct instance of :model:`product.Product`
+    ``review_form``
+        The single correct instance of :form:`product.ReviewForm`
+    ``review``
+        The single correct comment instance of :model:`product.Review`
+    """
     review = get_object_or_404(Review, id=review_id)
     product = review.product
     product_sku = product.sku
@@ -256,6 +329,13 @@ def edit_review(request, review_id):
 
 
 def delete_review(request, review_id):
+    """ 
+    Edits a user comments
+    
+    **Context**
+    ``review``
+        The single correct comment instance of :model:`product.Review`
+    """
     review = get_object_or_404(Review, id=review_id)
     product_sku = review.product.sku
     
@@ -277,6 +357,15 @@ def delete_review(request, review_id):
 def add_product(request):
     """
     Add a product to the SHOP hub
+    
+    **Context**
+    ``form``
+        An instance of :form:`product.ProductFormAdd`
+    ``max_number_sku_json``
+        A list of all skues with the highest number at the end to ensure all new skus have a unique number
+
+    **Template:**
+        :template:`product/add-product.html`
     """
     if not request.user.is_superuser:
         messages.error(request, 'You do not have access to that page.')
@@ -317,6 +406,15 @@ def add_product(request):
 def edit_product(request, sku):
     """
     Edit a product currently displayed in the SHOP hub
+    
+    **Context**
+    ``form``
+        The single correct instance of :form:`product.ProductFormAdd`
+    ``product``
+        The single correct instance of :model:`product.Product`
+
+    **Template:**
+        :template:`product/edit-product.html`
     """
     if not request.user.is_superuser:
         messages.error(request, 'You do not have access to that page.')
@@ -346,8 +444,12 @@ def edit_product(request, sku):
 @login_required
 def remove_product_from_site(request, sku):
     """
-    Remove a product from showing ont he SHOP hub.
-    This does not remove the product from the database, only the template.
+    Remove a product from showing on the SHOP hub.
+    This does not remove the product from the database.
+    
+    **Context**
+    ``product``
+        The single correct instance of :model:`product.Product`
     """
     if not request.user.is_superuser:
         messages.error(request, 'You do not have access to that page.')
@@ -371,6 +473,16 @@ def remove_product_from_site(request, sku):
 
 @login_required
 def show_removed_products(request):
+    """
+    Display all products where show_on_site is False
+    
+    **Context**
+    ``product``
+        All instances of :model:`product.Product` where show_on_site is False
+
+    **Template:**
+        :template:`product/hidden-product.html`
+    """
     if not request.user.is_superuser:
         messages.error(request, 'You do not have access to that page.')
         return redirect(reverse('home'))
@@ -384,6 +496,13 @@ def show_removed_products(request):
 
 @login_required
 def add_previously_removed_product(request, sku):
+    """
+    Change show_on_site to True where a product originally had sow_on_site as False
+    
+    **Context**
+    ``product``
+        The single correct instance of :model:`product.Product`
+    """
     product = get_object_or_404(Product, sku=sku)
     try:
         product.show_on_site = True

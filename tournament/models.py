@@ -2,6 +2,9 @@ from django.db import models
 
 # Create your models here.
 class Tournament(models.Model):
+    '''
+    A model containing the top-level information for professional tournaments 
+    '''
     name = models.CharField(max_length=100)
     tour = models.CharField(max_length=50)
     location = models.CharField(max_length=100)
@@ -30,6 +33,9 @@ class Tournament(models.Model):
 
 
 class Matches(models.Model):
+    '''
+    All individual match data, relating to :model:`tournament.Tournament`
+    '''
     tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE, related_name='match')
     round = models.CharField(max_length=100)
     best_of = models.IntegerField()

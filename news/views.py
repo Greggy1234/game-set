@@ -6,6 +6,19 @@ from .forms import CommentForm
 
 # Create your views here.
 class ArticleList(generic.ListView):
+    '''
+    Returns all published posts in :model:`news.Article`
+    and displays them in a page of ten posts.
+
+    **Context**
+    ``article``
+        All published instances of :model:`news.Article`
+    ``paginate_by``
+        Number of posts per page
+
+    **Template:**
+        :template:`news/news.html`
+    '''
     queryset = Article.objects.filter(status=True).order_by('-published_on')
     template_name = "news/news.html"
     context_object_name = "article"
@@ -13,6 +26,24 @@ class ArticleList(generic.ListView):
 
 
 def article_detail(request, slug):
+    '''
+    Displays an individual :model:`news.Article`
+
+    **Context**
+    ``article``
+        The correct instance of :model:`news.Article`
+    ``comment``
+        All comments from :model:`news.Article` relating to the correct :model:`news.Article`
+    ``user_comment``
+        The logged in user's comment
+    ``comment_count``
+        Number of total comments
+    ``comment_form``
+        An instance of :form:`news.CommentForm`
+
+    **Template:**
+        :template:`news/article.html`
+    '''
     article = get_object_or_404(Article, slug=slug)
     comment = Comment.objects.filter(post=article)
     user_comment = None
@@ -34,6 +65,15 @@ def article_detail(request, slug):
 
 
 def add_comment(request, slug):
+    """ 
+    Adds a user comments
+    
+    **Context**
+    ``article``
+        The correct instance of :model:`news.Article`
+    ``comment_form``
+        An instance of :form:`news.CommentForm`
+    """
     article = get_object_or_404(Article, slug=slug)    
     if request.method == "POST":
         comment_form = CommentForm(data=request.POST)
@@ -56,6 +96,19 @@ def add_comment(request, slug):
 
 
 def edit_comment(request, comment_id):
+    """ 
+    Edits a user comments
+    
+    **Context**
+    ``article``
+        The single correct article instance of :model:`news.Article`
+    ``comment_form``
+        The single correct form instance of :form:`news.CommentForm`
+    ``comment``
+        The single correct comment instance of :model:`news.Comment`
+    ``article_slug``
+        The slug of the article instance
+    """
     comment = get_object_or_404(Comment, id=comment_id)
     article = comment.post
     article_slug = article.slug    
@@ -87,6 +140,15 @@ def edit_comment(request, comment_id):
 
 
 def delete_comment(request, comment_id):
+    """ 
+    Deletes a user comments
+    
+    **Context**
+    ``comment``
+        The single correct comment instance of :model:`news.Comment`
+    ``article_slug``
+        The slug of the article instance
+    """
     comment = get_object_or_404(Comment, id=comment_id)
     article_slug = comment.post.slug
     

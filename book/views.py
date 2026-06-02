@@ -11,6 +11,16 @@ days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sun
 
 
 def book_overview(request):
+    """ 
+    Display a list of the available locations where courts are
+    
+    **Context**
+    ``locations``
+        All instances of :model:`book.Location`
+
+    **Template**
+        :template:`book/book-overview.html`
+    """
     locations = Location.objects.all()
 
     context = {
@@ -21,6 +31,34 @@ def book_overview(request):
 
 
 def court_book(request, slug):
+    """ 
+    Brings together the specifies courts times and available coaches for a user to book that court
+    
+    **Context**
+    ``court``
+        The single correct instance of :model:`book.Court`
+    ``final_slots``
+        A dictionary of the opening times in the form `day:opening_time - closing_time`
+    ``coach_1``
+        The first coach listed for the court from :model:`book.Coach`
+    ``coach_2``
+        The second coach listed for the court from :model:`book.Coach`
+    ``coach_1_slots``
+        A dictionary of the coach_1 shift times in the form `day:shift_start - shift_end`
+    ``coach_2_slots``
+        A dictionary of the coach_2 shift times in the form `day:shift_start - shift_end`
+    ``coach_1_slots_json``
+        coach_1_slots transformed into JSON to be easily read by JS on the front end
+    ``coach_2_slots_json``
+        coach_2_slots transformed into JSON to be easily read by JS on the front end
+    ``booked_court_time_slots_json``
+        The already booked court times from :model:`checkout.BookingOrderLineItem` transformed into JSON
+    ``booked_coach_time_slots_json``
+        The already booked coach times from :model:`checkout.BookingOrderLineItem` transformed into JSON
+
+    **Template**
+        :template:`book/book-court.html`
+    """
     court = get_object_or_404(Court, slug=slug)
     court_id = court.id
     location = court.location
@@ -118,6 +156,16 @@ def court_book(request, slug):
 
 
 def coach_overview(request):
+    """ 
+    Display a list of the available coaches
+    
+    **Context**
+    ``coaches``
+        All instances of :model:`book.Coach`
+
+    **Template**
+        :template:`book/coaches.html`
+    """
     coaches = Coach.objects.all()
 
     context = {
@@ -128,6 +176,17 @@ def coach_overview(request):
 
 
 def add_booking(request):
+    """
+    Add a booking to the user's booking list
+    
+    **Context**
+    ``court``
+        The single correct instance of :model:`book.Court`
+    ``bookings``
+        All items stored in the user's booking ist
+    ``url``
+        The url from where the user added the booking
+    """
     court_slug = request.POST.get("slug")
     court = get_object_or_404(Court, slug=court_slug)
     court_id = court.id
@@ -173,10 +232,25 @@ def add_booking(request):
 
 
 def view_bookings(request):
+    """ 
+    Displays the user's booking list
+
+    **Template**
+        :template:`book/view-bookings.html`
+    """
     return render(request, 'book/view-bookings.html')
 
 
-def delete_booking(request, court_id):    
+def delete_booking(request, court_id):
+    """
+    Remove a booking from the user's booking list
+    
+    **Context**
+    ``court``
+        The single correct instance of :model:`book.Court`
+    ``bookings``
+        All items stored in the user's booking ist
+    """
     court = get_object_or_404(Court, id=court_id)
     court_id = str(court_id)
     time = request.POST.get("time")

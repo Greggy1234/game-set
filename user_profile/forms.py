@@ -39,7 +39,7 @@ class ProfileStatsYear(forms.ModelForm):
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['years_playing'].label = "Year's you've been playing"
+        self.fields['years_playing'].label = "Years you've been playing"
         
         
 class ProfileStatsSurface(forms.ModelForm):

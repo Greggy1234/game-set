@@ -10,6 +10,21 @@ def user_profile(request, username):
     """ 
     Display the user's profile with order history for both the SHOP and BOOK hub,
     and include some basic profile stats for the user
+    
+    **Context**
+    ``details_form``
+        An instance of :form:`user_profile.ProfileInfo`
+    ``username``
+        The username of the user taking action on the site
+    ``profile``
+        The user who is logged into the site, taken from :model:`user_profile.Profile`
+    ``shop_order``
+        All SHOP hub orders for the correct user taken from the :model:`checkout.ShopOrder`
+    ``booking_order``
+        All BOOK hub orders for the correct user taken from the :model:`checkout.BookingOrder`
+
+    **Template**
+        :template:`user_profile/profile.html`
     """
     username = username
     profile = get_object_or_404(Profile, user__username=username)
@@ -43,6 +58,14 @@ def user_profile(request, username):
 def update_years(request, username):
     """ 
     Update years on the profile page
+    
+    **Context**
+    ``username``
+        The username of the user taking action on the site
+    ``profile``
+        The user who is logged into the site, taken from :model:`user_profile.Profile`
+    ``stats_form_year``
+        An instance of :form:`user_profile.ProfileStatsYear`
     """
     username = username
     profile = get_object_or_404(Profile, user__username=username)
@@ -61,6 +84,14 @@ def update_years(request, username):
 def update_surface(request, username):
     """ 
     Update favourite surface on the profile page
+    
+    **Context**
+    ``username``
+        The username of the user taking action on the site
+    ``profile``
+        The user who is logged into the site, taken from :model:`user_profile.Profile`
+    ``stats_form_surf``
+        An instance of :form:`user_profile.ProfileStatsSurface`
     """
     username = username
     profile = get_object_or_404(Profile, user__username=username)
@@ -80,6 +111,14 @@ def update_surface(request, username):
 def update_shot(request, username):
     """ 
     Update favourite shot on the profile page
+    
+    **Context**
+    ``username``
+        The username of the user taking action on the site
+    ``profile``
+        The user who is logged into the site, taken from :model:`user_profile.Profile`
+    ``stats_form_shot``
+        An instance of :form:`user_profile.ProfileStatsShot`
     """
     username = username
     profile = get_object_or_404(Profile, user__username=username)
@@ -97,6 +136,20 @@ def update_shot(request, username):
 
 
 def previous_shop_order(request, username, number):
+    """ 
+    Display the items within a specific past SHOP hub order
+    
+    **Context**
+    ``shop_order``
+        The specific SHOP hub order chosen by the user from the :model:`checkout.ShopOrder`
+    ``profile_name``
+        The username of the user taking action on the site
+    ``shop_order_items``
+        The items in the specific order, taken from :model:`checkout.ShopOrderLineItem`
+
+    **Template**
+        :template:`user_profile/view-specific-shop-order.html`
+    """
     profile = get_object_or_404(Profile, user__username=username)
     profile_name = profile.user.username
     shop_order = get_object_or_404(ShopOrder, order_number=number)
@@ -112,6 +165,20 @@ def previous_shop_order(request, username, number):
 
 
 def previous_booking_order(request, username, number):
+    """ 
+    Display the items within a specific past BOOK hub order
+    
+    **Context**
+    ``booking_order``
+        The specific BOOK hub order chosen by the user from the :model:`checkout.BookingOrder`
+    ``profile_name``
+        The username of the user taking action on the site
+    ``booking_order_items``
+        The items in the specific order, taken from :model:`checkout.BookingOrderLineItem`
+
+    **Template**
+        :template:`user_profile/view-specific-booking.html`
+    """
     profile = get_object_or_404(Profile, user__username=username)
     profile_name = profile.user.username
     booking_order = get_object_or_404(BookingOrder, booking_number=number)

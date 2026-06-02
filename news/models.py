@@ -6,7 +6,7 @@ from datetime import date
 # Create your models here.
 class Article(models.Model):
     """
-    Stores a single news article related to  :model:`auth.User`
+    Stores the information for the news articles
     """
     title = models.CharField(max_length=200, unique=True)
     slug = AutoSlugField(populate_from=['title', 'created_on'])
@@ -39,8 +39,7 @@ class Article(models.Model):
 
 class Comment(models.Model):
     """
-    Stores a single comment related to  :model:`auth.User` and
-    :model:`blog.Post`
+    Stores all comment data related to the articles
     """
     post = models.ForeignKey(
         Article, on_delete=models.CASCADE, related_name="comments"

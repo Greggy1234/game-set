@@ -18,6 +18,9 @@ days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sun
 
 
 class Location(models.Model):
+    '''
+    Stores the information about locations for the courts
+    '''
     name = models.CharField(max_length=150)
     street_address1 = models.CharField(max_length=100)
     street_address2 = models.CharField(max_length=100, null=True, blank=True)
@@ -31,6 +34,9 @@ class Location(models.Model):
 
 
 class Court(models.Model):
+    '''
+    Stores all court information
+    '''
     SURFACE_CHOICES = [
         ("hard", "Hard Court"),
         ("clay", "Clay Court"),
@@ -68,7 +74,10 @@ class Court(models.Model):
         return opening_times
 
 
-class CourtAvailability(models.Model):  
+class CourtAvailability(models.Model): 
+    '''
+    Stores the available opening times for all courts
+    '''
     court = models.ForeignKey(
         Court, on_delete=models.CASCADE, related_name="court_times"
         )
@@ -83,6 +92,9 @@ class CourtAvailability(models.Model):
 
 
 class Coach(models.Model):
+    '''
+    Stores all coach information
+    '''
     name = models.CharField(max_length=50)
     nickname = models.CharField(max_length=50)
     specialty = models.CharField(max_length=250)
@@ -114,7 +126,10 @@ class Coach(models.Model):
         return shift_times
 
 
-class CoachAvailability(models.Model):    
+class CoachAvailability(models.Model):
+    '''
+    Stores the available shift times for all coaches
+    '''
     coach = models.ForeignKey(Coach, on_delete=models.CASCADE, related_name="coach_times")
     day = models.CharField(max_length=20, choices=DAYS_OF_WEEK_CHOICES)
     shift_start = models.TimeField(auto_now=False, auto_now_add=False)

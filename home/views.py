@@ -5,7 +5,16 @@ from .forms import FeedbackForm
 # Create your views here.
 
 def index(request):
-    """A view to return the index page"""    
+    """
+    A view to return the index page
+    
+    **Context**
+    ``feedback_form``
+        An instance of :form:`home.FeedbackForm`
+
+    **Template**
+        :template:`home/index.html`
+    """    
     feedback_form = FeedbackForm()
     
     return render(
@@ -18,6 +27,13 @@ def index(request):
 
 
 def add_feedback(request):
+    """
+    Collects the information submitted by the user in the feedback form
+    
+    **Context**
+    ``feedback_form``
+        The single correct instance of :form:`home.FeedbackForm`
+    """ 
     if request.method == "POST":
         feedback_form = FeedbackForm(data=request.POST)
         if feedback_form.is_valid():

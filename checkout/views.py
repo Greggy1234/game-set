@@ -18,6 +18,10 @@ import json
 # Create your views here.
 @require_POST
 def cache_shop_checkout_data(request):
+    '''
+    Collects and add metadata to Stripe for completion of checkout and 
+    returns correct response
+    '''
     try:
         pid = request.POST.get('client_secret').split('_secret')[0]
         stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -35,6 +39,10 @@ def cache_shop_checkout_data(request):
 
 @require_POST
 def cache_book_checkout_data(request):
+    '''
+    Collects and add metadata to Stripe for completion of checkout and 
+    returns correct response
+    '''
     try:
         pid = request.POST.get('client_secret').split('_secret')[0]
         stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -271,6 +279,16 @@ def booking_checkout(request):
 
 
 def shop_checkout_success(request, order_num):
+    """
+    Handle successful SHOP hub checkouts
+    
+    **Context**
+    ``shop_order``
+        The correct shop order information taken from :model:`checkout.ShopOrder`
+
+    **Template**
+        :template:`checkout/shop-checkout-success.html`
+    """
     save_info = request.session.get('save_info')
     shop_order = get_object_or_404(ShopOrder, order_number=order_num)
     
@@ -308,6 +326,16 @@ def shop_checkout_success(request, order_num):
 
 
 def booking_checkout_success(request, booking_number):
+    """
+    Handle successful BOOK hub checkouts
+    
+    **Context**
+    ``booking_order``
+        The correct booking information taken from :model:`checkout.BookingOrder`
+
+    **Template**
+        :template:`checkout/booking-checkout-success.html`
+    """
     save_info = request.session.get('save_info')
     booking_order = get_object_or_404(BookingOrder, booking_number=booking_number)
     

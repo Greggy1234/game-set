@@ -9,6 +9,9 @@ from user_profile.models import Profile
 
 
 class ShopOrder(models.Model):
+    '''
+    Records total information for SHOP hub order including grand total, all items in the basket, and billing info
+    '''
     order_number = models.CharField(max_length=32, null=False, editable=False)
     user_profile = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, blank=True, 
                                      related_name="shop_orders")
@@ -63,6 +66,9 @@ class ShopOrder(models.Model):
 
 
 class ShopOrderLineItem(models.Model):
+    '''
+    Records each individual item in SHOP hub order
+    '''
     order = models.ForeignKey(ShopOrder, null=False, blank=False, on_delete=models.CASCADE, 
                               related_name='lineitems')
     product = models.ForeignKey(Product, null=False, blank=False, on_delete=models.CASCADE)
@@ -83,6 +89,9 @@ class ShopOrderLineItem(models.Model):
 
 
 class BookingOrder(models.Model):
+    '''
+    Records total information for BOOK hub booking including grand total, all items in the basket, and billing info
+    '''
     booking_number = models.CharField(max_length=32, null=False, editable=False)
     user_profile = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, blank=True, 
                                      related_name="booking_orders")
@@ -130,6 +139,9 @@ class BookingOrder(models.Model):
 
 
 class BookingOrderLineItem(models.Model):
+    '''
+    Records each individual item in BOOK hub booking
+    '''
     booking = models.ForeignKey(BookingOrder, null=False, blank=False, on_delete=models.CASCADE, 
                               related_name='booking_lineitems')
     court = models.ForeignKey(Court, null=False, blank=False, on_delete=models.CASCADE, 
