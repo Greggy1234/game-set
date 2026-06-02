@@ -11,4 +11,4 @@ db.sqlite3
 staticfiles/
 .coverage
 .DS_Store
-static\images
+static/images
