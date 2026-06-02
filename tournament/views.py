@@ -112,7 +112,7 @@ def tournament_detail(request, tour, slug):
         :template:`tournament/tournament-detail.html`
     """
     tournament = get_object_or_404(Tournament, tour=tour, slug=slug)
-    matches = Matches.objects.filter(tournament=tournament)
+    matches = Matches.objects.filter(tournament=tournament).order_by("draw_position")
     
     rounds_possible=['1st Round', '2nd Round', '3rd Round', '4th Round', 'Quarterfinals', 'Semifinals', 'The Final']
     rounds_matches = {}
